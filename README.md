@@ -1,4 +1,7 @@
 # Grafika-Projekt
+
+Trello - https://trello.com/b/9rkByn3S/projekt-grafika
+
 Projekt lotu statku na grafike
 
 Specyfikacja 
