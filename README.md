@@ -11,9 +11,9 @@ Celem gry jest bezpieczne dotarcie do planety (omijanie asteroid) i wylądowanie
 
  Sterowanie statkiem za pomocą myszki i klawiatury: 
 
--  	w – przyśpieszenie do przodu 
+-  	   w – przyśpieszenie do przodu 
 
--  	s – przyśpieszenie do tyłu 
+-  	   s – przyśpieszenie do tyłu 
 
 -      wertykalne ruchy myszką – sterowanie dziobem statku góra-dół (ang. pitch) 
 
@@ -69,7 +69,7 @@ Technika Bloom zostanie użyta do poprawienia efektu światła gwiazdy.
 
 Skybox - tekstura kosmosu. 
 
-Mi 
+ 
 
  
 
@@ -98,6 +98,9 @@ Bloom (rendure to texture, potem sam efekt)
 Skybox 
 
 Przygotowanie brył kolizji obiektów, które zostaną wykorzystane w symulacji fizycznej (chodzi o zdefiniowanie ksztaltow za pomoca bryl podstawowych – np. Sfera, prostopadloscian – w taki sposob, aby ustalic ich pozycje i rozmiary dla kazdego obiektu, mozna uzyc kilku bryl dla jednego obiektu). Wykrywanie kolizji z planetami, asteroidami (statek nie będzie przenikał) 
+
+
+
 
 Na termin końcowy: 
 
