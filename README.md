@@ -2,6 +2,8 @@
 
 Trello - https://trello.com/b/9rkByn3S/projekt-grafika
 
+Dokument ze specyfikacją - https://linkd.pl/pppar
+
 Projekt lotu statku na grafike
 
 Specyfikacja 
