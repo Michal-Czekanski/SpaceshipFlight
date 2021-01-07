@@ -1,7 +1,13 @@
 // InteractiveSpaceshipSimulation.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#include "glew.h"
+#include "freeglut.h"
+#include "glm.hpp"
+#include "ext.hpp"
 #include <iostream>
+#include <cmath>
+#include <vector>
 
 int main()
 {
