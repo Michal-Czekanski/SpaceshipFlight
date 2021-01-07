@@ -75,6 +75,8 @@ StyleCopReport.xml
 *.ilk
 *.meta
 *.obj
+# Stop ignoring .obj model files
+!InteractiveSpaceshipSimulation/InteractiveSpaceshipSimulation/models/*.obj
 *.iobj
 *.pch
 *.pdb
