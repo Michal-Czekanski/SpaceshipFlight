@@ -145,7 +145,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Ship.cpp" />
     <ClCompile Include="src\InteractiveSpaceshipSimulation.cpp" />
+    <ClCompile Include="src\utils\Calculations.cpp" />
     <ClCompile Include="src\utils\Camera.cpp" />
     <ClCompile Include="src\utils\picopng.cpp" />
     <ClCompile Include="src\utils\Render_Utils.cpp" />
@@ -154,12 +156,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\InteractiveSpaceshipSimulation.h" />
+    <ClInclude Include="headers\Scene.h" />
+    <ClInclude Include="headers\utils\Calculations.h" />
     <ClInclude Include="headers\utils\Camera.h" />
     <ClInclude Include="headers\utils\objload.h" />
     <ClInclude Include="headers\utils\picopng.h" />
     <ClInclude Include="headers\utils\Render_Utils.h" />
     <ClInclude Include="headers\utils\Shader_Loader.h" />
     <ClInclude Include="headers\utils\Texture.h" />
+    <ClInclude Include="headers\Ship.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

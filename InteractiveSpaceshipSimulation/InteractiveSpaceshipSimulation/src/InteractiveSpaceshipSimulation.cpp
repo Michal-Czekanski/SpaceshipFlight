@@ -2,57 +2,7 @@
 //
 #include "../headers/InteractiveSpaceshipSimulation.h"
 
-#define WINDOW_WIDTH 720
-#define WINDOW_HEIGHT 720
-
-GLuint programColor;
-
-Core::Shader_Loader shaderLoader;
-
-obj::Model shipModel;
-
-const glm::vec3 initialShipPosition = glm::vec3(0, 0, 0);
-/// <summary>
-/// Ship position in world space.
-/// </summary>
-glm::vec3 shipPosition = initialShipPosition;
-
-const glm::vec3 initialShipDirection = glm::vec3(0, 0, 1);
-/// <summary>
-/// Ship looking direction vector.
-/// </summary>
-glm::vec3 shipDirection = initialShipDirection;
-
-/// <summary>
-/// Ship rotation quaternion.
-/// </summary>
-glm::quat shipRotation = glm::quat(1, 0, 0, 0);
-
-const glm::vec3 initialShipTop = glm::vec3(0, 1, 0);
-/// <summary>
-/// Ship top vector.
-/// </summary>
-glm::vec3 shipTop = initialShipTop;
-float shipSpeed = 0.5f;
-
-float shipRotationSpeed = 0.25f;
-/// <summary>
-/// Ship rotation angle along y-z axis.
-/// </summary>
-float shipRotationAngleX = 0;
-
-/// <summary>
-/// Ship rotation angle along x-z axis.
-/// </summary>
-float shipRotationAngleY = 0;
-
-/// <summary>
-/// Ship rotation angle along x-y plane.
-/// </summary>
-float shipRotationAngleZ = 0;
-
-glm::vec3 lightDir = glm::normalize(glm::vec3(1, -1, 1));
-
+Ship* ship;
 
 
 void keyboard(unsigned char key, int x, int y)
@@ -60,21 +10,31 @@ void keyboard(unsigned char key, int x, int y)
 	switch (key)
 	{
 		case 'w': 
-			shipPosition += shipDirection * shipSpeed;
+			ship->moveForward();
 			break;
 		case 's': 
-			shipPosition -= shipDirection * shipSpeed;
+			ship->moveBackwards();
 			break;
 
 		// test rotation, later should be with mouse
-		case 'a':
-			shipRotationAngleY = shipRotationSpeed;
+		case 'd': // right
+			ship->rotateShip(false, false, true, false, false, false);
 			break;
-		case 'd':
-			shipRotationAngleY = -shipRotationSpeed;
+		case 'a': // left
+			ship->rotateShip(false, false, false, true, false, false);
 			break;
-
-		// test light dir
+		case 'e': // roll right
+			ship->rotateShip(false, false, false, false, true, false);
+			break;
+		case 'q': // roll left
+			ship->rotateShip(false, false, false, false, false, true);
+			break;
+		case 'k': // pitch up
+			ship->rotateShip(true, false, false, false, false, false);
+			break; 
+		case 'l': // pitch down
+			ship->rotateShip(false, true, false, false, false, false);
+			break;
 	}
 }
 
@@ -94,34 +54,24 @@ void drawObjectColor(GLuint program, obj::Model* model, glm::mat4 perspectiveMat
 	glUseProgram(0);
 }
 
-
-glm::quat calculateRotationQuat(glm::quat initRotationQuat, float rotationAngleX, float rotationAngleY, float rotationAngleZ)
+void idle()
 {
-	glm::quat quatX = glm::angleAxis(rotationAngleX, glm::vec3(1, 0, 0));
-	glm::quat quatY = glm::angleAxis(rotationAngleY, glm::vec3(0, 1, 0));
-	glm::quat quatZ = glm::angleAxis(rotationAngleZ, glm::vec3(0, 0, 1));
-
-	glm::quat rotationChange = quatZ * quatY * quatX;
-
-	return glm::normalize(rotationChange * initRotationQuat);
+	glutPostRedisplay();
 }
 
 /// <summary>
 /// Creates camera matrix. Camera is attached to the ship.
 /// </summary>
 /// <returns></returns>
-glm::mat4 createCameraMatrix(glm::vec3 shipPosition, glm::vec3 shipDirection, glm::vec3 shipTop, glm::vec3 camOffset)
+glm::mat4 createCameraMatrix(glm::vec3 shipPosition, glm::quat shipRotationQuat, glm::vec3 camOffset)
 {
-	glm::quat initCameraRotation = glm::quat(1, 0, 0, 0); // Camera should look at the ship initial direction at the start.
+	glm::quat initCameraRotation; // Camera should look at the ship initial direction at the start. Inital camera look direction is (0, 0, -1)
 	initCameraRotation = calculateRotationQuat(initCameraRotation, 0, glm::radians(180.0f), 0);
 
 	glm::vec3 cameraPos = shipPosition - camOffset;
-	return Core::createViewMatrixQuat(cameraPos, initCameraRotation * glm::inverse(shipRotation));
-}
 
-void idle()
-{
-	glutPostRedisplay();
+	//return Core::createViewMatrixQuat(initialShipPosition - glm::vec3(0, -0.5f, 2), initCameraRotation); // TEST CAM POS WHICH IS FIXED AT (0, 0, 0) LOOKING AT THE INITIAL SHIP DIRECTION
+	return Core::createViewMatrixQuat(cameraPos, initCameraRotation * glm::inverse(shipRotationQuat));
 }
 
 /// <summary>
@@ -130,53 +80,22 @@ void idle()
 glm::vec3 calculateCameraOffset(glm::vec3 shipDirection, glm::vec3 shipTop)
 {
 	glm::vec3 camOffset = shipDirection * 2.0f;
-	//camOffset = glm::vec3(0, 0, 0); // DELETE LATER
-	camOffset += -shipTop * 0.5f;
+	camOffset -= shipTop * 0.5f;
 	return camOffset;
 }
 
 
-
-glm::quat calculateShipRotation(glm::quat shipRotation, float &shipRotationAngleX, float &shipRotationAngleY, float &shipRotationAngleZ)
-{
-	shipRotation = calculateRotationQuat(shipRotation, shipRotationAngleX * shipRotationSpeed, shipRotationAngleY * shipRotationSpeed, shipRotationAngleZ * shipRotationSpeed);
-
-	shipDirection = glm::normalize(shipRotation * glm::vec3(0, 0, 1)); // Ship direction is vector (0, 0, 1) in ship model space
-	shipTop = glm::normalize(shipRotation * glm::vec3(0, 1, 0)); // Ship top is vector (0, 1, 0) in ship model space
-
-	shipRotationAngleX = 0; shipRotationAngleY = 0; shipRotationAngleZ = 0; // reset angle inputs
-
-	return shipRotation;
-}
-
-/// <summary>
-/// Calculates ship model matrix.
-/// </summary>
-/// <param name="shipPosition">Position of ship in world space.</param>
-/// <returns>Ship model matrix.</returns>
-glm::mat4 calculateShipModelMatrix(glm::vec3 shipPosition)
-{
-	glm::mat4 shipModelMatrix;
-
-	shipRotation = calculateShipRotation(shipRotation, shipRotationAngleX, shipRotationAngleY, shipRotationAngleZ);
-	glm::mat4 shipRotationMatrix = glm::mat4_cast(shipRotation);
-
-	shipModelMatrix = glm::translate(shipPosition) * shipRotationMatrix * glm::scale(glm::vec3(1));
-	return shipModelMatrix;
-}
-
 void renderScene() 
 {
-	glm::mat4 shipModelMatrix = calculateShipModelMatrix(shipPosition);
-
-	glm::vec3 camOffset = calculateCameraOffset(shipDirection, shipTop);
-	glm::mat4 cameraMatrix = createCameraMatrix(shipPosition, shipDirection, shipTop, camOffset);
+	glm::vec3 camOffset = calculateCameraOffset(ship->getShipDirection(), ship->getShipTop());
+	glm::mat4 cameraMatrix = createCameraMatrix(ship->getShipPosition(), ship->getShipRotationQuat(), camOffset);
 	glm::mat4 perspectiveMatrix = Core::createPerspectiveMatrix();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.1f, 0.3f, 1.0f);
 
-	drawObjectColor(programColor, &shipModel, perspectiveMatrix, cameraMatrix, shipModelMatrix, glm::vec3(0.6f));
+	obj::Model shipModel = ship->getModel();
+	drawObjectColor(programColor, &shipModel, perspectiveMatrix, cameraMatrix, ship->getModelMatrix(), glm::vec3(0.6f));
 
 	glutSwapBuffers();
 }
@@ -184,7 +103,7 @@ void renderScene()
 void shutdown()
 {
 	shaderLoader.DeleteProgram(programColor);
-
+	delete(ship);
 }
 
 void init()
@@ -194,7 +113,7 @@ void init()
 	programColor = shaderLoader.CreateProgram((char*)"shaders/shader_color.vert", (char*)"shaders/shader_color.frag");
 	shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
 
-
+	ship = new Ship(initialShipPosition, initialShipDirection, initialShipTop, shipSpeed, shipRotationSpeed, shipModel, initialShipRotation, shipTopInModelSpace, shipDirectionInModelSpace);
 }
 
 int main(int argc, char** argv)

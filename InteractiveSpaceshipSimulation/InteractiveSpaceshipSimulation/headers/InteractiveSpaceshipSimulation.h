@@ -12,3 +12,16 @@
 #include "utils/Render_Utils.h"
 #include "utils/Camera.h"
 #include "utils/Texture.h"
+#include "Ship.h"
+#include "Scene.h"
+#include "utils/Calculations.h"
+
+#define WINDOW_WIDTH 720
+#define WINDOW_HEIGHT 720
+
+
+GLuint programColor;
+
+Core::Shader_Loader shaderLoader;
+
+obj::Model shipModel;
