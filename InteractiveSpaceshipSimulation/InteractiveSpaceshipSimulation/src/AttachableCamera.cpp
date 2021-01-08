@@ -13,7 +13,7 @@ AttachableCamera::AttachableCamera(float camOffsetMultiplier, float upOffsetMult
 	this->upOffsetMultiplier = upOffsetMultiplier;
 }
 
-AttachableCamera::AttachableCamera(float camOffsetMultiplier, float upOffsetMultiplier, ICameraAttachable* attachedObject)
+AttachableCamera::AttachableCamera(float camOffsetMultiplier, float upOffsetMultiplier, CameraAttachable* attachedObject)
 {
 	this->camOffsetMultiplier = camOffsetMultiplier;
 	this->upOffsetMultiplier = upOffsetMultiplier;

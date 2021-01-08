@@ -3,7 +3,7 @@
 #include "glm.hpp"
 #include "ext.hpp"
 
-class ICameraAttachable
+class CameraAttachable
 {
 protected:
 	glm::vec3 position;
@@ -12,6 +12,8 @@ protected:
 	glm::vec3 vectorForward;
 	glm::vec3 vectorTop;
 public:
+	
+
 	glm::vec3 getPosition();
 	glm::quat getRotationQuat();
 	glm::vec3 getVectorForward();

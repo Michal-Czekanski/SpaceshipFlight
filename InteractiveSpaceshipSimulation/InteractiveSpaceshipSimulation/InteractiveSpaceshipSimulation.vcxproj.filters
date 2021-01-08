@@ -42,7 +42,10 @@
     <ClCompile Include="src\AttachableCamera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ICameraAttachable.cpp">
+    <ClCompile Include="src\RenderableObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CameraAttachable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,7 +83,10 @@
     <ClInclude Include="headers\AttachableCamera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\ICameraAttachable.h">
+    <ClInclude Include="headers\RenderableObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\CameraAttachable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

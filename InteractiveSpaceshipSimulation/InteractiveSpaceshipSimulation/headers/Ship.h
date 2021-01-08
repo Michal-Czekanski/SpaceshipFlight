@@ -4,9 +4,9 @@
 #include "ext.hpp"
 #include "utils/objload.h"
 #include "utils/Calculations.h"
-#include "ICameraAttachable.h"
+#include "CameraAttachable.h"
 
-class Ship: public ICameraAttachable
+class Ship: public CameraAttachable
 {
 private:
 	float speed;
