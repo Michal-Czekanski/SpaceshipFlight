@@ -79,6 +79,7 @@ void shutdown()
 {
 	shaderLoader.DeleteProgram(programColor);
 	delete(ship);
+	delete(camera);
 }
 
 void init()
