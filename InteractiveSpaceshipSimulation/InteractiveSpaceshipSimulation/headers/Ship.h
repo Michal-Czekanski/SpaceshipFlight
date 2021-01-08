@@ -4,28 +4,14 @@
 #include "ext.hpp"
 #include "utils/objload.h"
 #include "utils/Calculations.h"
+#include "ICameraAttachable.h"
 
-class Ship
+class Ship: public ICameraAttachable
 {
 private:
-	/// <summary>
-	/// Ship position in world space.
-	/// </summary>
-	glm::vec3 position;
-
-	/// <summary>
-	/// Ship direction vector.
-	/// </summary>
-	glm::vec3 shipDirection;
-
-	/// <summary>
-	/// Ship top vector.
-	/// </summary>
-	glm::vec3 shipTop;
 	float speed;
 	float rotationSpeed;
 	glm::mat4 modelMatrix;
-	glm::quat rotationQuat;
 
 	obj::Model shipModel;
 
@@ -72,29 +58,5 @@ public:
 	/// </summary>
 	/// <returns>Ship's model.</returns>
 	obj::Model getModel();
-
-	/// <summary>
-	/// Returns ship direction vector.
-	/// </summary>
-	/// <returns>Ship direction vector.</returns>
-	glm::vec3 getShipDirection();
-
-	/// <summary>
-	/// Returns ship top vector.
-	/// </summary>
-	/// <returns>Ship top vector.</returns>
-	glm::vec3 getShipTop();
-
-	/// <summary>
-	/// Return ship position vector.
-	/// </summary>
-	/// <returns>Ship position vector.</returns>
-	glm::vec3 getShipPosition();
-
-	/// <summary>
-	/// Returns ship rotation quat.
-	/// </summary>
-	/// <returns>Ship rotation quat.</returns>
-	glm::quat getShipRotationQuat();
 };
 

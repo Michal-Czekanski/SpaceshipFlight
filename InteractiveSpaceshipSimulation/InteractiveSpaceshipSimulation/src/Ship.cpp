@@ -6,8 +6,8 @@ Ship::Ship(glm::vec3 initialPosition, glm::vec3 initialShipDirection, glm::vec3 
 	glm::vec3 shipTopInModelSpace, glm::vec3 shipDirectionInModelSpace)
 {
 	this->position = initialPosition;
-	this->shipDirection = initialShipDirection;
-	this->shipTop = initialShipTop;
+	this->vectorForward = initialShipDirection;
+	this->vectorTop = initialShipTop;
 	this->speed = shipSpeed;
 	this->rotationSpeed = rotationSpeed;
 	this->shipModel = shipModel;
@@ -19,13 +19,13 @@ Ship::Ship(glm::vec3 initialPosition, glm::vec3 initialShipDirection, glm::vec3 
 
 void Ship::moveForward()
 {
-	this->position += shipDirection * speed;
+	this->position += vectorForward * speed;
 	this->updateModelMatrix();
 }
 
 void Ship::moveBackwards()
 {
-	this->position -= shipDirection * speed;
+	this->position -= vectorForward * speed;
 	this->updateModelMatrix();
 }
 
@@ -44,8 +44,8 @@ void Ship::rotateShip(bool pitchUp, bool pitchDown, bool yawRight, bool yawLeft,
 
 	this->rotationQuat = calculateRotationQuat(this->rotationQuat, rotationAngleX, rotationAngleY, rotationAngleZ);
 
-	this->shipDirection = glm::normalize(this->rotationQuat * this->shipDirectionInModelSpace);
-	this->shipTop = glm::normalize(this->rotationQuat * this->shipTopInModelSpace);
+	this->vectorForward = glm::normalize(this->rotationQuat * this->shipDirectionInModelSpace);
+	this->vectorTop = glm::normalize(this->rotationQuat * this->shipTopInModelSpace);
 
 	this->updateModelMatrix();
 }
@@ -58,26 +58,6 @@ glm::mat4 Ship::getModelMatrix()
 obj::Model Ship::getModel()
 {
 	return this->shipModel;
-}
-
-glm::vec3 Ship::getShipDirection()
-{
-	return this->shipDirection;
-}
-
-glm::vec3 Ship::getShipTop()
-{
-	return this->shipTop;
-}
-
-glm::vec3 Ship::getShipPosition()
-{
-	return this->position;
-}
-
-glm::quat Ship::getShipRotationQuat()
-{
-	return this->rotationQuat;
 }
 
 void Ship::updateModelMatrix()

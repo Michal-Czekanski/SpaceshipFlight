@@ -32,5 +32,6 @@ const glm::vec3 shipDirectionInModelSpace = glm::vec3(0, 0, 1);
 
 const glm::vec3 shipTopInModelSpace = glm::vec3(0, 1, 0);
 
+const glm::vec3 initCameraLookDir = glm::vec3(0, 0, -1);
 
 glm::vec3 lightDir = glm::normalize(glm::vec3(1, -1, 1));

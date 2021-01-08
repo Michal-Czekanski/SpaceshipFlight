@@ -15,6 +15,7 @@
 #include "Ship.h"
 #include "Scene.h"
 #include "utils/Calculations.h"
+#include "AttachableCamera.h"
 
 #define WINDOW_WIDTH 720
 #define WINDOW_HEIGHT 720

@@ -3,6 +3,7 @@
 #include "../headers/InteractiveSpaceshipSimulation.h"
 
 Ship* ship;
+AttachableCamera* camera;
 
 
 void keyboard(unsigned char key, int x, int y)
@@ -59,36 +60,10 @@ void idle()
 	glutPostRedisplay();
 }
 
-/// <summary>
-/// Creates camera matrix. Camera is attached to the ship.
-/// </summary>
-/// <returns></returns>
-glm::mat4 createCameraMatrix(glm::vec3 shipPosition, glm::quat shipRotationQuat, glm::vec3 camOffset)
-{
-	glm::quat initCameraRotation; // Camera should look at the ship initial direction at the start. Inital camera look direction is (0, 0, -1)
-	initCameraRotation = calculateRotationQuat(initCameraRotation, 0, glm::radians(180.0f), 0);
-
-	glm::vec3 cameraPos = shipPosition - camOffset;
-
-	//return Core::createViewMatrixQuat(initialShipPosition - glm::vec3(0, -0.5f, 2), initCameraRotation); // TEST CAM POS WHICH IS FIXED AT (0, 0, 0) LOOKING AT THE INITIAL SHIP DIRECTION
-	return Core::createViewMatrixQuat(cameraPos, initCameraRotation * glm::inverse(shipRotationQuat));
-}
-
-/// <summary>
-/// Calculates camera offset. Camera should be behind ship.
-/// </summary>
-glm::vec3 calculateCameraOffset(glm::vec3 shipDirection, glm::vec3 shipTop)
-{
-	glm::vec3 camOffset = shipDirection * 2.0f;
-	camOffset -= shipTop * 0.5f;
-	return camOffset;
-}
-
 
 void renderScene() 
 {
-	glm::vec3 camOffset = calculateCameraOffset(ship->getShipDirection(), ship->getShipTop());
-	glm::mat4 cameraMatrix = createCameraMatrix(ship->getShipPosition(), ship->getShipRotationQuat(), camOffset);
+	glm::mat4 cameraMatrix = camera->updateCameraMatrix();
 	glm::mat4 perspectiveMatrix = Core::createPerspectiveMatrix();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -114,6 +89,7 @@ void init()
 	shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
 
 	ship = new Ship(initialShipPosition, initialShipDirection, initialShipTop, shipSpeed, shipRotationSpeed, shipModel, initialShipRotation, shipTopInModelSpace, shipDirectionInModelSpace);
+	camera = new AttachableCamera(2, 0.5, (ICameraAttachable*)ship);
 }
 
 int main(int argc, char** argv)
