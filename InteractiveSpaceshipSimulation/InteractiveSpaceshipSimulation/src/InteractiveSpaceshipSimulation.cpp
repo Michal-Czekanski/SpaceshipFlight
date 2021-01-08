@@ -90,7 +90,7 @@ void init()
 	shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
 
 	ship = new Ship(initialShipPosition, initialShipDirection, initialShipTop, shipSpeed, shipRotationSpeed, shipModel, initialShipRotation, shipTopInModelSpace, shipDirectionInModelSpace);
-	camera = new AttachableCamera(2, 0.5, (ICameraAttachable*)ship);
+	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (ICameraAttachable*)ship);
 }
 
 int main(int argc, char** argv)
