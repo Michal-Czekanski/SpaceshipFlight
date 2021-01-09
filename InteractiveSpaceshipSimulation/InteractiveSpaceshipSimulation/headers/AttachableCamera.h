@@ -2,7 +2,7 @@
 
 #include "glm.hpp"
 #include "ext.hpp"
-#include "CameraAttachable.h"
+#include "ObjectInSpace.h"
 #include "utils/Camera.h"
 #include "utils/Calculations.h"
 
@@ -23,14 +23,14 @@ private:
 
 	glm::mat4 cameraMatrix;
 
-	CameraAttachable* attachedObject;
+	ObjectInSpace* attachedObject;
 
 	glm::quat initCameraRotation;
 
 	const glm::vec3 initCameraLookDir = glm::vec3(0, 0, -1);
 public:
 	AttachableCamera(float camOffsetMultiplier, float upOffsetMultiplier);
-	AttachableCamera(float camOffsetMultiplier, float upOffsetMultiplier, CameraAttachable* attachedObject);
+	AttachableCamera(float camOffsetMultiplier, float upOffsetMultiplier, ObjectInSpace* attachedObject);
 	
 	/// <summary>
 	/// Updates camera matrix based on attached object's position and rotation.

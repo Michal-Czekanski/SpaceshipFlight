@@ -3,7 +3,7 @@
 #include "glm.hpp"
 #include "ext.hpp"
 
-class CameraAttachable
+class ObjectInSpace
 {
 protected:
 	glm::vec3 position;
@@ -13,7 +13,7 @@ protected:
 	glm::vec3 vectorTop;
 	glm::vec3 vectorRight;
 public:
-	CameraAttachable(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorForward, glm::vec3 vectorTop);
+	ObjectInSpace(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorForward, glm::vec3 vectorTop);
 
 	glm::vec3 getPosition();
 	glm::quat getRotationQuat();

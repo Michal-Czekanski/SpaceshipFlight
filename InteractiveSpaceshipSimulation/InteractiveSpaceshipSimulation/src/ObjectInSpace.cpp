@@ -1,6 +1,6 @@
-#include "../headers/CameraAttachable.h"
+#include "../headers/ObjectInSpace.h"
 
-CameraAttachable::CameraAttachable(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorForward, glm::vec3 vectorTop)
+ObjectInSpace::ObjectInSpace(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorForward, glm::vec3 vectorTop)
 {
     this->position = position;
     this->rotationQuat = rotationQuat;
@@ -9,22 +9,22 @@ CameraAttachable::CameraAttachable(glm::vec3 position, glm::quat rotationQuat, g
     this->vectorRight = glm::normalize(glm::cross(vectorForward, vectorTop));
 }
 
-glm::vec3 CameraAttachable::getPosition()
+glm::vec3 ObjectInSpace::getPosition()
 {
     return this->position;
 }
 
-glm::quat CameraAttachable::getRotationQuat()
+glm::quat ObjectInSpace::getRotationQuat()
 {
     return this->rotationQuat;
 }
 
-glm::vec3 CameraAttachable::getVectorForward()
+glm::vec3 ObjectInSpace::getVectorForward()
 {
     return this->vectorForward;
 }
 
-glm::vec3 CameraAttachable::getVectorTop()
+glm::vec3 ObjectInSpace::getVectorTop()
 {
     return this->vectorTop;
 }

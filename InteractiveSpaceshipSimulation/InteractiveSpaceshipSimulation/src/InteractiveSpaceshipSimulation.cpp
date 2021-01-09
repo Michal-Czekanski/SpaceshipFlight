@@ -100,7 +100,7 @@ void init()
 
 	ship = new Ship(initialShipPosition, initialShipDirection, initialShipTop, shipSpeed, shipRotationSpeed, 
 		shipModel, initialShipRotation, shipTopInModelSpace, shipDirectionInModelSpace, shipScale);
-	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (CameraAttachable*)ship);
+	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (ObjectInSpace*)ship);
 	planet = new Planet(glm::vec3(0, 0, 5), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(3.0f));
 	star = new Star(glm::vec3(50, -10.0f, 125), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(75));
 

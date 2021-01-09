@@ -3,9 +3,9 @@
 #include "glm.hpp"
 #include "ext.hpp"
 #include "utils/objload.h"
-#include "CameraAttachable.h"
+#include "ObjectInSpace.h"
 
-class RenderableObject: public CameraAttachable 
+class RenderableObject: public ObjectInSpace 
 {
 protected:
 	glm::mat4 modelMatrix;
