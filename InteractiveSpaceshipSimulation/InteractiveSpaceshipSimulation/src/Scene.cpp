@@ -11,20 +11,34 @@ void initScene(obj::Model& shipModel, obj::Model& sphereModel, Ship* &ship, Atta
 		shipModel, initialShipRotation, shipTopInModelSpace, shipDirectionInModelSpace, shipScale);
 	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (ObjectInSpace*)ship);
 	Planet* startingPlanet = new Planet(glm::vec3(0, 0, 5), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(3.0f));
-	Star* star1 = new Star(glm::vec3(400.0f, -300.0f, 2000.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(star1Scale));
+	Star* star1 = new Star(glm::vec3(600.0f, -700.0f, 3000.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(star1Scale));
 
 	Planet* planet2 = new Planet(glm::vec3(0, 0, 15), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(3.0f),
 		star1, glm::vec3(0, -3, 2), 0.00001f);
 
 	Moon* moon = new Moon(glm::vec3(0, 0, -5), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(0.75f), startingPlanet, glm::vec3(1, 1, 12), 0.001f);
 
+	Star* star2 = new Star(glm::vec3(-900.0f, -600.0f, -5000.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(500.0f));
+
+	Star* star3 = new Star(glm::vec3(-4000.0f, 1500.0f, -300.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(650.f));
+
+
 	renderableObjects.push_back((RenderableObject*)ship); renderableObjectsCount++;
 	renderableObjects.push_back((RenderableObject*)startingPlanet); renderableObjectsCount++;
 	renderableObjects.push_back((RenderableObject*)star1); renderableObjectsCount++;
 	renderableObjects.push_back((RenderableObject*)planet2); renderableObjectsCount++;
 	renderableObjects.push_back((RenderableObject*)moon); renderableObjectsCount++;
+	renderableObjects.push_back((RenderableObject*)star2); renderableObjectsCount++;
+	renderableObjects.push_back((RenderableObject*)star3); renderableObjectsCount++;
 
-	generateRandomPlanetsForStar(star1, 20, 3, 50, 1, 20, renderableObjects, renderableObjectsCount, sphereModel);
+
+
+	generateRandomPlanetsForStar(star1, 20, 3, 50, 3, 20, renderableObjects, renderableObjectsCount, sphereModel);
+	generateRandomPlanetsForStar(star2, 25, 3, 50, 1, 20, renderableObjects, renderableObjectsCount, sphereModel);
+	generateRandomPlanetsForStar(star3, 22, 3, 50, 4, 25, renderableObjects, renderableObjectsCount, sphereModel);
+
+
+
 }
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float minPlanetOrbitSpeed, float maxPlanetOrbitSpeed,
