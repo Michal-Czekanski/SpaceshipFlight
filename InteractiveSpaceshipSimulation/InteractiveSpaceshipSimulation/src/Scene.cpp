@@ -1,6 +1,6 @@
 #include "../headers/Scene.h"
 
-void initScene(obj::Model& shipModel, obj::Model& sphereModel, Ship* &ship, AttachableCamera* &camera, std::vector<RenderableObject*> &renderableObjects,
+void initScene(obj::Model& shipModel, obj::Model& sphereModel, obj::Model& asteroidModel, Ship* &ship, AttachableCamera* &camera, std::vector<RenderableObject*> &renderableObjects,
 	int &renderableObjectsCount)
 {
 	float star1Scale = 700.0f;
@@ -37,7 +37,15 @@ void initScene(obj::Model& shipModel, obj::Model& sphereModel, Ship* &ship, Atta
 	generateRandomPlanetsForStar(star2, 25, 3, 50, 1, 20, renderableObjects, renderableObjectsCount, sphereModel);
 	generateRandomPlanetsForStar(star3, 22, 3, 50, 4, 25, renderableObjects, renderableObjectsCount, sphereModel);
 
-
+	// test asteroids
+	Asteroid* asteroid;
+	for (int i = 0; i < 10; i++)
+	{
+		glm::vec3 asteroidPos = glm::ballRand(10.0f) + ship->getPosition();
+		asteroid = new Asteroid(asteroidPos, glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0),
+			asteroidModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(1.0f), 5.0f, glm::vec3(0, 0, 1));
+		renderableObjects.push_back((RenderableObject*)asteroid); renderableObjectsCount++;
+	}
 
 }
 

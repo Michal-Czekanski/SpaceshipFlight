@@ -13,6 +13,7 @@
 #include "Star.h"
 #include "RenderableObject.h"
 #include "Moon.h"
+#include "Asteroid.h"
 
 
 const glm::vec3 initialShipPosition = glm::vec3(0, 0, 0);
@@ -43,7 +44,7 @@ const float camUpOffsetMultiplier = 0.5f;
 
 const glm::vec3 shipScale = glm::vec3(1.0f);
 
-void initScene(obj::Model& shipModel, obj::Model& sphereModel, Ship*& ship, AttachableCamera*& camera, std::vector<RenderableObject*>& renderableObjects,
+void initScene(obj::Model& shipModel, obj::Model& sphereModel, obj::Model& asteroidModel, Ship*& ship, AttachableCamera*& camera, std::vector<RenderableObject*>& renderableObjects,
 	int& renderableObjectsCount);
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,

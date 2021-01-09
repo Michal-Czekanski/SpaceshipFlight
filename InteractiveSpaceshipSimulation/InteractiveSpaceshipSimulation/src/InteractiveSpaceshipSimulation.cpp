@@ -100,10 +100,11 @@ void init()
 	
 	obj::Model shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
 	obj::Model sphereModel = obj::loadModelFromFile("models/sphere.obj");
+	obj::Model asteroidModel1 = obj::loadModelFromFile("models/asteroid1.obj");
 
 	
 
-	initScene(shipModel, sphereModel, ship, camera, renderableObjects, renderableObjectsCount);
+	initScene(shipModel, sphereModel, asteroidModel1, ship, camera, renderableObjects, renderableObjectsCount);
 
 }
 
