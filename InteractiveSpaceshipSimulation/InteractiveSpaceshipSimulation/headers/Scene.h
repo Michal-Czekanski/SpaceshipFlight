@@ -14,6 +14,7 @@
 #include "RenderableObject.h"
 #include "Moon.h"
 #include "Asteroid.h"
+#include "AsteroidField.h"
 
 
 const glm::vec3 initialShipPosition = glm::vec3(0, 0, 0);
@@ -42,10 +43,30 @@ const glm::vec3 lightDir = glm::normalize(glm::vec3(1, -1, 1));
 const float camOffsetMultiplier = 2.0f;
 const float camUpOffsetMultiplier = 0.5f;
 
-const glm::vec3 shipScale = glm::vec3(1.0f);
+const glm::vec3 shipScale = glm::vec3(0.6f);
 
 void initScene(obj::Model& shipModel, obj::Model& sphereModel, obj::Model& asteroidModel, Ship*& ship, AttachableCamera*& camera, std::vector<RenderableObject*>& renderableObjects,
-	int& renderableObjectsCount);
+	int& renderableObjectsCount, std::vector<AsteroidField*> &asteroidFields);
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
 	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, obj::Model& planetModel);
+
+/// <summary>
+/// Generates asteroid fields randomly across world space.
+/// </summary>
+/// <param name="fields">Vector where asteroid fields will be stored.</param>
+/// <param name="count">Asteroid fields count.</param>
+/// <param name="asteroidModels">Vector of possible asteroid models.</param>
+/// <param name="generationRadius">Radius in which asteroid fields will be generated from center of the world.</param>
+/// <param name="minAsteroidFieldRadius">Each asteroid field generates asteroids in given radius. This value will be randomized.</param>
+/// <param name="maxAsteroidFieldRadius">Each asteroid field generates asteroids in given radius. This value will be randomized.</param>
+/// <param name="minAsteroidScale">Minimal asteroid scale.</param>
+/// <param name="maxAsteroidScale">Maximal asteroid scale.</param>
+/// <param name="minSpeed">Minimum asteroid field speed.</param>
+/// <param name="maxSpeed">Maximum asteroid field speed.</param>
+/// <param name="minAsteroidCount">Minimal asteroid count of one asteroid field.</param>
+/// <param name="maxAsteroidCount">Maximal asteroid count of one asteroid field.</param>
+void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count, std::vector<obj::Model> asteroidModels, 
+	float generationRadius = 4000.0f, float minAsteroidFieldRadius = 30.0f, float maxAsteroidFieldRadius = 70.0f,
+	float minAsteroidScale = 0.5f, float maxAsteroidScale = 5.0f,
+	float minSpeed = 0.0001f, float maxSpeed = 0.005f, int minAsteroidCount = 30, int maxAsteroidCount = 100);

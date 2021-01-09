@@ -74,12 +74,26 @@ void renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.1f, 0.3f, 1.0f);
 
+	// Render renderable objects
 	for (int i = 0; i < renderableObjectsCount; i++)
 	{
 		RenderableObject* renderableObject = renderableObjects[i];
 		renderableObject->update();
 		obj::Model model = renderableObject->getModel();
 		drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, renderableObject->getModelMatrix(), glm::vec3(0.6f));
+	}
+
+	// Render asteroid fields
+	for (int i = 0; i < asteroidFields.size(); i++)
+	{
+		AsteroidField* asteroidField = asteroidFields[i];
+		std::vector<Asteroid*> asteroids = asteroidField->getAsteroids();
+		for (int j = 0; j < asteroids.size(); j++)
+		{
+			asteroids[j]->update();
+			obj::Model model = asteroids[j]->getModel();
+			drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, asteroids[j]->getModelMatrix(), glm::vec3(0.6f));
+		}
 	}
 
 	glutSwapBuffers();
@@ -104,7 +118,7 @@ void init()
 
 	
 
-	initScene(shipModel, sphereModel, asteroidModel1, ship, camera, renderableObjects, renderableObjectsCount);
+	initScene(shipModel, sphereModel, asteroidModel1, ship, camera, renderableObjects, renderableObjectsCount, asteroidFields);
 
 }
 

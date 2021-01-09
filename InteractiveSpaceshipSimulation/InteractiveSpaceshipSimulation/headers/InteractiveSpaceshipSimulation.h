@@ -19,3 +19,5 @@
 GLuint programColor;
 
 Core::Shader_Loader shaderLoader;
+
+std::vector<AsteroidField*> asteroidFields;
