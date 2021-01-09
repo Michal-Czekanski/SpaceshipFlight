@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Orbitable.cpp" />
     <ClCompile Include="src\Planet.cpp" />
     <ClCompile Include="src\RenderableObject.cpp" />
     <ClCompile Include="src\ObjectInSpace.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="headers\RenderableObject.h" />
     <ClInclude Include="headers\Planet.h" />
     <ClInclude Include="headers\Star.h" />
+    <ClInclude Include="headers\Orbitable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
