@@ -12,6 +12,7 @@
 #include "Planet.h"
 #include "Star.h"
 #include "RenderableObject.h"
+#include "Moon.h"
 
 
 const glm::vec3 initialShipPosition = glm::vec3(0, 0, 0);

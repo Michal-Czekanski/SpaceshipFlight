@@ -12,8 +12,12 @@ void initScene(obj::Model& shipModel, obj::Model& sphereModel, Ship* &ship, Atta
 	Planet* planet2 = new Planet(glm::vec3(0, 0, 15), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(3.0f),
 		star, glm::vec3(0, -3, 2), 0.001f);
 
+	Moon* moon = new Moon(glm::vec3(0, 0, -5), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(0.75f), planet, glm::vec3(1, 1, 12), 0.001f);
+
 	renderableObjects.push_back((RenderableObject*)ship); renderableObjectsCount++;
 	renderableObjects.push_back((RenderableObject*)planet); renderableObjectsCount++;
 	renderableObjects.push_back((RenderableObject*)star); renderableObjectsCount++;
 	renderableObjects.push_back((RenderableObject*)planet2); renderableObjectsCount++;
+	renderableObjects.push_back((RenderableObject*)moon); renderableObjectsCount++;
+
 }
