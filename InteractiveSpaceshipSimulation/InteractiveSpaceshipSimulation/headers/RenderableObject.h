@@ -22,5 +22,10 @@ public:
 	glm::mat4 getModelMatrix();
 
 	obj::Model getModel();
+
+	/// <summary>
+	/// Update is called on every frame.
+	/// </summary>
+	virtual void update() {};
 };
 
