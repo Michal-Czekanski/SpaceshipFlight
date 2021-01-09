@@ -1,6 +1,6 @@
 #include "../../headers/utils/Calculations.h"
 
-glm::quat calculateRotationQuat(glm::quat initRotationQuat, float rotationAngleX, float rotationAngleY, float rotationAngleZ)
+glm::quat calculateRotationQuatWorldAxises(glm::quat initRotationQuat, float rotationAngleX, float rotationAngleY, float rotationAngleZ)
 {
 	glm::quat quatX = glm::angleAxis(rotationAngleX, glm::vec3(1, 0, 0));
 	glm::quat quatY = glm::angleAxis(rotationAngleY, glm::vec3(0, 1, 0));
@@ -8,6 +8,16 @@ glm::quat calculateRotationQuat(glm::quat initRotationQuat, float rotationAngleX
 
 	glm::quat rotationChange = quatZ * quatY * quatX;
 
+	return glm::normalize(rotationChange * initRotationQuat);
+}
+
+glm::quat calculateRotationQuatLocalAxises(glm::quat initRotationQuat, glm::vec3 localXAxis, glm::vec3 localYAxis, glm::vec3 localZAxis, float rotationAngleX, float rotationAngleY, float rotationAngleZ)
+{
+	glm::quat quatX = glm::angleAxis(rotationAngleX, localXAxis);
+	glm::quat quatY = glm::angleAxis(rotationAngleY, localYAxis);
+	glm::quat quatZ = glm::angleAxis(rotationAngleZ, localZAxis);
+
+	glm::quat rotationChange = quatZ * quatY * quatX;
 	return glm::normalize(rotationChange * initRotationQuat);
 }
 

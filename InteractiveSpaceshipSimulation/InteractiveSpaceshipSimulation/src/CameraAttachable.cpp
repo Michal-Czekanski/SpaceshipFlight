@@ -4,8 +4,9 @@ CameraAttachable::CameraAttachable(glm::vec3 position, glm::quat rotationQuat, g
 {
     this->position = position;
     this->rotationQuat = rotationQuat;
-    this->vectorForward = vectorForward;
-    this->vectorTop = vectorTop;
+    this->vectorForward = glm::normalize(vectorForward);
+    this->vectorTop = glm::normalize(vectorTop);
+    this->vectorRight = glm::normalize(glm::cross(vectorForward, vectorTop));
 }
 
 glm::vec3 CameraAttachable::getPosition()

@@ -3,8 +3,29 @@
 #include "glm.hpp"
 #include "ext.hpp"
 
+/// <summary>
+/// Calculates rotation quat using world space axises.
+/// </summary>
+/// <param name="initRotationQuat"></param>
+/// <param name="rotationAngleX"></param>
+/// <param name="rotationAngleY"></param>
+/// <param name="rotationAngleZ"></param>
+/// <returns></returns>
+glm::quat calculateRotationQuatWorldAxises(glm::quat initRotationQuat, float rotationAngleX, float rotationAngleY, float rotationAngleZ);
 
-glm::quat calculateRotationQuat(glm::quat initRotationQuat, float rotationAngleX, float rotationAngleY, float rotationAngleZ);
+/// <summary>
+/// Calculates rotaion quat using given local axises.
+/// </summary>
+/// <param name="initRotationQuat"></param>
+/// <param name="localXAxis"></param>
+/// <param name="localYAxis"></param>
+/// <param name="localZAxis"></param>
+/// <param name="rotationAngleX"></param>
+/// <param name="rotationAngleY"></param>
+/// <param name="rotationAngleZ"></param>
+/// <returns></returns>
+glm::quat calculateRotationQuatLocalAxises(glm::quat initRotationQuat, glm::vec3 localXAxis, glm::vec3 localYAxis, glm::vec3 localZAxis, float rotationAngleX, float rotationAngleY, float rotationAngleZ);
+
 
 /// <summary>
 /// Calculates quaternion representing rotation from v1 to v2.

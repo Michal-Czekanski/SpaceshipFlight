@@ -24,8 +24,8 @@ void Ship::moveBackwards()
 void Ship::rotateShip(bool pitchUp, bool pitchDown, bool yawRight, bool yawLeft, bool rollRigt, bool rollLeft)
 {
 	float rotationAngleX = 0.0f; float rotationAngleY = 0.0f; float rotationAngleZ = 0.0f;
-	if (pitchUp) { rotationAngleX -= rotationSpeed; };
-	if (pitchDown) { rotationAngleX += rotationSpeed; };
+	if (pitchUp) { rotationAngleX += rotationSpeed; };
+	if (pitchDown) { rotationAngleX -= rotationSpeed; };
 
 	if (yawRight) { rotationAngleY -= rotationSpeed; };
 	if (yawLeft) { rotationAngleY += rotationSpeed; };
@@ -34,10 +34,11 @@ void Ship::rotateShip(bool pitchUp, bool pitchDown, bool yawRight, bool yawLeft,
 	if (rollLeft) { rotationAngleZ -= rotationSpeed; };
 
 
-	this->rotationQuat = calculateRotationQuat(this->rotationQuat, rotationAngleX, rotationAngleY, rotationAngleZ);
+	this->rotationQuat = calculateRotationQuatLocalAxises(this->rotationQuat, this->vectorRight, this->vectorTop, this->vectorForward, rotationAngleX, rotationAngleY, rotationAngleZ);
 
 	this->vectorForward = glm::normalize(this->rotationQuat * this->forwardInModelSpace);
 	this->vectorTop = glm::normalize(this->rotationQuat * this->topInModelSpace);
+	this->vectorRight = glm::normalize(glm::cross(this->vectorForward, this->vectorTop));
 
 	this->updateModelMatrix();
 }
