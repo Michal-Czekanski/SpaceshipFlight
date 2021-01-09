@@ -5,3 +5,12 @@ Moon::Moon(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorForward, 
 	Orbitable(position, rotationQuat, vectorForward, vectorTop, model, topInModelSpace, forwardInModelSpace, scale, orbitAround, orbitPlaneVec2, orbitSpeed)
 {
 }
+
+void Moon::update()
+{
+	if (this->orbitAround)
+	{
+		orbit();
+	}
+	this->modelMatrix = glm::translate(this->position) * glm::mat4_cast(this->rotationQuat) * glm::scale(this->scale);
+}
