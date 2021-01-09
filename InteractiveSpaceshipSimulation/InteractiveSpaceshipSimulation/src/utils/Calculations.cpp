@@ -50,3 +50,19 @@ float randomFloat(float a, float b)
 	float r = random * diff;
 	return a + r;
 }
+
+glm::quat randomRotationQuat()
+{
+	glm::vec3 axis = glm::ballRand(1.0f);
+	float angle = randomFloat(glm::radians(0.0f), glm::radians(360.0f));
+	return glm::angleAxis(angle, axis);
+}
+
+int randomInt(int min, int max)
+{
+	std::random_device rd; // obtain a random number from hardware
+	std::mt19937 gen(rd()); // seed the generator
+	std::uniform_int_distribution<> distr(min, max); // define the range
+
+	return distr(gen);
+}

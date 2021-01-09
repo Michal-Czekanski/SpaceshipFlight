@@ -2,6 +2,7 @@
 
 #include "glm.hpp"
 #include "ext.hpp"
+#include <random>
 
 /// <summary>
 /// Calculates rotation quat using world space axises.
@@ -39,3 +40,13 @@ glm::quat rotateV1ToV2(glm::vec3 v1, glm::vec3 v2);
 /// Generates random float in range (a, b)
 /// </summary>
 float randomFloat(float a, float b);
+
+/// <summary>
+/// Generates random rotation quaternion.
+/// </summary>
+glm::quat randomRotationQuat();
+
+/// <summary>
+/// Generates random integer in range [min, max]
+/// </summary>
+int randomInt(int min, int max);
