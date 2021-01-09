@@ -5,6 +5,7 @@
 Ship* ship;
 AttachableCamera* camera;
 Planet* planet;
+Star* star;
 
 
 void keyboard(unsigned char key, int x, int y)
@@ -72,8 +73,10 @@ void renderScene()
 
 	obj::Model shipModel = ship->getModel();
 	obj::Model planetModel = planet->getModel();
+	obj::Model starModel = star->getModel();
 	drawObjectColor(programColor, &shipModel, perspectiveMatrix, cameraMatrix, ship->getModelMatrix(), glm::vec3(0.6f));
 	drawObjectColor(programColor, &planetModel, perspectiveMatrix, cameraMatrix, planet->getModelMatrix(), glm::vec3(0.6f));
+	drawObjectColor(programColor, &starModel, perspectiveMatrix, cameraMatrix, star->getModelMatrix(), glm::vec3(0.6f));
 
 
 	glutSwapBuffers();
@@ -99,6 +102,7 @@ void init()
 		shipModel, initialShipRotation, shipTopInModelSpace, shipDirectionInModelSpace, shipScale);
 	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (CameraAttachable*)ship);
 	planet = new Planet(glm::vec3(0, 0, 5), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(3.0f));
+	star = new Star(glm::vec3(50, -10.0f, 125), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(75));
 }
 
 int main(int argc, char** argv)
