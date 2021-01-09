@@ -95,9 +95,10 @@ void init()
 	obj::Model shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
 	obj::Model sphereModel = obj::loadModelFromFile("models/sphere.obj");
 
-	ship = new Ship(initialShipPosition, initialShipDirection, initialShipTop, shipSpeed, shipRotationSpeed, shipModel, initialShipRotation, shipTopInModelSpace, shipDirectionInModelSpace);
+	ship = new Ship(initialShipPosition, initialShipDirection, initialShipTop, shipSpeed, shipRotationSpeed, 
+		shipModel, initialShipRotation, shipTopInModelSpace, shipDirectionInModelSpace, shipScale);
 	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (CameraAttachable*)ship);
-	planet = new Planet(glm::vec3(0, 0, 5), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1));
+	planet = new Planet(glm::vec3(0, 0, 5), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(3.0f));
 }
 
 int main(int argc, char** argv)

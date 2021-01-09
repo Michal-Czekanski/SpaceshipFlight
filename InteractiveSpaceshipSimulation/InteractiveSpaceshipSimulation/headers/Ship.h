@@ -18,7 +18,7 @@ public:
 	Ship(glm::vec3 position, glm::vec3 vectorForward, glm::vec3 vectorTop,
 		float shipSpeed, float rotationSpeed,
 		obj::Model shipModel, glm::quat rotationQuat,
-		glm::vec3 shipTopInModelSpace, glm::vec3 shipDirectionInModelSpace);
+		glm::vec3 shipTopInModelSpace, glm::vec3 shipDirectionInModelSpace, glm::vec3 scale);
 
 	/// <summary>
 	/// Moves ship forward based on ship speed -> updates ship's model matrix.

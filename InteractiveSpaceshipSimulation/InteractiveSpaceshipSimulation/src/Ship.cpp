@@ -3,7 +3,8 @@
 Ship::Ship(glm::vec3 position, glm::vec3 vectorForward, glm::vec3 vectorTop,
 	float shipSpeed, float rotationSpeed,
 	obj::Model shipModel, glm::quat rotationQuat,
-	glm::vec3 shipTopInModelSpace, glm::vec3 shipDirectionInModelSpace): RenderableObject(position, rotationQuat, vectorForward, vectorTop, shipModel, shipTopInModelSpace, shipDirectionInModelSpace)
+	glm::vec3 shipTopInModelSpace, glm::vec3 shipDirectionInModelSpace, glm::vec3 scale): 
+	RenderableObject(position, rotationQuat, vectorForward, vectorTop, shipModel, shipTopInModelSpace, shipDirectionInModelSpace, scale)
 {
 	this->speed = shipSpeed;
 	this->rotationSpeed = rotationSpeed;
@@ -45,7 +46,7 @@ void Ship::rotateShip(bool pitchUp, bool pitchDown, bool yawRight, bool yawLeft,
 
 void Ship::updateModelMatrix()
 {
-	this->modelMatrix = glm::translate(position) * glm::mat4_cast(this->rotationQuat);
+	this->modelMatrix = glm::translate(position) * glm::mat4_cast(this->rotationQuat) * glm::scale(this->scale);
 }
 
 

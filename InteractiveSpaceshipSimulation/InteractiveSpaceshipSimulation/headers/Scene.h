@@ -38,3 +38,5 @@ glm::vec3 lightDir = glm::normalize(glm::vec3(1, -1, 1));
 
 const float camOffsetMultiplier = 2.0f;
 const float camUpOffsetMultiplier = 0.5f;
+
+const glm::vec3 shipScale = glm::vec3(1.0f);
