@@ -71,13 +71,13 @@ void renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.1f, 0.3f, 1.0f);
 
-	obj::Model shipModel = ship->getModel();
-	obj::Model planetModel = planet->getModel();
-	obj::Model starModel = star->getModel();
-	drawObjectColor(programColor, &shipModel, perspectiveMatrix, cameraMatrix, ship->getModelMatrix(), glm::vec3(0.6f));
-	drawObjectColor(programColor, &planetModel, perspectiveMatrix, cameraMatrix, planet->getModelMatrix(), glm::vec3(0.6f));
-	drawObjectColor(programColor, &starModel, perspectiveMatrix, cameraMatrix, star->getModelMatrix(), glm::vec3(0.6f));
-
+	for (int i = 0; i < renderableObjectsCount; i++)
+	{
+		RenderableObject* renderableObject = renderableObjects[i];
+		renderableObject->update();
+		obj::Model model = renderableObject->getModel();
+		drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, renderableObject->getModelMatrix(), glm::vec3(0.6f));
+	}
 
 	glutSwapBuffers();
 }
@@ -103,6 +103,11 @@ void init()
 	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (CameraAttachable*)ship);
 	planet = new Planet(glm::vec3(0, 0, 5), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(3.0f));
 	star = new Star(glm::vec3(50, -10.0f, 125), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(75));
+
+	renderableObjects.push_back((RenderableObject*)ship); renderableObjectsCount++;
+	renderableObjects.push_back((RenderableObject*)planet); renderableObjectsCount++;
+	renderableObjects.push_back((RenderableObject*)star); renderableObjectsCount++;
+
 }
 
 int main(int argc, char** argv)

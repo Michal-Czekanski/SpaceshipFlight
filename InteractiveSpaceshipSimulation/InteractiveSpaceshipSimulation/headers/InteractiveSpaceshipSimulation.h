@@ -18,6 +18,7 @@
 #include "AttachableCamera.h"
 #include "Planet.h"
 #include "Star.h"
+#include "RenderableObject.h"
 
 #define WINDOW_WIDTH 720
 #define WINDOW_HEIGHT 720
@@ -26,3 +27,6 @@
 GLuint programColor;
 
 Core::Shader_Loader shaderLoader;
+
+std::vector<RenderableObject*> renderableObjects;
+int renderableObjectsCount = 0;
