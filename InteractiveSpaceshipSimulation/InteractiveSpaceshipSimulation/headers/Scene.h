@@ -1,19 +1,17 @@
 #pragma once
 
-#include "glew.h"
-#include "freeglut.h"
 #include "glm.hpp"
 #include "ext.hpp"
-#include <iostream>
 #include <cmath>
 #include <vector>
 
-#include "utils/Shader_Loader.h"
-#include "utils/Render_Utils.h"
 #include "utils/Camera.h"
-#include "utils/Texture.h"
 #include "Ship.h"
-
+#include "utils/Calculations.h"
+#include "AttachableCamera.h"
+#include "Planet.h"
+#include "Star.h"
+#include "RenderableObject.h"
 
 
 const glm::vec3 initialShipPosition = glm::vec3(0, 0, 0);
@@ -34,9 +32,15 @@ const glm::vec3 shipTopInModelSpace = glm::vec3(0, 1, 0);
 
 const glm::vec3 initCameraLookDir = glm::vec3(0, 0, -1);
 
-glm::vec3 lightDir = glm::normalize(glm::vec3(1, -1, 1));
+/// <summary>
+/// Mock light, should be replaced with Star light and Ship light later.
+/// </summary>
+const glm::vec3 lightDir = glm::normalize(glm::vec3(1, -1, 1));
 
 const float camOffsetMultiplier = 2.0f;
 const float camUpOffsetMultiplier = 0.5f;
 
 const glm::vec3 shipScale = glm::vec3(1.0f);
+
+void initScene(obj::Model& shipModel, obj::Model& sphereModel, Ship*& ship, AttachableCamera*& camera, std::vector<RenderableObject*>& renderableObjects,
+	int& renderableObjectsCount);

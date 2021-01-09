@@ -149,6 +149,7 @@
     <ClCompile Include="src\RenderableObject.cpp" />
     <ClCompile Include="src\ObjectInSpace.cpp" />
     <ClCompile Include="src\AttachableCamera.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
     <ClCompile Include="src\Ship.cpp" />
     <ClCompile Include="src\InteractiveSpaceshipSimulation.cpp" />
     <ClCompile Include="src\utils\Calculations.cpp" />

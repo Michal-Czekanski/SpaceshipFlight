@@ -2,11 +2,14 @@
 //
 #include "../headers/InteractiveSpaceshipSimulation.h"
 
-Ship* ship;
-AttachableCamera* camera;
-Planet* planet;
-Star* star;
+std::vector<RenderableObject*> renderableObjects;
+int renderableObjectsCount = 0;
 
+
+Ship* ship = NULL;
+AttachableCamera* camera = NULL;
+Planet* planet = NULL;
+Star* star = NULL;
 
 void keyboard(unsigned char key, int x, int y)
 {
@@ -98,19 +101,9 @@ void init()
 	obj::Model shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
 	obj::Model sphereModel = obj::loadModelFromFile("models/sphere.obj");
 
-	ship = new Ship(initialShipPosition, initialShipDirection, initialShipTop, shipSpeed, shipRotationSpeed, 
-		shipModel, initialShipRotation, shipTopInModelSpace, shipDirectionInModelSpace, shipScale);
-	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (ObjectInSpace*)ship);
-	planet = new Planet(glm::vec3(0, 0, 5), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(3.0f));
-	star = new Star(glm::vec3(50, -10.0f, 125), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(75));
+	
 
-	Planet* planet2 = new Planet(glm::vec3(0, 0, 15), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(3.0f), 
-		star, glm::vec3(0, -3, 2), 0.0001f);
-
-	renderableObjects.push_back((RenderableObject*)ship); renderableObjectsCount++;
-	renderableObjects.push_back((RenderableObject*)planet); renderableObjectsCount++;
-	renderableObjects.push_back((RenderableObject*)star); renderableObjectsCount++;
-	renderableObjects.push_back((RenderableObject*)planet2); renderableObjectsCount++;
+	initScene(shipModel, sphereModel, ship, camera, renderableObjects, renderableObjectsCount);
 
 }
 
