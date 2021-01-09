@@ -43,7 +43,7 @@ void initScene(obj::Model& shipModel, obj::Model& sphereModel, obj::Model& aster
 	{
 		glm::vec3 asteroidPos = glm::ballRand(10.0f) + ship->getPosition();
 		asteroid = new Asteroid(asteroidPos, glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0),
-			asteroidModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(1.0f), 5.0f, glm::vec3(0, 0, 1));
+			asteroidModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(1.0f), 0.001f, glm::vec3(0, 0, 1));
 		renderableObjects.push_back((RenderableObject*)asteroid); renderableObjectsCount++;
 	}
 

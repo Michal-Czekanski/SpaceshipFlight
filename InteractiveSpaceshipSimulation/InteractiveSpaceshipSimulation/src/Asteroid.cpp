@@ -7,3 +7,9 @@ Asteroid::Asteroid(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorF
 	this->speed = speed;
 	this->moveDirection = moveDirection;
 }
+
+void Asteroid::update()
+{
+	this->position += moveDirection * speed;
+	this->modelMatrix = glm::translate(this->position) * glm::mat4_cast(this->rotationQuat) * glm::scale(this->scale);
+}
