@@ -22,6 +22,15 @@ public:
 	Planet(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorForward, glm::vec3 vectorTop, obj::Model model, glm::vec3 topInModelSpace, glm::vec3 forwardInModelSpace,
 		glm::vec3 scale, Star* orbitAround, glm::vec3 orbitPlaneVec2, float orbitSpeed);
 
+	/// <summary>
+	/// Creates Planet which orbits around given Star.
+	/// </summary>
+	Planet(glm::vec3 position, obj::Model model,
+		glm::vec3 scale, Star* orbitAround, glm::vec3 orbitPlaneVec2, float orbitSpeed,
+		
+		glm::quat rotationQuat = glm::quat(), glm::vec3 vectorForward = glm::vec3(0, 0, 1), glm::vec3 vectorTop = glm::vec3(0, 1, 0),
+		glm::vec3 topInModelSpace = glm::vec3(0, 1, 0), glm::vec3 forwardInModelSpace = glm::vec3(0, 0, 1));
+
 	void update();
 };
 

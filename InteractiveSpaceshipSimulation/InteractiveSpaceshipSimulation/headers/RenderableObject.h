@@ -27,5 +27,7 @@ public:
 	/// Update is called on every frame.
 	/// </summary>
 	virtual void update() {};
+
+	glm::vec3 getScale();
 };
 

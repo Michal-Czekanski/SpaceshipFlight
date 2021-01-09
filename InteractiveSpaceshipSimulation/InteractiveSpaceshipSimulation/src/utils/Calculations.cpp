@@ -42,3 +42,11 @@ glm::quat rotateV1ToV2(glm::vec3 v1, glm::vec3 v2)
 	q.w = sqrt((pow(v1.length(), 2)) * (pow(v2.length(), 2))) + dot;
 	return glm::normalize(q);
 }
+
+float randomFloat(float a, float b)
+{
+	float random = ((float)rand()) / (float)RAND_MAX;
+	float diff = b - a;
+	float r = random * diff;
+	return a + r;
+}

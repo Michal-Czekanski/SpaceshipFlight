@@ -45,3 +45,6 @@ const glm::vec3 shipScale = glm::vec3(1.0f);
 
 void initScene(obj::Model& shipModel, obj::Model& sphereModel, Ship*& ship, AttachableCamera*& camera, std::vector<RenderableObject*>& renderableObjects,
 	int& renderableObjectsCount);
+
+void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
+	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, obj::Model& planetModel);

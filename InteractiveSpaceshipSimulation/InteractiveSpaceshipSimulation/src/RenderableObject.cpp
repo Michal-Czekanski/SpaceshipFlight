@@ -20,3 +20,8 @@ obj::Model RenderableObject::getModel()
 {
 	return this->model;
 }
+
+glm::vec3 RenderableObject::getScale()
+{
+	return this->scale;
+}

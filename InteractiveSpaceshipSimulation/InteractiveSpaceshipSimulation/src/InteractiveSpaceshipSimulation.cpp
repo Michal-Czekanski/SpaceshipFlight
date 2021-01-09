@@ -69,7 +69,7 @@ void idle()
 void renderScene() 
 {
 	glm::mat4 cameraMatrix = camera->updateCameraMatrix();
-	glm::mat4 perspectiveMatrix = Core::createPerspectiveMatrix(0.1, 200.0f);
+	glm::mat4 perspectiveMatrix = Core::createPerspectiveMatrix(0.1, 7000.0f);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.1f, 0.3f, 1.0f);

@@ -13,6 +13,12 @@ Planet::Planet(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorForwa
 {
 }
 
+Planet::Planet(glm::vec3 position, obj::Model model, glm::vec3 scale, Star* orbitAround, glm::vec3 orbitPlaneVec2, 
+	float orbitSpeed, glm::quat rotationQuat, glm::vec3 vectorForward, glm::vec3 vectorTop, glm::vec3 topInModelSpace, glm::vec3 forwardInModelSpace):
+	Orbitable(position, rotationQuat, vectorForward, vectorTop, model, topInModelSpace, forwardInModelSpace, scale, orbitAround, orbitPlaneVec2, orbitSpeed)
+{
+}
+
 void Planet::update()
 {
 	if (this->orbitAround)

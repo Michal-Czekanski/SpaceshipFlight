@@ -34,3 +34,8 @@ glm::quat calculateRotationQuatLocalAxises(glm::quat initRotationQuat, glm::vec3
 /// <param name="v2">Second vector.</param>
 /// <returns>Quaternion representing rotation from v1 to v2.</returns>
 glm::quat rotateV1ToV2(glm::vec3 v1, glm::vec3 v2);
+
+/// <summary>
+/// Generates random float in range (a, b)
+/// </summary>
+float randomFloat(float a, float b);
