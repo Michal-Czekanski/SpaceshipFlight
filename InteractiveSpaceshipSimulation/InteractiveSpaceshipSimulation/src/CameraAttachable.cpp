@@ -1,5 +1,13 @@
 #include "../headers/CameraAttachable.h"
 
+CameraAttachable::CameraAttachable(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorForward, glm::vec3 vectorTop)
+{
+    this->position = position;
+    this->rotationQuat = rotationQuat;
+    this->vectorForward = vectorForward;
+    this->vectorTop = vectorTop;
+}
+
 glm::vec3 CameraAttachable::getPosition()
 {
     return this->position;
