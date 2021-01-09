@@ -157,6 +157,7 @@
     <ClCompile Include="src\utils\Render_Utils.cpp" />
     <ClCompile Include="src\utils\Shader_Loader.cpp" />
     <ClCompile Include="src\utils\Texture.cpp" />
+    <ClCompile Include="src\Star.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\AttachableCamera.h" />
@@ -173,6 +174,7 @@
     <ClInclude Include="headers\CameraAttachable.h" />
     <ClInclude Include="headers\RenderableObject.h" />
     <ClInclude Include="headers\Planet.h" />
+    <ClInclude Include="headers\Star.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
