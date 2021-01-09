@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Asteroid.cpp" />
     <ClCompile Include="src\Moon.cpp" />
     <ClCompile Include="src\Orbitable.cpp" />
     <ClCompile Include="src\Planet.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="src\Star.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\Asteroid.h" />
     <ClInclude Include="headers\AttachableCamera.h" />
     <ClInclude Include="headers\InteractiveSpaceshipSimulation.h" />
     <ClInclude Include="headers\Scene.h" />
