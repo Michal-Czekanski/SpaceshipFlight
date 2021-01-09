@@ -60,6 +60,9 @@
     <ClCompile Include="src\Orbitable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Moon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\InteractiveSpaceshipSimulation.h">
@@ -108,6 +111,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\Orbitable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\Moon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
