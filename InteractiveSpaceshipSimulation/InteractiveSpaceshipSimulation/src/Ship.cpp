@@ -1,20 +1,12 @@
 #include "../headers/Ship.h"
 
-Ship::Ship(glm::vec3 initialPosition, glm::vec3 initialShipDirection, glm::vec3 initialShipTop, 
-	float shipSpeed, float rotationSpeed, 
-	obj::Model shipModel, glm::quat initialRotationQuat,
-	glm::vec3 shipTopInModelSpace, glm::vec3 shipDirectionInModelSpace)
+Ship::Ship(glm::vec3 position, glm::vec3 vectorForward, glm::vec3 vectorTop,
+	float shipSpeed, float rotationSpeed,
+	obj::Model shipModel, glm::quat rotationQuat,
+	glm::vec3 shipTopInModelSpace, glm::vec3 shipDirectionInModelSpace): RenderableObject(position, rotationQuat, vectorForward, vectorTop, shipModel, shipTopInModelSpace, shipDirectionInModelSpace)
 {
-	this->position = initialPosition;
-	this->vectorForward = initialShipDirection;
-	this->vectorTop = initialShipTop;
 	this->speed = shipSpeed;
 	this->rotationSpeed = rotationSpeed;
-	this->shipModel = shipModel;
-	this->rotationQuat = initialRotationQuat;
-	this->modelMatrix = glm::translate(initialPosition) * glm::mat4_cast(initialRotationQuat);
-	this->shipTopInModelSpace = shipTopInModelSpace;
-	this->shipDirectionInModelSpace = shipDirectionInModelSpace;
 }
 
 void Ship::moveForward()
@@ -44,20 +36,10 @@ void Ship::rotateShip(bool pitchUp, bool pitchDown, bool yawRight, bool yawLeft,
 
 	this->rotationQuat = calculateRotationQuat(this->rotationQuat, rotationAngleX, rotationAngleY, rotationAngleZ);
 
-	this->vectorForward = glm::normalize(this->rotationQuat * this->shipDirectionInModelSpace);
-	this->vectorTop = glm::normalize(this->rotationQuat * this->shipTopInModelSpace);
+	this->vectorForward = glm::normalize(this->rotationQuat * this->forwardInModelSpace);
+	this->vectorTop = glm::normalize(this->rotationQuat * this->topInModelSpace);
 
 	this->updateModelMatrix();
-}
-
-glm::mat4 Ship::getModelMatrix()
-{
-	return this->modelMatrix;
-}
-
-obj::Model Ship::getModel()
-{
-	return this->shipModel;
 }
 
 void Ship::updateModelMatrix()
