@@ -3,38 +3,10 @@
 #include "RenderableObject.h"
 #include "Star.h"
 #include "utils/Calculations.h"
+#include "Orbitable.h"
 
-class Planet: public RenderableObject
+class Planet: public Orbitable
 {
-private:
-	/// <summary>
-	/// Star around which this planet orbits.
-	/// </summary>
-	Star* orbitAround = NULL;
-
-	/// <summary>
-	/// Plane in which planet orbits around Star. First vector defining this plane is direction vector pointing from Star's center to Planet's center.
-	/// </summary>
-	glm::vec3 orbitPlane[2];
-
-	/// <summary>
-	/// Axis along which Planet orbits around Star. It is orthogonal to the orbitPlane.
-	/// </summary>
-	glm::vec3 orbitAxis;
-
-	/// <summary>
-	/// Quat used to rotate planet around star.
-	/// </summary>
-	glm::quat orbitQuat;
-
-	float orbitSpeed;
-
-
-	/// <summary>
-	/// Position relative to the Star around which Planet orbits.
-	/// </summary>
-	glm::vec3 posRelativeToStar;
-
 public:
 	/// <summary>
 	/// Creates Planet which will not orbit around any star.
