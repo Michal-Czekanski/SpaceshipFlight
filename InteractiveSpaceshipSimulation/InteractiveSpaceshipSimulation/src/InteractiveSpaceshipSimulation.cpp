@@ -87,7 +87,9 @@ void init()
 	srand(time(0));
 	glEnable(GL_DEPTH_TEST);
 	programColor = shaderLoader.CreateProgram((char*)"shaders/shader_color.vert", (char*)"shaders/shader_color.frag");
-	shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
+	
+	obj::Model shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
+	obj::Model sphereModel = obj::loadModelFromFile("models/sphere.obj");
 
 	ship = new Ship(initialShipPosition, initialShipDirection, initialShipTop, shipSpeed, shipRotationSpeed, shipModel, initialShipRotation, shipTopInModelSpace, shipDirectionInModelSpace);
 	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (CameraAttachable*)ship);

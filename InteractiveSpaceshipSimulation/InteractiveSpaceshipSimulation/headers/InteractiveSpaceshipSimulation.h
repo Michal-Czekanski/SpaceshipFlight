@@ -24,5 +24,3 @@
 GLuint programColor;
 
 Core::Shader_Loader shaderLoader;
-
-obj::Model shipModel;
