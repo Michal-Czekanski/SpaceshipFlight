@@ -44,6 +44,11 @@ void Ship::rotateShip(bool pitchUp, bool pitchDown, bool yawRight, bool yawLeft,
 	this->updateModelMatrix();
 }
 
+void Ship::update()
+{
+	updateModelMatrix();
+}
+
 void Ship::updateModelMatrix()
 {
 	this->modelMatrix = glm::translate(position) * glm::mat4_cast(this->rotationQuat) * glm::scale(this->scale);

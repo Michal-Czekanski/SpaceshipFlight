@@ -40,5 +40,7 @@ public:
 	/// <param name="rollRigt">Rotates right along Z axis.</param>
 	/// <param name="rollLeft">Rotates left along Z axis.</param>
 	void rotateShip(bool pitchUp, bool pitchDown, bool yawRight, bool yawLeft, bool rollRigt, bool rollLeft);
+
+	void update();
 };
 
