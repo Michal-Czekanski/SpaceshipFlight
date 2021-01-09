@@ -9,3 +9,13 @@ RenderableObject::RenderableObject(glm::vec3 position, glm::quat rotationQuat, g
 
 	this->modelMatrix = glm::translate(position) * glm::mat4_cast(rotationQuat);
 }
+
+glm::mat4 RenderableObject::getModelMatrix()
+{
+	return this->modelMatrix;
+}
+
+obj::Model RenderableObject::getModel()
+{
+	return this->model;
+}
