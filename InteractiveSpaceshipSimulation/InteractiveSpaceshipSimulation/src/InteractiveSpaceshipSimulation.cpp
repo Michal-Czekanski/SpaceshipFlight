@@ -68,6 +68,7 @@ void idle()
 
 void renderScene() 
 {
+	Time::update();
 	glm::mat4 cameraMatrix = camera->updateCameraMatrix();
 	glm::mat4 perspectiveMatrix = Core::createPerspectiveMatrix(0.1, 7000.0f);
 
@@ -119,7 +120,7 @@ void init()
 	
 
 	initScene(shipModel, sphereModel, asteroidModel1, ship, camera, renderableObjects, renderableObjectsCount, asteroidFields);
-
+	Time::start();
 }
 
 int main(int argc, char** argv)

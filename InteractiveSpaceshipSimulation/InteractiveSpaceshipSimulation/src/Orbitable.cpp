@@ -30,7 +30,7 @@ void Orbitable::orbit()
 {
 	if (this->orbitAround)
 	{
-		this->orbitQuat = calculateRotationQuatLocalAxises(this->orbitQuat, this->orbitPlane[1], this->orbitAxis, this->orbitPlane[0], 0.0f, this->orbitSpeed, 0.0f);
+		this->orbitQuat = calculateRotationQuatLocalAxises(this->orbitQuat, this->orbitPlane[1], this->orbitAxis, this->orbitPlane[0], 0.0f, this->orbitSpeed * Time::getDeltaTimeSec(), 0.0f);
 		this->posRelativeToOrbitCenter = this->orbitQuat * this->initPosRelativeToOrbitCenter;
 		this->position = this->posRelativeToOrbitCenter + this->orbitAround->getPosition();
 	}

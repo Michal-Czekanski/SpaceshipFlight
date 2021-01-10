@@ -12,27 +12,27 @@ Ship::Ship(glm::vec3 position, glm::vec3 vectorForward, glm::vec3 vectorTop,
 
 void Ship::moveForward()
 {
-	this->position += vectorForward * speed;
+	this->position += vectorForward * speed * Time::getDeltaTimeSec();
 	this->updateModelMatrix();
 }
 
 void Ship::moveBackwards()
 {
-	this->position -= vectorForward * speed;
+	this->position -= vectorForward * speed * Time::getDeltaTimeSec();
 	this->updateModelMatrix();
 }
 
 void Ship::rotateShip(bool pitchUp, bool pitchDown, bool yawRight, bool yawLeft, bool rollRigt, bool rollLeft)
 {
 	float rotationAngleX = 0.0f; float rotationAngleY = 0.0f; float rotationAngleZ = 0.0f;
-	if (pitchUp) { rotationAngleX += rotationSpeed; };
-	if (pitchDown) { rotationAngleX -= rotationSpeed; };
+	if (pitchUp) { rotationAngleX += rotationSpeed * Time::getDeltaTimeSec(); };
+	if (pitchDown) { rotationAngleX -= rotationSpeed * Time::getDeltaTimeSec(); };
 
-	if (yawRight) { rotationAngleY -= rotationSpeed; };
-	if (yawLeft) { rotationAngleY += rotationSpeed; };
+	if (yawRight) { rotationAngleY -= rotationSpeed * Time::getDeltaTimeSec(); };
+	if (yawLeft) { rotationAngleY += rotationSpeed * Time::getDeltaTimeSec(); };
 
-	if (rollRigt) { rotationAngleZ += rotationSpeed; };
-	if (rollLeft) { rotationAngleZ -= rotationSpeed; };
+	if (rollRigt) { rotationAngleZ += rotationSpeed * Time::getDeltaTimeSec(); };
+	if (rollLeft) { rotationAngleZ -= rotationSpeed * Time::getDeltaTimeSec(); };
 
 
 	this->rotationQuat = calculateRotationQuatLocalAxises(this->rotationQuat, this->vectorRight, this->vectorTop, this->vectorForward, rotationAngleX, rotationAngleY, rotationAngleZ);

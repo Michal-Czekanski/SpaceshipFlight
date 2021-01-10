@@ -4,6 +4,7 @@
 #include "ext.hpp"
 #include "utils/objload.h"
 #include "ObjectInSpace.h"
+#include "Time.h"
 
 class RenderableObject: public ObjectInSpace 
 {
