@@ -10,6 +10,6 @@ Asteroid::Asteroid(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorF
 
 void Asteroid::update()
 {
-	this->position += moveDirection * speed * Time::getDeltaTime();
+	this->position += moveDirection * speed * Time::getDeltaTimeSec();
 	this->modelMatrix = glm::translate(this->position) * glm::mat4_cast(this->rotationQuat) * glm::scale(this->scale);
 }

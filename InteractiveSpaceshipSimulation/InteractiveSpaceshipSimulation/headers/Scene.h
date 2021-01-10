@@ -25,9 +25,9 @@ const glm::vec3 initialShipTop = glm::vec3(0, 1, 0);
 
 const glm::quat initialShipRotation;
 
-const float shipSpeed = 0.5f;
+const float shipSpeed = 100.0f;
 
-const float shipRotationSpeed = 0.25f;
+const float shipRotationSpeed = 10.0f;
 
 const glm::vec3 shipDirectionInModelSpace = glm::vec3(0, 0, 1);
 
@@ -69,4 +69,4 @@ void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetS
 void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count, std::vector<obj::Model> asteroidModels, 
 	float generationRadius = 4000.0f, float minAsteroidFieldRadius = 30.0f, float maxAsteroidFieldRadius = 70.0f,
 	float minAsteroidScale = 0.5f, float maxAsteroidScale = 5.0f,
-	float minSpeed = 0.0001f, float maxSpeed = 0.005f, int minAsteroidCount = 30, int maxAsteroidCount = 100);
+	float minSpeed = 0.1f, float maxSpeed = 10.0f, int minAsteroidCount = 30, int maxAsteroidCount = 100);

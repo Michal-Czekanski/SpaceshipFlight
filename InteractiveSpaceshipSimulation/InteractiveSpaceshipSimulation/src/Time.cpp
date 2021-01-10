@@ -4,6 +4,7 @@ long long Time::measureStart;
 long long Time::lastFrameTime;
 long long Time::currentFrameTime;
 long long Time::deltaTime;
+float Time::deltaTimeSec;
 long long Time::gameDuration;
 bool Time::isRunning;
 
@@ -25,8 +26,9 @@ void Time::update()
 	if (isRunning)
 	{
 		Time::lastFrameTime = currentFrameTime;
-		Time::currentFrameTime = duration_cast<milliseconds>(high_resolution_clock::now().time_since_epoch()).count();
+		Time::currentFrameTime = duration_cast<milliseconds>(high_resolution_clock::now().time_since_epoch()).count() - measureStart;
 		Time::deltaTime = currentFrameTime - lastFrameTime;
+		Time::deltaTimeSec = Time::deltaTime / 1000.0f;
 		Time::gameDuration += Time::deltaTime;
 	}
 }
@@ -38,7 +40,7 @@ long long Time::getDeltaTime()
 
 float Time::getDeltaTimeSec()
 {
-	return Time::deltaTime / 1000.0f;
+	return Time::deltaTimeSec;
 }
 
 long long Time::getGameDuration()

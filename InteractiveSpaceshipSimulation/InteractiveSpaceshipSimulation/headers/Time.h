@@ -27,6 +27,12 @@ private:
 	/// </summary>
 	static long long deltaTime;
 
+
+	/// <summary>
+	/// Delta time in seconds.
+	/// </summary>
+	static float deltaTimeSec;
+
 	/// <summary>
 	/// In miliseconds
 	/// </summary>
