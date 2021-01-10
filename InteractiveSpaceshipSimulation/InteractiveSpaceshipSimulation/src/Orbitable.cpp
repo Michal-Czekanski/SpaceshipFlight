@@ -35,3 +35,13 @@ void Orbitable::orbit()
 		this->position = this->posRelativeToOrbitCenter + this->orbitAround->getPosition();
 	}
 }
+
+glm::vec3 Orbitable::getOrbitCenterPos()
+{
+	return this->orbitAround->getPosition();
+}
+
+ObjectInSpace* Orbitable::getOrbitCenter()
+{
+	return this->orbitAround;
+}

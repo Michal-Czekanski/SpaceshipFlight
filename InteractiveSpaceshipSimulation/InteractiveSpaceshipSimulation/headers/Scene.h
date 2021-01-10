@@ -25,7 +25,7 @@ const glm::vec3 initialShipTop = glm::vec3(0, 1, 0);
 
 const glm::quat initialShipRotation;
 
-const float shipSpeed = 100.0f;
+const float shipSpeed = 1000.0f;
 
 const float shipRotationSpeed = 10.0f;
 

@@ -114,7 +114,15 @@ void renderScene()
 		drawPlanetColor(programAsteroidColor, planet, &model, perspectiveMatrix, cameraMatrix, glm::vec3(0.3f, 0.0f, 0.0f));
 	}
 
-	
+	// Render stars
+	for (int i = 0; i < starsCount; i++)
+	{
+		Star* star= stars[i];
+		star->update();
+		obj::Model model = star->getModel();
+		drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, star->getModelMatrix(), glm::vec3(0.980f, 0.450f, 0.0f));
+	}
+
 	if (debugHelpersOn)
 	{
 		renderDebugHelpers(perspectiveMatrix, cameraMatrix);
@@ -216,9 +224,6 @@ void drawAsteroidColor(GLuint asteroidProgram, Asteroid* asteroid, obj::Model* a
 	glm::vec3 camPos = camera->getCamPos();
 	glUniform3f(glGetUniformLocation(asteroidProgram, "cameraPos"), camPos.x, camPos.y, camPos.z);
 
-
-
-
 	Core::DrawModel(asteroidModel);
 
 	glUseProgram(0);
@@ -243,6 +248,19 @@ void drawPlanetColor(GLuint programPlanet, Planet* planet, obj::Model* planetMod
 	glUniform3f(glGetUniformLocation(programPlanet, "objectColor"), color.x, color.y, color.z);
 	glm::vec3 camPos = camera->getCamPos();
 	glUniform3f(glGetUniformLocation(programPlanet, "cameraPos"), camPos.x, camPos.y, camPos.z);
+
+	if (planet->getOrbitCenter())
+	{
+		glUniform3f(glGetUniformLocation(programPlanet, "starPos"), planet->getOrbitCenterPos().x, planet->getOrbitCenterPos().y,
+			planet->getOrbitCenterPos().z);
+
+		glm::vec3 starLightColor = planet->getOrbitCenter()->getLightColor();
+		glUniform3f(glGetUniformLocation(programPlanet, "starLightColor"), starLightColor.x, starLightColor.y,
+			starLightColor.z);
+
+		glUniform1f(glGetUniformLocation(programPlanet, "starLightStrength"), planet->getOrbitCenter()->getLightStrength());
+	}
+	
 
 	Core::DrawModel(planetModel);
 	glUseProgram(0);

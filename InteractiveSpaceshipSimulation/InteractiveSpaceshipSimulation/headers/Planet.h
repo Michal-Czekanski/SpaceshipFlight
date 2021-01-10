@@ -7,6 +7,8 @@
 
 class Planet: public Orbitable
 {
+private:
+	Star* orbitAround;
 public:
 	/// <summary>
 	/// Creates Planet which will not orbit around any star.
@@ -32,5 +34,7 @@ public:
 		glm::vec3 topInModelSpace = glm::vec3(0, 1, 0), glm::vec3 forwardInModelSpace = glm::vec3(0, 0, 1));
 
 	void update();
+
+	Star* getOrbitCenter();
 };
 

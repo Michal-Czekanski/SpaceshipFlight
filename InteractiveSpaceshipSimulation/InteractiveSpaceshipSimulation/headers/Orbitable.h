@@ -50,5 +50,17 @@ public:
 	/// Makes object orbit -> updates it's position based on orbitSpeed.
 	/// </summary>
 	void orbit();
+
+	/// <summary>
+	/// Returns position of object around which this object orbits.
+	/// </summary>
+	/// <returns></returns>
+	glm::vec3 getOrbitCenterPos();
+
+	/// <summary>
+	/// Returns object around which this object orbits.
+	/// </summary>
+	/// <returns></returns>
+	ObjectInSpace* getOrbitCenter();
 };
 
