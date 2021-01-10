@@ -28,6 +28,8 @@ private:
 	glm::quat initCameraRotation;
 
 	const glm::vec3 initCameraLookDir = glm::vec3(0, 0, -1);
+
+	glm::vec3 camPos;
 public:
 	AttachableCamera(float camOffsetMultiplier, float upOffsetMultiplier);
 	AttachableCamera(float camOffsetMultiplier, float upOffsetMultiplier, ObjectInSpace* attachedObject);
@@ -42,5 +44,7 @@ public:
 	/// </summary>
 	/// <returns>Camera matrix.</returns>
 	glm::mat4 getCameraMatrix();
+
+	glm::vec3 getCamPos();
 };
 

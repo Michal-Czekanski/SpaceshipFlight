@@ -11,6 +11,8 @@ AttachableCamera::AttachableCamera(float camOffsetMultiplier, float upOffsetMult
 {
 	this->camOffsetMultiplier = camOffsetMultiplier;
 	this->upOffsetMultiplier = upOffsetMultiplier;
+	this->camPos = glm::vec3(0, 0, 0);
+	this->attachedObject = NULL;
 }
 
 AttachableCamera::AttachableCamera(float camOffsetMultiplier, float upOffsetMultiplier, ObjectInSpace* attachedObject)
@@ -24,13 +26,18 @@ AttachableCamera::AttachableCamera(float camOffsetMultiplier, float upOffsetMult
 
 glm::mat4 AttachableCamera::updateCameraMatrix()
 {
-	glm::vec3 camPos = this->attachedObject->getPosition() - this->calculateCamOffset();
-	this->cameraMatrix = Core::createViewMatrixQuat(camPos, this->initCameraRotation * glm::inverse(this->attachedObject->getRotationQuat()));
+	this->camPos = this->attachedObject->getPosition() - this->calculateCamOffset();
+	this->cameraMatrix = Core::createViewMatrixQuat(this->camPos, this->initCameraRotation * glm::inverse(this->attachedObject->getRotationQuat()));
 	return this->cameraMatrix;
 }
 
 glm::mat4 AttachableCamera::getCameraMatrix()
 {
 	return this->cameraMatrix;
+}
+
+glm::vec3 AttachableCamera::getCamPos()
+{
+	return this->camPos;
 }
 
