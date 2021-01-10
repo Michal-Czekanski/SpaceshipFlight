@@ -1,7 +1,10 @@
 #include "../headers/Scene.h"
 
-void initScene(obj::Model& shipModel, obj::Model& sphereModel, obj::Model& asteroidModel, Ship*& ship, AttachableCamera*& camera, std::vector<RenderableObject*>& renderableObjects, 
-	int& renderableObjectsCount, std::vector<AsteroidField*>& asteroidFields, std::vector<Planet*>& planets, int& planetsCount, std::vector<Star*>& stars, int& starsCount)
+void initScene(obj::Model& shipModel, obj::Model& sphereModel, obj::Model& asteroidModel, Ship*& ship, 
+	AttachableCamera*& camera, std::vector<RenderableObject*>& renderableObjects, 
+	int& renderableObjectsCount, std::vector<AsteroidField*>& asteroidFields, 
+	std::vector<Planet*>& planets, int& planetsCount, std::vector<Star*>& stars, int& starsCount,
+	std::vector<Moon*>& moons, int& moonsCount)
 {
 	float star1Scale = 700.0f;
 
@@ -24,7 +27,8 @@ void initScene(obj::Model& shipModel, obj::Model& sphereModel, obj::Model& aster
 	renderableObjects.push_back((RenderableObject*)ship); renderableObjectsCount++;
 	planets.push_back(startingPlanet); planetsCount++;
 	stars.push_back(star1); starsCount++;
-	renderableObjects.push_back((RenderableObject*)moon); renderableObjectsCount++;
+	//renderableObjects.push_back((RenderableObject*)moon); renderableObjectsCount++;
+	moons.push_back(moon); moonsCount++;
 	stars.push_back(star2); starsCount++;
 	stars.push_back(star3); starsCount++;
 
