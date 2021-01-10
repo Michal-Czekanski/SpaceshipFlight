@@ -163,6 +163,7 @@
     <ClCompile Include="src\utils\Shader_Loader.cpp" />
     <ClCompile Include="src\utils\Texture.cpp" />
     <ClCompile Include="src\Star.cpp" />
+    <ClCompile Include="src\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\AsteroidField.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="headers\Star.h" />
     <ClInclude Include="headers\Orbitable.h" />
     <ClInclude Include="headers\Moon.h" />
+    <ClInclude Include="headers\Time.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
