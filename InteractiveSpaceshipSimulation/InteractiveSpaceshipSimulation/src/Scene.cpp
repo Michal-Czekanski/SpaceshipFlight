@@ -38,7 +38,7 @@ void initScene(obj::Model& shipModel, obj::Model& sphereModel, obj::Model& aster
 	AsteroidField* asteroidField1 = new AsteroidField(20, 30.0f, 1.0f, 1.0f, 7.0f, ship->getPosition() + glm::vec3(4.0f, 3.0f, 25.0f), glm::vec3(0, 0.1f, 1.0f), asteroidModels);
 	asteroidFields.push_back(asteroidField1);
 
-	//generateRandomAsteroidFields(asteroidFields, 20, asteroidModels);
+	generateRandomAsteroidFields(asteroidFields, 5, asteroidModels);
 }
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float minPlanetOrbitSpeed, float maxPlanetOrbitSpeed,
