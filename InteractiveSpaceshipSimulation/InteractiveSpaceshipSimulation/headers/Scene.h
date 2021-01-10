@@ -46,10 +46,13 @@ const float camUpOffsetMultiplier = 0.5f;
 const glm::vec3 shipScale = glm::vec3(0.6f);
 
 void initScene(obj::Model& shipModel, obj::Model& sphereModel, obj::Model& asteroidModel, Ship*& ship, AttachableCamera*& camera, std::vector<RenderableObject*>& renderableObjects,
-	int& renderableObjectsCount, std::vector<AsteroidField*> &asteroidFields);
+	int& renderableObjectsCount, std::vector<AsteroidField*> &asteroidFields, std::vector<Planet*>& planets, int &planetsCount, std::vector<Star*>& stars, int &starsCount);
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
 	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, obj::Model& planetModel);
+
+void generateRandomPlanetsForStar(Star* star, int howManyPlanetsGenerate, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
+	std::vector<Planet*>& planets, int& gamePlanetsCounter, obj::Model& planetModel);
 
 /// <summary>
 /// Generates asteroid fields randomly across world space.
