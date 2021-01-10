@@ -29,3 +29,14 @@ glm::vec3 ObjectInSpace::getVectorTop()
 {
     return this->vectorTop;
 }
+
+void ObjectInSpace::setPosition(glm::vec3 newPosition)
+{
+    this->position = newPosition;
+}
+
+void ObjectInSpace::setRottaionQuat(glm::quat newRotation)
+{
+    this->rotationQuat = newRotation;
+    this->rotationMat = glm::mat4_cast(newRotation);
+}

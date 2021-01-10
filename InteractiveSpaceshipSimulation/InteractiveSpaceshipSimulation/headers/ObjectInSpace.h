@@ -20,5 +20,9 @@ public:
 	glm::quat getRotationQuat();
 	glm::vec3 getVectorForward();
 	glm::vec3 getVectorTop();
+
+	void setPosition(glm::vec3 newPosition);
+	void setRottaionQuat(glm::quat newRotation);
+
 };
 
