@@ -16,7 +16,6 @@ uniform vec3 starLightColor;
 
 in vec3 interpNormal;
 in vec3 fragPos;
-in int pointInShipLightRange;
 
 
 out vec4 fragColor;
@@ -25,11 +24,13 @@ float ambientLightIntensity = 0.2;
 
 int brilliancy = 10;
 
-float maxAttentuationDist = 10.f; // Distance from light source at which light is at maximum intensity
+uniform float shipLightStr = 10.0f;
+float maxAttentuationShipDist = shipLightStr; // Distance from light source at which light is at maximum intensity
 
-uniform float starLightStrength;
-float maxAttentuationStarDist = 3000.0f;
+uniform float starLightStr = 3000.0f;
+float maxAttentuationStarDist = starLightStr;
 
+// --- Func defs --- ///
 bool isPointInShipLightRange(vec3 point, vec3 shipPos, vec3 shipDirection, float shipLightConeHeight, float shipLightConeRadius)
 {
 	float cone_dist = dot(point - shipPos, shipDirection); //  project point onto shipDirection to find the point's distance along the shipDirection axis from shipPosition
@@ -76,6 +77,7 @@ vec3 calculateSpecularColor(float intensity, vec3 color)
 	return intensity * color;
 }
 
+// --- main --- ///
 void main()
 {
 	vec3 normal = normalize(interpNormal);
@@ -89,7 +91,7 @@ void main()
 	// Light from ship
 	if(isPointInShipLightRange(fragPos, shipPos, shipDirection, shipLightConeHeight, shipLightConeRadius))
 	{
-		float shipLightAttentuation = calculateAttentuation(shipPos, fragPos, maxAttentuationDist);
+		float shipLightAttentuation = calculateAttentuation(shipPos, fragPos, maxAttentuationShipDist);
 		diffuseColor += shipLightAttentuation * calculateDiffuseColor(calculateDiffuseIntensity(normal, shipLightDir), objectColor);
 		specularColor += shipLightAttentuation * calculateSpecularColor(calculateSpecularIntensity(cameraPos, fragPos, shipLightDir, normal, brilliancy), shipLightColor);
 	}
