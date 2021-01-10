@@ -20,6 +20,8 @@ float ambientLightIntensity = 0.2;
 
 int brilliancy = 10;
 
+float maxAttentuationDist = 10.f;
+
 
 bool isPointInShipLightRange(vec3 point, vec3 shipPos, vec3 shipDirection, float shipLightConeHeight, float shipLightConeRadius)
 {
@@ -37,6 +39,12 @@ bool isPointInShipLightRange(vec3 point, vec3 shipPos, vec3 shipDirection, float
 	return is_point_inside_cone;
 }
 
+float calculateAttentuation(vec3 lightPos, vec3 fragPos, float maxAttentuationDist)
+{
+	vec3 toLight = lightPos - fragPos;
+	float distFromL = length(toLight);
+	return clamp(maxAttentuationDist / distFromL, 0.0, 1.0);
+}
 
 float calculateDiffuse(vec3 normal, vec3 lightDir)
 {
@@ -66,7 +74,7 @@ void main()
 
 	if(isPointInShipLightRange(fragPos, shipPos, shipDirection, shipLightConeHeight, shipLightConeRadius))
 	{
-		fragColor.rgb = phongLight(cameraPos, fragPos, shipLightDir, normal, brilliancy, objectColor, ambientLightIntensity);
+		fragColor.rgb = calculateAttentuation(shipPos, fragPos, maxAttentuationDist) * phongLight(cameraPos, fragPos, shipLightDir, normal, brilliancy, objectColor, ambientLightIntensity);
 		fragColor.a = 1.0;
 	}
 	else
