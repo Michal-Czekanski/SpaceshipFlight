@@ -24,6 +24,8 @@ private:
 
 	void updateModelMatrix();
 
+	glm::vec3 lightColor;
+
 public:
 	/// <summary>
 	/// Creates ship which has front light.
@@ -40,11 +42,12 @@ public:
 	/// <param name="scale">- Used to scale ship.</param>
 	/// <param name="lightConeHeight">- Ship's front light emits light as a cone. Specifies how far light will travel.</param>
 	/// <param name="lightConeRadius">- Ship's front light emits light as a cone.</param>
+	/// <param name="lightColor">- Ship's light color. </param>
 	Ship(glm::vec3 position, glm::vec3 vectorForward, glm::vec3 vectorTop,
 		float shipSpeed, float rotationSpeed,
 		obj::Model shipModel, glm::quat rotationQuat,
 		glm::vec3 shipTopInModelSpace, glm::vec3 shipDirectionInModelSpace, glm::vec3 scale,
-		float lightConeHeight = 30.0f, float lightConeRadius = 10.0f);
+		float lightConeHeight = 30.0f, float lightConeRadius = 10.0f, glm::vec3 lightColor = glm::vec3(0.980f, 0.976f, 0.917f));
 
 	/// <summary>
 	/// Moves ship forward based on ship speed -> updates ship's model matrix.
@@ -72,5 +75,7 @@ public:
 	float getLightConeHeight();
 
 	float getLightConeBaseRadius();
+
+	glm::vec3 getLightColor();
 };
 

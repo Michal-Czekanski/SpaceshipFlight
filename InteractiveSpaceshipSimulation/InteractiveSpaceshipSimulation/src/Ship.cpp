@@ -4,7 +4,7 @@ Ship::Ship(glm::vec3 position, glm::vec3 vectorForward, glm::vec3 vectorTop,
 	float shipSpeed, float rotationSpeed,
 	obj::Model shipModel, glm::quat rotationQuat,
 	glm::vec3 shipTopInModelSpace, glm::vec3 shipDirectionInModelSpace, glm::vec3 scale,
-	float lightConeHeight, float lightConeRadius):
+	float lightConeHeight, float lightConeRadius, glm::vec3 lightColor):
 	RenderableObject(position, rotationQuat, vectorForward, vectorTop, shipModel, shipTopInModelSpace, shipDirectionInModelSpace, scale)
 {
 	this->speed = shipSpeed;
@@ -12,6 +12,8 @@ Ship::Ship(glm::vec3 position, glm::vec3 vectorForward, glm::vec3 vectorTop,
 
 	this->lightConeHeight = lightConeHeight;
 	this->lightConeBaseRadius = lightConeRadius;
+
+	this->lightColor = lightColor;
 }
 
 void Ship::moveForward()
@@ -62,6 +64,11 @@ float Ship::getLightConeHeight()
 float Ship::getLightConeBaseRadius()
 {
 	return this->lightConeBaseRadius;
+}
+
+glm::vec3 Ship::getLightColor()
+{
+	return this->lightColor;
 }
 
 void Ship::updateModelMatrix()
