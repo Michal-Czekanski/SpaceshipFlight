@@ -11,15 +11,27 @@ AttachableCamera* camera = NULL;
 Planet* planet = NULL;
 Star* star = NULL;
 
+Planet* helperShipDirectionLine = NULL;
+float helperShipDirectionLineLength;
+Planet* helperShipLightConeEndPoint = NULL;
+Planet* helperShipLightConeRadius = NULL;
+
+
 void keyboard(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
+		case'\x1b':
+			glutLeaveMainLoop();
+			break;
 		case 'w': 
 			ship->moveForward();
 			break;
 		case 's': 
 			ship->moveBackwards();
+			break;
+		case'b':
+			debugHelpersOn = !debugHelpersOn;
 			break;
 
 		// test rotation, later should be with mouse
@@ -105,7 +117,32 @@ void renderScene()
 		}
 	}
 
+	
+	if (debugHelpersOn)
+	{
+		renderDebugHelpers(perspectiveMatrix, cameraMatrix);
+	}
+
+
 	glutSwapBuffers();
+}
+
+void renderDebugHelpers(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix)
+{
+	helperShipDirectionLine->setPosition(ship->getPosition());
+	helperShipDirectionLine->setRottaionQuat(ship->getRotationQuat());
+	helperShipDirectionLine->update();
+	obj::Model model = helperShipDirectionLine->getModel();
+	drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipDirectionLine->getModelMatrix(), glm::vec3(0, 1, 0));
+
+	helperShipLightConeEndPoint->setPosition(ship->getPosition() + ship->getVectorForward() * helperShipDirectionLineLength);
+	helperShipLightConeEndPoint->setRottaionQuat(ship->getRotationQuat());
+	helperShipLightConeEndPoint->update();
+	drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeEndPoint->getModelMatrix(), glm::vec3(0, 1, 0));
+
+	helperShipLightConeRadius->setPosition(helperShipLightConeEndPoint->getPosition() + ship->getLightConeBaseRadius() * ship->getVectorTop());
+	helperShipLightConeRadius->update();
+	drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeRadius->getModelMatrix(), glm::vec3(1, 1, 0));
 }
 
 void shutdown()
@@ -129,6 +166,9 @@ void init()
 	
 
 	initScene(shipModel, sphereModel, asteroidModel1, ship, camera, renderableObjects, renderableObjectsCount, asteroidFields);
+
+	initDebugHelpers(sphereModel);
+
 	Time::start();
 }
 
@@ -157,15 +197,46 @@ void drawAsteroidColor(GLuint asteroidProgram, Asteroid* asteroid, obj::Model* a
 {
 	glUseProgram(asteroidProgram);
 
-	glUniform3f(glGetUniformLocation(asteroidProgram, "objectColor"), color.x, color.y, color.z);
-	glUniform3f(glGetUniformLocation(asteroidProgram, "lightDir"), lightDir.x, lightDir.y, lightDir.z);
-
-	glUniformMatrix4fv(glGetUniformLocation(asteroidProgram, "perspectiveMatrix"), 1, GL_FALSE, (float*)&perspectiveMatrix);
-	glUniformMatrix4fv(glGetUniformLocation(asteroidProgram, "cameraMatrix"), 1, GL_FALSE, (float*)&cameraMatrix);
 	glm::mat4 modelMatrix = asteroid->getModelMatrix();
 	glUniformMatrix4fv(glGetUniformLocation(asteroidProgram, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
+	glm::mat4 modelViewProjectionMatrix = perspectiveMatrix * cameraMatrix * modelMatrix;
+	glUniformMatrix4fv(glGetUniformLocation(asteroidProgram, "modelViewProjectionMatrix"), 1, GL_FALSE, (float*)&modelViewProjectionMatrix);
+
+
+	glm::vec3 shipPosition = ship->getPosition();
+	glUniform3f(glGetUniformLocation(asteroidProgram, "shipPos"), shipPosition.x, shipPosition.y, shipPosition.z);
+	glm::vec3 shipDirection = ship->getVectorForward();
+	glUniform3f(glGetUniformLocation(asteroidProgram, "shipDirection"), shipDirection.x, shipDirection.y, shipDirection.z);
+	glUniform1f(glGetUniformLocation(asteroidProgram, "shipLightConeHeight"), ship->getLightConeHeight());
+	glUniform1f(glGetUniformLocation(asteroidProgram, "shipLightConeRadius"), ship->getLightConeBaseRadius());
+
+	glUniform3f(glGetUniformLocation(asteroidProgram, "asteroidPos"), asteroid->getPosition().x, asteroid->getPosition().y, asteroid->getPosition().z); // REMOVE LATER
+
+
+	glUniform3f(glGetUniformLocation(asteroidProgram, "objectColor"), color.x, color.y, color.z);
+
+	glm::vec3 camPos = camera->getCamPos();
+	glUniform3f(glGetUniformLocation(asteroidProgram, "cameraPos"), camPos.x, camPos.y, camPos.z);
+
+
+
 
 	Core::DrawModel(asteroidModel);
 
 	glUseProgram(0);
+}
+
+void initDebugHelpers(obj::Model sphereModel)
+{
+	helperShipDirectionLineLength = ship->getLightConeHeight();
+	helperShipDirectionLine = new Planet(ship->getPosition(), ship->getRotationQuat(), ship->getVectorForward(), ship->getVectorTop(), sphereModel, glm::vec3(0, 1, 0),
+		glm::vec3(0, 0, 1), glm::vec3(0.1f, 0.1f, helperShipDirectionLineLength * 2));
+
+	helperShipLightConeEndPoint = new Planet(ship->getPosition() + ship->getVectorForward() * helperShipDirectionLineLength,
+		ship->getRotationQuat(), ship->getVectorForward(), ship->getVectorTop(), sphereModel, glm::vec3(0, 1, 0),
+		glm::vec3(0, 0, 1), glm::vec3(1.0f, 1.0f, 1.0f));
+
+	helperShipLightConeRadius = new Planet(helperShipLightConeEndPoint->getPosition() + ship->getLightConeBaseRadius() * ship->getVectorTop(),
+		ship->getRotationQuat(), ship->getVectorForward(), ship->getVectorTop(), sphereModel, glm::vec3(0, 1, 0),
+		glm::vec3(0, 0, 1), glm::vec3(1.0f, 1.0f, 1.0f));
 }
