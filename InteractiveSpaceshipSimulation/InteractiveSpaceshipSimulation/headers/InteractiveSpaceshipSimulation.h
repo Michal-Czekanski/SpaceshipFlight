@@ -17,7 +17,11 @@
 
 
 GLuint programColor;
+/// <summary>
+/// Used to draw planets, asteroids, moons.
+/// </summary>
 GLuint programColor2;
+GLuint programStar;
 
 Core::Shader_Loader shaderLoader;
 
@@ -46,6 +50,12 @@ void drawObjectColor(GLuint program, obj::Model* model, glm::mat4 perspectiveMat
 /// <param name="stars">Stars that emit light.</param>
 void drawObjectColor(GLuint program, RenderableObject* object, obj::Model* model, glm::mat4 perspectiveMatrix, 
 	glm::mat4 cameraMatrix, glm::vec3 color, std::vector<Star*>& stars);
+
+/// <summary>
+/// Draws star with given color.
+/// </summary>
+void drawStarColor(GLuint program, Star* star, obj::Model* model, glm::mat4 perspectiveMatrix,
+	glm::mat4 cameraMatrix, glm::vec3 color);
 
 void initDebugHelpers(obj::Model sphereModel);
 

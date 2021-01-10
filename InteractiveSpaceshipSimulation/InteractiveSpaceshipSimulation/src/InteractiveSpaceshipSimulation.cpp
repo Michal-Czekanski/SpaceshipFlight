@@ -120,7 +120,7 @@ void renderScene()
 		Star* star= stars[i];
 		star->update();
 		obj::Model model = star->getModel();
-		drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, star->getModelMatrix(), glm::vec3(0.980f, 0.450f, 0.0f));
+		drawStarColor(programStar, star, &model, perspectiveMatrix, cameraMatrix, glm::vec3(0.980f, 0.450f, 0.0f));
 	}
 
 	// Render moons
@@ -172,6 +172,7 @@ void init()
 	glEnable(GL_DEPTH_TEST);
 	programColor = shaderLoader.CreateProgram((char*)"shaders/shader_color.vert", (char*)"shaders/shader_color.frag");
 	programColor2 = shaderLoader.CreateProgram((char*)"shaders/shader_color2.vert", (char*)"shaders/shader_color2.frag");
+	programStar = shaderLoader.CreateProgram((char*)"shaders/shader_star.vert", (char*)"shaders/shader_star.frag");
 
 	obj::Model shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
 	obj::Model sphereModel = obj::loadModelFromFile("models/sphere.obj");
@@ -280,6 +281,24 @@ void drawObjectColor(GLuint program, RenderableObject* object, obj::Model* model
 	glUseProgram(0);
 }
 
+
+void drawStarColor(GLuint program, Star* star, obj::Model* model, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::vec3 color)
+{
+	glUseProgram(program);
+
+	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
+	glm::vec3 starPos = star->getPosition();
+	glUniform3f(glGetUniformLocation(program, "starPos"), starPos.x, starPos.y, starPos.z);
+
+	glm::mat4 modelMatrix = star->getModelMatrix();
+	glm::mat4 transformation = perspectiveMatrix * cameraMatrix * modelMatrix;
+	glUniformMatrix4fv(glGetUniformLocation(program, "modelViewProjectionMatrix"), 1, GL_FALSE, (float*)&transformation);
+	glUniformMatrix4fv(glGetUniformLocation(program, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
+
+	Core::DrawModel(model);
+
+	glUseProgram(0);
+}
 
 void initDebugHelpers(obj::Model sphereModel)
 {
