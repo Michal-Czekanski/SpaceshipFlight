@@ -47,7 +47,7 @@ public:
 		float shipSpeed, float rotationSpeed,
 		obj::Model shipModel, glm::quat rotationQuat,
 		glm::vec3 shipTopInModelSpace, glm::vec3 shipDirectionInModelSpace, glm::vec3 scale,
-		float lightConeHeight = 30.0f, float lightConeRadius = 10.0f, glm::vec3 lightColor = glm::vec3(0.980f, 0.976f, 0.917f));
+		float lightConeHeight = 150.0f, float lightConeRadius = 40.0f, glm::vec3 lightColor = glm::vec3(0.980f, 0.976f, 0.917f));
 
 	/// <summary>
 	/// Moves ship forward based on ship speed -> updates ship's model matrix.

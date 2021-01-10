@@ -11,14 +11,14 @@ uniform vec3 shipDirection;
 uniform float shipLightConeHeight;
 uniform float shipLightConeRadius;
 uniform vec3 shipLightColor;
-uniform float shipLightStr = 10.0f;
+uniform float shipLightStr = 50.0f;
 
 const int starsCount = 3;
 uniform vec3[starsCount] starsPos;
 uniform float[starsCount] starsLightStr;
 uniform vec3[starsCount] starsLightCol;
 
-const float ambientLightIntensity = 0.2;
+const float ambientLightIntensity = 0.01;
 const int brilliancy = 10;
 
 out vec4 fragColor;
@@ -43,7 +43,7 @@ float calculateAttentuation(vec3 lightPos, vec3 fragPos, float maxAttentuationDi
 {
 	vec3 toLight = lightPos - fragPos;
 	float distFromL = length(toLight);
-	return clamp(maxAttentuationDist / distFromL, 0.0, 1.0);
+	return clamp(maxAttentuationDist / (distFromL*distFromL), 0.0, 1.0);
 }
 
 float calculateDiffuseIntensity(vec3 normal, vec3 lightDir)
