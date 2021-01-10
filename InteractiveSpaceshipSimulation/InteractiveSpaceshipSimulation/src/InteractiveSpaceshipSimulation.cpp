@@ -111,7 +111,7 @@ void renderScene()
 		Planet* planet = planets[i];
 		planet->update();
 		obj::Model model = planet->getModel();
-		drawPlanetColor(programAsteroidColor, planet, &model, perspectiveMatrix, cameraMatrix, glm::vec3(0.3f, 0.0f, 0.0f));
+		drawPlanetColor(programAsteroidColor, planet, &model, perspectiveMatrix, cameraMatrix, glm::vec3(0.3f, 0.0f, 0.0f), stars);
 	}
 
 	// Render stars
@@ -214,11 +214,6 @@ void drawAsteroidColor(GLuint asteroidProgram, Asteroid* asteroid, obj::Model* a
 	glUniform1f(glGetUniformLocation(asteroidProgram, "shipLightConeHeight"), ship->getLightConeHeight());
 	glUniform1f(glGetUniformLocation(asteroidProgram, "shipLightConeRadius"), ship->getLightConeBaseRadius());
 	glUniform3f(glGetUniformLocation(asteroidProgram, "shipLightColor"), ship->getLightColor().x, ship->getLightColor().y, ship->getLightColor().z);
-
-
-	glUniform3f(glGetUniformLocation(asteroidProgram, "asteroidPos"), asteroid->getPosition().x, asteroid->getPosition().y, asteroid->getPosition().z); // REMOVE LATER
-
-
 	glUniform3f(glGetUniformLocation(asteroidProgram, "objectColor"), color.x, color.y, color.z);
 
 	glm::vec3 camPos = camera->getCamPos();
@@ -229,7 +224,8 @@ void drawAsteroidColor(GLuint asteroidProgram, Asteroid* asteroid, obj::Model* a
 	glUseProgram(0);
 }
 
-void drawPlanetColor(GLuint programPlanet, Planet* planet, obj::Model* planetModel, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::vec3 color)
+void drawPlanetColor(GLuint programPlanet, Planet* planet, obj::Model* planetModel, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::vec3 color,
+	std::vector<Star*> &stars)
 {
 	glUseProgram(programPlanet);
 
@@ -244,23 +240,31 @@ void drawPlanetColor(GLuint programPlanet, Planet* planet, obj::Model* planetMod
 	glUniform1f(glGetUniformLocation(programPlanet, "shipLightConeHeight"), ship->getLightConeHeight());
 	glUniform1f(glGetUniformLocation(programPlanet, "shipLightConeRadius"), ship->getLightConeBaseRadius());
 	glUniform3f(glGetUniformLocation(programPlanet, "shipLightColor"), ship->getLightColor().x, ship->getLightColor().y, ship->getLightColor().z);
-	glUniform3f(glGetUniformLocation(programPlanet, "asteroidPos"), planet->getPosition().x, planet->getPosition().y, planet->getPosition().z); // REMOVE LATER
 	glUniform3f(glGetUniformLocation(programPlanet, "objectColor"), color.x, color.y, color.z);
 	glm::vec3 camPos = camera->getCamPos();
 	glUniform3f(glGetUniformLocation(programPlanet, "cameraPos"), camPos.x, camPos.y, camPos.z);
 
-	if (planet->getOrbitCenter())
-	{
-		glUniform3f(glGetUniformLocation(programPlanet, "starPos"), planet->getOrbitCenterPos().x, planet->getOrbitCenterPos().y,
-			planet->getOrbitCenterPos().z);
-
-		glm::vec3 starLightColor = planet->getOrbitCenter()->getLightColor();
-		glUniform3f(glGetUniformLocation(programPlanet, "starLightColor"), starLightColor.x, starLightColor.y,
-			starLightColor.z);
-
-		glUniform1f(glGetUniformLocation(programPlanet, "starLightStrength"), planet->getOrbitCenter()->getLightStrength());
-	}
 	
+	std::vector<glm::vec3> starsPos;
+	for (int i = 0; i < stars.size(); i++)
+	{
+		starsPos.push_back(stars[i]->getPosition());
+	}
+	glUniform3fv(glGetUniformLocation(programPlanet, "starsPos"), stars.size(), reinterpret_cast<GLfloat*>(starsPos.data()));
+
+	std::vector<float> starsLightStr;
+	for (int i = 0; i < stars.size(); i++)
+	{
+		starsLightStr.push_back(stars[i]->getLightStrength());
+	}
+	glUniform1fv(glGetUniformLocation(programPlanet, "starsLightStr"), stars.size(), reinterpret_cast<GLfloat*>(starsLightStr.data()));
+	
+	std::vector<glm::vec3> starsLightCol;
+	for (int i = 0; i < stars.size(); i++)
+	{
+		starsLightCol.push_back(stars[i]->getLightColor());
+	}
+	glUniform3fv(glGetUniformLocation(programPlanet, "starsLightCol"), stars.size(), reinterpret_cast<GLfloat*>(starsLightCol.data()));
 
 	Core::DrawModel(planetModel);
 	glUseProgram(0);

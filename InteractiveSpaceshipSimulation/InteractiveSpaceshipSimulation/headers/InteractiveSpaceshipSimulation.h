@@ -41,7 +41,8 @@ void drawAsteroidColor(GLuint asteroidProgram, Asteroid* asteroid, obj::Model *a
 /// <param name="perspectiveMatrix"></param>
 /// <param name="cameraMatrix"></param>
 /// <param name="color"></param>
-void drawPlanetColor(GLuint programPlanet, Planet* planet, obj::Model* planetModel, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::vec3 color);
+void drawPlanetColor(GLuint programPlanet, Planet* planet, obj::Model* planetModel, glm::mat4 perspectiveMatrix, 
+	glm::mat4 cameraMatrix, glm::vec3 color, std::vector<Star*>& stars);
 
 void initDebugHelpers(obj::Model sphereModel);
 
