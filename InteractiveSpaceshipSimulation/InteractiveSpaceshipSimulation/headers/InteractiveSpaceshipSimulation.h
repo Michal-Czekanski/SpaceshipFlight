@@ -17,7 +17,10 @@
 
 
 GLuint programColor;
+GLuint programAsteroidColor;
 
 Core::Shader_Loader shaderLoader;
 
 std::vector<AsteroidField*> asteroidFields;
+
+void drawAsteroidColor(GLuint asteroidProgram, Asteroid* asteroid, obj::Model *asteroidModel, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::vec3 color);

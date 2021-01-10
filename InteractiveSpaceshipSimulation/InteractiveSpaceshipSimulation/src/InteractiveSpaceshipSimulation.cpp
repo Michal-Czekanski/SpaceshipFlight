@@ -81,7 +81,15 @@ void renderScene()
 		RenderableObject* renderableObject = renderableObjects[i];
 		renderableObject->update();
 		obj::Model model = renderableObject->getModel();
-		drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, renderableObject->getModelMatrix(), glm::vec3(0.6f));
+		if (typeid(renderableObject) != typeid(Asteroid*))
+		{
+			drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, renderableObject->getModelMatrix(), glm::vec3(0.6f));
+		}
+		else 
+		{
+			drawAsteroidColor(programAsteroidColor, (Asteroid*)renderableObject, &model, perspectiveMatrix, cameraMatrix, glm::vec3(0.3f));
+		}
+		
 	}
 
 	// Render asteroid fields
@@ -93,7 +101,7 @@ void renderScene()
 		{
 			asteroids[j]->update();
 			obj::Model model = asteroids[j]->getModel();
-			drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, asteroids[j]->getModelMatrix(), glm::vec3(0.6f));
+			drawAsteroidColor(programAsteroidColor, asteroids[j], &model, perspectiveMatrix, cameraMatrix, glm::vec3(0.3f));
 		}
 	}
 
@@ -112,6 +120,7 @@ void init()
 	srand(time(0));
 	glEnable(GL_DEPTH_TEST);
 	programColor = shaderLoader.CreateProgram((char*)"shaders/shader_color.vert", (char*)"shaders/shader_color.frag");
+	programAsteroidColor = shaderLoader.CreateProgram((char*)"shaders/shader_asteroid.vert", (char*)"shaders/shader_asteroid.frag");
 	
 	obj::Model shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
 	obj::Model sphereModel = obj::loadModelFromFile("models/sphere.obj");
@@ -142,4 +151,21 @@ int main(int argc, char** argv)
 	shutdown();
 
 	return 0;
+}
+
+void drawAsteroidColor(GLuint asteroidProgram, Asteroid* asteroid, obj::Model* asteroidModel, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::vec3 color)
+{
+	glUseProgram(asteroidProgram);
+
+	glUniform3f(glGetUniformLocation(asteroidProgram, "objectColor"), color.x, color.y, color.z);
+	glUniform3f(glGetUniformLocation(asteroidProgram, "lightDir"), lightDir.x, lightDir.y, lightDir.z);
+
+	glUniformMatrix4fv(glGetUniformLocation(asteroidProgram, "perspectiveMatrix"), 1, GL_FALSE, (float*)&perspectiveMatrix);
+	glUniformMatrix4fv(glGetUniformLocation(asteroidProgram, "cameraMatrix"), 1, GL_FALSE, (float*)&cameraMatrix);
+	glm::mat4 modelMatrix = asteroid->getModelMatrix();
+	glUniformMatrix4fv(glGetUniformLocation(asteroidProgram, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
+
+	Core::DrawModel(asteroidModel);
+
+	glUseProgram(0);
 }
