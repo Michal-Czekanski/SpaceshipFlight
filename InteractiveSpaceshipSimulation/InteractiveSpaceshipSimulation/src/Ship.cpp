@@ -11,7 +11,7 @@ Ship::Ship(glm::vec3 position, glm::vec3 vectorForward, glm::vec3 vectorTop,
 	this->rotationSpeed = rotationSpeed;
 
 	this->lightConeHeight = lightConeHeight;
-	this->lightConeBaseRadius = lightConeBaseRadius;
+	this->lightConeBaseRadius = lightConeRadius;
 }
 
 void Ship::moveForward()
