@@ -16,6 +16,11 @@ in int pointInShipLightRange;
 
 out vec4 fragColor;
 
+float ambientLightIntensity = 0.2;
+
+int brilliancy = 10;
+
+
 bool isPointInShipLightRange(vec3 point, vec3 shipPos, vec3 shipDirection, float shipLightConeHeight, float shipLightConeRadius)
 {
 	float cone_dist = dot(point - shipPos, shipDirection); //  project point onto shipDirection to find the point's distance along the shipDirection axis from shipPosition
@@ -32,24 +37,40 @@ bool isPointInShipLightRange(vec3 point, vec3 shipPos, vec3 shipDirection, float
 	return is_point_inside_cone;
 }
 
+
+float calculateDiffuse(vec3 normal, vec3 lightDir)
+{
+	return max(dot(normal, -lightDir), 0);
+}
+
+float calculateSpecular(vec3 cameraPos, vec3 fragPos, vec3 lightDir, vec3 normal, int brilliancy)
+{
+	vec3 viewDirection = normalize(cameraPos - fragPos);
+	vec3 reflectedLightDir = reflect(-lightDir, normal);
+
+	return pow(max(0, dot(reflectedLightDir, viewDirection)), brilliancy);
+}
+
+vec3 phongLight(vec3 cameraPos, vec3 fragPos, vec3 lightDir, vec3 normal, int brilliancy, vec3 objectColor, float ambientLightIntensity)
+{
+	float diffusedLightIntensity = calculateDiffuse(normal, lightDir);
+
+	float specularLightIntensity = calculateSpecular(cameraPos, fragPos, lightDir, normal, brilliancy);
+	return mix(objectColor, objectColor * diffusedLightIntensity + vec3(1) * specularLightIntensity, 1.0 - ambientLightIntensity);
+}
+
 void main()
 {
-	vec3 lightDir = normalize(fragPos-shipPos);
+	vec3 shipLightDir = normalize(fragPos-shipPos);
 	vec3 normal = normalize(interpNormal);
-	float diffuse = max(dot(normal, -lightDir), 0.0);
 
 	if(isPointInShipLightRange(fragPos, shipPos, shipDirection, shipLightConeHeight, shipLightConeRadius))
 	{
-		vec3 V = normalize(cameraPos-fragPos);
-		vec3 R = reflect(-lightDir,normal);
-		float specular = pow(max(0,dot(R,V)),10);
-		float ambient = 0.1;
-		fragColor.rgb = mix(objectColor, objectColor * diffuse + vec3(1) * specular, 1.0 - ambient);
+		fragColor.rgb = phongLight(cameraPos, fragPos, shipLightDir, normal, brilliancy, objectColor, ambientLightIntensity);
 		fragColor.a = 1.0;
 	}
 	else
 	{
-		//fragColor = vec4(objectColor * diffuse, 1.0);
-		fragColor = vec4(1, 0, 0, 1);
+		fragColor = vec4(objectColor * ambientLightIntensity, 1.0);
 	}
 }
