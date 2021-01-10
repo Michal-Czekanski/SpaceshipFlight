@@ -83,6 +83,7 @@ void renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
+	/* TODO: Add virtual method to draw objects instead of having separate vectors for every possible object.
 	// Render renderable objects
 	for (int i = 0; i < renderableObjectsCount; i++)
 	{
@@ -91,6 +92,12 @@ void renderScene()
 		obj::Model model = renderableObject->getModel();
 		drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, renderableObject->getModelMatrix(), glm::vec3(0.6f));
 	}
+	*/
+
+	// Render ship
+	ship->update();
+	obj::Model shipModel = ship->getModel();
+	drawObjectColor(programColor2, ship, &shipModel, perspectiveMatrix, cameraMatrix, glm::vec3(0.0f, 0.9f, 0.8f), stars);
 
 	// Render asteroid fields
 	for (int i = 0; i < asteroidFields.size(); i++)
