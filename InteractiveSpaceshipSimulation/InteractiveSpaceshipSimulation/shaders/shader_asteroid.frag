@@ -9,6 +9,8 @@ uniform vec3 shipDirection;
 uniform float shipLightConeHeight;
 uniform float shipLightConeRadius;
 
+uniform vec3 shipLightColor;
+
 in vec3 interpNormal;
 in vec3 fragPos;
 in int pointInShipLightRange;
@@ -20,7 +22,8 @@ float ambientLightIntensity = 0.2;
 
 int brilliancy = 10;
 
-float maxAttentuationDist = 10.f;
+float maxAttentuationDist = 10.f; // Distance from light source at which light is at maximum intensity
+
 
 
 bool isPointInShipLightRange(vec3 point, vec3 shipPos, vec3 shipDirection, float shipLightConeHeight, float shipLightConeRadius)
@@ -46,12 +49,17 @@ float calculateAttentuation(vec3 lightPos, vec3 fragPos, float maxAttentuationDi
 	return clamp(maxAttentuationDist / distFromL, 0.0, 1.0);
 }
 
-float calculateDiffuse(vec3 normal, vec3 lightDir)
+float calculateDiffuseIntensity(vec3 normal, vec3 lightDir)
 {
 	return max(dot(normal, -lightDir), 0);
 }
 
-float calculateSpecular(vec3 cameraPos, vec3 fragPos, vec3 lightDir, vec3 normal, int brilliancy)
+vec3 calculateDiffuseColor(float intensity, vec3 objectColor)
+{
+	return intensity * objectColor;
+}
+
+float calculateSpecularIntensity(vec3 cameraPos, vec3 fragPos, vec3 lightDir, vec3 normal, int brilliancy)
 {
 	vec3 viewDirection = normalize(cameraPos - fragPos);
 	vec3 reflectedLightDir = reflect(-lightDir, normal);
@@ -59,12 +67,9 @@ float calculateSpecular(vec3 cameraPos, vec3 fragPos, vec3 lightDir, vec3 normal
 	return pow(max(0, dot(reflectedLightDir, viewDirection)), brilliancy);
 }
 
-vec3 phongLight(vec3 cameraPos, vec3 fragPos, vec3 lightDir, vec3 normal, int brilliancy, vec3 objectColor, float ambientLightIntensity)
+vec3 calculateSpecularColor(float intensity, vec3 color)
 {
-	float diffusedLightIntensity = calculateDiffuse(normal, lightDir);
-
-	float specularLightIntensity = calculateSpecular(cameraPos, fragPos, lightDir, normal, brilliancy);
-	return mix(objectColor, objectColor * diffusedLightIntensity + vec3(1) * specularLightIntensity, 1.0 - ambientLightIntensity);
+	return intensity * color;
 }
 
 void main()
@@ -72,13 +77,17 @@ void main()
 	vec3 shipLightDir = normalize(fragPos-shipPos);
 	vec3 normal = normalize(interpNormal);
 
+	vec3 specularColor = vec3(0, 0, 0);
+	vec3 diffuseColor = vec3(0, 0, 0);
+	vec3 ambientColor = objectColor * ambientLightIntensity;
+
+	// Light from ship
 	if(isPointInShipLightRange(fragPos, shipPos, shipDirection, shipLightConeHeight, shipLightConeRadius))
 	{
-		fragColor.rgb = calculateAttentuation(shipPos, fragPos, maxAttentuationDist) * phongLight(cameraPos, fragPos, shipLightDir, normal, brilliancy, objectColor, ambientLightIntensity);
-		fragColor.a = 1.0;
+		float shipLightAttentuation = calculateAttentuation(shipPos, fragPos, maxAttentuationDist);
+		diffuseColor += shipLightAttentuation * calculateDiffuseColor(calculateDiffuseIntensity(normal, shipLightDir), objectColor);
+		specularColor += shipLightAttentuation * calculateSpecularColor(calculateSpecularIntensity(cameraPos, fragPos, shipLightDir, normal, brilliancy), shipLightColor);
 	}
-	else
-	{
-		fragColor = vec4(objectColor * ambientLightIntensity, 1.0);
-	}
+	
+	fragColor = vec4(ambientColor + diffuseColor + specularColor , 1.0f);
 }

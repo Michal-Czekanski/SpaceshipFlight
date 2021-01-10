@@ -209,6 +209,8 @@ void drawAsteroidColor(GLuint asteroidProgram, Asteroid* asteroid, obj::Model* a
 	glUniform3f(glGetUniformLocation(asteroidProgram, "shipDirection"), shipDirection.x, shipDirection.y, shipDirection.z);
 	glUniform1f(glGetUniformLocation(asteroidProgram, "shipLightConeHeight"), ship->getLightConeHeight());
 	glUniform1f(glGetUniformLocation(asteroidProgram, "shipLightConeRadius"), ship->getLightConeBaseRadius());
+	glUniform3f(glGetUniformLocation(asteroidProgram, "shipLightColor"), ship->getLightColor().x, ship->getLightColor().y, ship->getLightColor().z);
+
 
 	glUniform3f(glGetUniformLocation(asteroidProgram, "asteroidPos"), asteroid->getPosition().x, asteroid->getPosition().y, asteroid->getPosition().z); // REMOVE LATER
 
