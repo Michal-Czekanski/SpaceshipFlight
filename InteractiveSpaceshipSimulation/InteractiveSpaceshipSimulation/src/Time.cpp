@@ -12,7 +12,7 @@ void Time::start()
 	if (!isRunning)
 	{
 		Time::isRunning = true;
-		Time::measureStart = duration_cast<microseconds>(high_resolution_clock::now().time_since_epoch()).count();
+		Time::measureStart = duration_cast<milliseconds>(high_resolution_clock::now().time_since_epoch()).count();
 		Time::lastFrameTime = 0;
 		Time::currentFrameTime = 0;
 		Time::deltaTime = 0;
@@ -25,7 +25,7 @@ void Time::update()
 	if (isRunning)
 	{
 		Time::lastFrameTime = currentFrameTime;
-		Time::currentFrameTime = duration_cast<microseconds>(high_resolution_clock::now().time_since_epoch()).count();
+		Time::currentFrameTime = duration_cast<milliseconds>(high_resolution_clock::now().time_since_epoch()).count();
 		Time::deltaTime = currentFrameTime - lastFrameTime;
 		Time::gameDuration += Time::deltaTime;
 	}
