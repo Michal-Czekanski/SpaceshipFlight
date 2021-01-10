@@ -8,7 +8,7 @@ RenderableObject::RenderableObject(glm::vec3 position, glm::quat rotationQuat, g
 	this->forwardInModelSpace = forwardInModelSpace;
 	this->scale = scale;
 
-	this->modelMatrix = glm::translate(position) * glm::mat4_cast(rotationQuat) * glm::scale(scale);
+	this->modelMatrix = glm::translate(position) * this->rotationMat * glm::scale(scale);
 }
 
 glm::mat4 RenderableObject::getModelMatrix()

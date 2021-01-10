@@ -4,6 +4,7 @@ ObjectInSpace::ObjectInSpace(glm::vec3 position, glm::quat rotationQuat, glm::ve
 {
     this->position = position;
     this->rotationQuat = rotationQuat;
+    this->rotationMat = glm::mat4_cast(rotationQuat);
     this->vectorForward = glm::normalize(vectorForward);
     this->vectorTop = glm::normalize(vectorTop);
     this->vectorRight = glm::normalize(glm::cross(vectorForward, vectorTop));

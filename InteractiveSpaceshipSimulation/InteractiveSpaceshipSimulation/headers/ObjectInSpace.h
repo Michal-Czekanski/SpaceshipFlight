@@ -8,6 +8,7 @@ class ObjectInSpace
 protected:
 	glm::vec3 position;
 	glm::quat rotationQuat;
+	glm::mat4 rotationMat;
 
 	glm::vec3 vectorForward;
 	glm::vec3 vectorTop;

@@ -36,6 +36,7 @@ void Ship::rotateShip(bool pitchUp, bool pitchDown, bool yawRight, bool yawLeft,
 
 
 	this->rotationQuat = calculateRotationQuatLocalAxises(this->rotationQuat, this->vectorRight, this->vectorTop, this->vectorForward, rotationAngleX, rotationAngleY, rotationAngleZ);
+	this->rotationMat = glm::mat4_cast(this->rotationQuat);
 
 	this->vectorForward = glm::normalize(this->rotationQuat * this->forwardInModelSpace);
 	this->vectorTop = glm::normalize(this->rotationQuat * this->topInModelSpace);
@@ -51,7 +52,7 @@ void Ship::update()
 
 void Ship::updateModelMatrix()
 {
-	this->modelMatrix = glm::translate(position) * glm::mat4_cast(this->rotationQuat) * glm::scale(this->scale);
+	this->modelMatrix = glm::translate(position) * this->rotationMat * glm::scale(this->scale);
 }
 
 

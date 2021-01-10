@@ -12,5 +12,5 @@ void Moon::update()
 	{
 		orbit();
 	}
-	this->modelMatrix = glm::translate(this->position) * glm::mat4_cast(this->rotationQuat) * glm::scale(this->scale);
+	this->modelMatrix = glm::translate(this->position) * this->rotationMat * glm::scale(this->scale);
 }
