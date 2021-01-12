@@ -34,3 +34,8 @@ glm::vec3 ShipLight::getLightDirection()
 {
 	return this->lightDirection;
 }
+
+glm::vec3 ShipLight::getLightColor()
+{
+	return this->lightColor;
+}

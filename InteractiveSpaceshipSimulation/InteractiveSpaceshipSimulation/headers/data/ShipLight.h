@@ -39,5 +39,7 @@ public:
 	glm::vec3 getPosition();
 
 	glm::vec3 getLightDirection();
+
+	glm::vec3 getLightColor();
 };
 
