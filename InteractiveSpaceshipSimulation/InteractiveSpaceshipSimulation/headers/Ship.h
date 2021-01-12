@@ -5,6 +5,7 @@
 #include "utils/objload.h"
 #include "utils/Calculations.h"
 #include "RenderableObject.h"
+#include "data/ShipLight.h"
 
 class Ship: public RenderableObject
 {
@@ -12,42 +13,25 @@ private:
 	float speed = 0.0f;
 	float rotationSpeed = 0.0f;
 
-	/// <summary>
-	/// Ship has front light as a cone.
-	/// </summary>
-	float lightConeHeight;
-
-	/// <summary>
-	/// Ship has fron light as a cone.
-	/// </summary>
-	float lightConeBaseRadius;
-
 	void updateModelMatrix();
 
-	glm::vec3 lightColor;
+	ShipLight shipLight = ShipLight();
 
 public:
 	/// <summary>
-	/// Creates ship which has front light.
+	/// Creates ship.
 	/// </summary>
-	/// <param name="position"></param>
-	/// <param name="vectorForward"></param>
-	/// <param name="vectorTop"></param>
+	/// <param name="position">Where to position ship.</param>
+	/// <param name="shipModel"></param>
+	/// <param name="shipLight"></param>
 	/// <param name="shipSpeed"></param>
 	/// <param name="rotationSpeed"></param>
-	/// <param name="shipModel"></param>
-	/// <param name="rotationQuat">- Used to rotate ship.</param>
+	/// <param name="scale"></param>
+	/// <param name="rotationQuat">How to rotate ship on start.</param>
 	/// <param name="shipTopInModelSpace"></param>
-	/// <param name="shipDirectionInModelSpace">- Ship front in model space.</param>
-	/// <param name="scale">- Used to scale ship.</param>
-	/// <param name="lightConeHeight">- Ship's front light emits light as a cone. Specifies how far light will travel.</param>
-	/// <param name="lightConeRadius">- Ship's front light emits light as a cone.</param>
-	/// <param name="lightColor">- Ship's light color. </param>
-	Ship(glm::vec3 position, glm::vec3 vectorForward, glm::vec3 vectorTop,
-		float shipSpeed, float rotationSpeed,
-		obj::Model shipModel, glm::quat rotationQuat,
-		glm::vec3 shipTopInModelSpace, glm::vec3 shipDirectionInModelSpace, glm::vec3 scale,
-		float lightConeHeight = 150.0f, float lightConeRadius = 40.0f, glm::vec3 lightColor = glm::vec3(0.980f, 0.976f, 0.917f));
+	/// <param name="shipDirectionInModelSpace"></param>
+	Ship(glm::vec3 position, ModelData &modelData, ShipLight shipLight,
+		float shipSpeed, float rotationSpeed, glm::vec3 scale);
 
 	/// <summary>
 	/// Moves ship forward based on ship speed -> updates ship's model matrix.
@@ -72,10 +56,6 @@ public:
 
 	void update();
 
-	float getLightConeHeight();
-
-	float getLightConeBaseRadius();
-
-	glm::vec3 getLightColor();
+	ShipLight getShipLight();
 };
 

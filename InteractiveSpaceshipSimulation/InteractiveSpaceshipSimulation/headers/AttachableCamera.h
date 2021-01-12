@@ -10,12 +10,12 @@ class AttachableCamera
 {
 private:
 	/// <summary>
-	/// Specifies how far behind ship camera should be placed.
+	/// Specifies how far behind object camera should be placed.
 	/// </summary>
 	float camOffsetMultiplier;
 
 	/// <summary>
-	/// Specifies if camera should be above, below or at the ship level.
+	/// Specifies if camera should be above, below or at the object level.
 	/// </summary>
 	float upOffsetMultiplier;
 

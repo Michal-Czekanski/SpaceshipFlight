@@ -5,19 +5,27 @@
 #include "utils/objload.h"
 #include "ObjectInSpace.h"
 #include "Time.h"
+#include "data/ModelData.h"
 
+/// <summary>
+/// Object that can be drawn on the screen.
+/// </summary>
 class RenderableObject: public ObjectInSpace 
 {
 protected:
-	glm::mat4 modelMatrix;
-	obj::Model model;
+	glm::mat4 positionMat;
 
-	glm::vec3 topInModelSpace;
-	glm::vec3 forwardInModelSpace;
+	glm::mat4 rotationMat;
 
 	glm::vec3 scale;
+	glm::mat4 scaleMat;
+
+	glm::mat4 modelMatrix;
+
+	obj::Model model;
 public:
-	RenderableObject(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorForward, glm::vec3 vectorTop, obj::Model model, glm::vec3 topInModelSpace, glm::vec3 forwardInModelSpace,
+
+	RenderableObject(glm::vec3 position, ModelData &modelData,
 		glm::vec3 scale);
 
 	glm::mat4 getModelMatrix();
@@ -27,8 +35,11 @@ public:
 	/// <summary>
 	/// Update is called on every frame.
 	/// </summary>
-	virtual void update() {};
+	virtual void update();
 
 	glm::vec3 getScale();
+
+	void rotate(glm::quat rotation);
+
 };
 

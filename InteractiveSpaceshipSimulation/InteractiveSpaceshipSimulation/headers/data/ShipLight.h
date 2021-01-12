@@ -11,6 +11,7 @@ class ShipLight
 private:
 	float lightConeHeight;
 	float lightConeBaseRadius;
+	float lightStrength;
 	glm::vec3 position;
 	glm::vec3 lightDirection;
 	glm::vec3 lightColor;
@@ -23,7 +24,7 @@ public:
 	/// <param name="position">Ship's position.</param>
 	/// <param name="lightDirection">Ship's front direction.</param>
 	/// <param name="lightColor"></param>
-	ShipLight(float lightConeHeight, float lightConeBaseRadius, glm::vec3 position, glm::vec3 lightDirection, glm::vec3 lightColor);
+	ShipLight(float lightStrength, float lightConeHeight, float lightConeBaseRadius, glm::vec3 position, glm::vec3 lightDirection, glm::vec3 lightColor);
 
 	/// <summary>
 	/// Creates ship's light.
@@ -31,7 +32,7 @@ public:
 	/// <param name="lightConeHeight"></param>
 	/// <param name="lightConeBaseRadius"></param>
 	/// <param name="lightColor"></param>
-	ShipLight(float lightConeHeight, float lightConeBaseRadius, glm::vec3 lightColor);
+	ShipLight(float lightStrength = 800.0f, float lightConeHeight = 800.0f, float lightConeBaseRadius = 300.0f, glm::vec3 lightColor = glm::vec3(1, 1, 1));
 
 	/// <summary>
 	/// Updates ship's light data.

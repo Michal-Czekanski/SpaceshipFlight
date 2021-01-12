@@ -1,23 +1,44 @@
 #include "../headers/ObjectInSpace.h"
 
-ObjectInSpace::ObjectInSpace(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorForward, glm::vec3 vectorTop)
+void ObjectInSpace::updateDirections(glm::quat rotation)
 {
-    this->position = position;
-    this->rotationQuat = rotationQuat;
-    this->rotationMat = glm::mat4_cast(rotationQuat);
-    this->vectorForward = glm::normalize(vectorForward);
-    this->vectorTop = glm::normalize(vectorTop);
-    this->vectorRight = glm::normalize(glm::cross(vectorForward, vectorTop));
+    this->vectorForward = glm::normalize(this->rotationQuat * this->initialVectorForward);
+    this->vectorTop = glm::normalize(this->rotationQuat * this->initialVectorTop);
+    this->vectorRight = glm::normalize(glm::cross(this->vectorForward, this->vectorTop));
 }
 
-glm::vec3 ObjectInSpace::getPosition()
+ObjectInSpace::ObjectInSpace(glm::vec3 position, glm::vec3 vectorForward, glm::vec3 vectorTop)
 {
-    return this->position;
+    this->position = position;
+    
+    this->vectorForward = vectorForward;
+    this->initialVectorForward = vectorForward;
+
+    this->vectorTop = vectorTop;
+    this->initialVectorTop = vectorTop;
+
+    this->vectorRight = glm::normalize(glm::cross(this->vectorForward, this->vectorTop));
+
+    this->rotationQuat = glm::quat();
 }
+
+
+void ObjectInSpace::rotate(glm::quat rotation)
+{
+    this->rotationQuat = rotation;
+    updateDirections(rotation);
+}
+
 
 glm::quat ObjectInSpace::getRotationQuat()
 {
     return this->rotationQuat;
+}
+
+
+glm::vec3 ObjectInSpace::getPosition()
+{
+    return this->position;
 }
 
 glm::vec3 ObjectInSpace::getVectorForward()
@@ -33,10 +54,4 @@ glm::vec3 ObjectInSpace::getVectorTop()
 void ObjectInSpace::setPosition(glm::vec3 newPosition)
 {
     this->position = newPosition;
-}
-
-void ObjectInSpace::setRottaionQuat(glm::quat newRotation)
-{
-    this->rotationQuat = newRotation;
-    this->rotationMat = glm::mat4_cast(newRotation);
 }

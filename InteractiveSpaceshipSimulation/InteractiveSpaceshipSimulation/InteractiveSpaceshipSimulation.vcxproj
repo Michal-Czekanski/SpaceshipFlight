@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\data\ModelData.cpp" />
     <ClCompile Include="src\data\ShipLight.cpp" />
     <ClCompile Include="src\AsteroidField.cpp" />
     <ClCompile Include="src\Asteroid.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="headers\Moon.h" />
     <ClInclude Include="headers\Time.h" />
     <ClInclude Include="headers\data\ShipLight.h" />
+    <ClInclude Include="headers\data\ModelData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

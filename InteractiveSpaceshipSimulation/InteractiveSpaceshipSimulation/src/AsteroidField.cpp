@@ -1,22 +1,30 @@
 #include "../headers/AsteroidField.h"
 
+
+
 AsteroidField::AsteroidField(int asteroidCount, float asteroidFieldRadius, float asteroidSpeed, float minAsteroidScale, float maxAsteroidScale,
-	glm::vec3 position, glm::vec3 moveDirection, std::vector<obj::Model> asteroidModels,  glm::quat rotationQuat, glm::vec3 vectorTop):
-	ObjectInSpace(position, rotationQuat, moveDirection, vectorTop)
+	glm::vec3 position, glm::vec3 moveDirection, std::vector<ModelData*>& modelsData, glm::vec3 vectorTop):
+	ObjectInSpace(position, moveDirection, vectorTop)
 {
-	this->moveDirection = moveDirection;
 	this->asteroidsCount = asteroidCount;
 	this->initialPosition = position;
 
-	for (int i = 0; i < asteroidCount; i++)
+	generateRandomAsteroids(position, moveDirection, asteroidCount, asteroidFieldRadius, asteroidSpeed, minAsteroidScale, maxAsteroidScale,
+		modelsData);
+}
+
+void AsteroidField::generateRandomAsteroids(glm::vec3 generationCenter, glm::vec3 moveDirection, int asteroidsCount, 
+	float asteroidFieldRadius, float asteroidSpeed, float minAsteroidScale, float maxAsteroidScale, std::vector<ModelData*>& modelsData)
+{
+	for (int i = 0; i < asteroidsCount; i++)
 	{
 		glm::vec3 asteroidPos = glm::ballRand(asteroidFieldRadius) + position;
 		glm::vec3 scale = glm::vec3(randomFloat(minAsteroidScale, maxAsteroidScale));
 		glm::quat rotationQuat = randomRotationQuat();
-		obj::Model asteroidModel = asteroidModels[randomInt(0, asteroidModels.size() - 1)];
+		ModelData* modelData = modelsData[randomInt(0, modelsData.size() - 1)];
 
-		Asteroid* asteroid = new Asteroid(asteroidPos, rotationQuat, glm::ballRand(1.0f), glm::ballRand(1.0f), asteroidModel,
-			glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), scale, asteroidSpeed, moveDirection);
+		Asteroid* asteroid = new Asteroid(*modelData, asteroidPos, moveDirection, asteroidSpeed, scale);
+		asteroid->rotate(rotationQuat);
 		this->asteroids.push_back(asteroid);
 	}
 }

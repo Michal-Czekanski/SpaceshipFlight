@@ -57,6 +57,6 @@ void drawObjectColor(GLuint program, RenderableObject* object, obj::Model* model
 void drawStarColor(GLuint program, Star* star, obj::Model* model, glm::mat4 perspectiveMatrix,
 	glm::mat4 cameraMatrix, glm::vec3 color);
 
-void initDebugHelpers(obj::Model sphereModel);
+void initDebugHelpers(ModelData& sphereModelData);
 
 void renderDebugHelpers(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix);

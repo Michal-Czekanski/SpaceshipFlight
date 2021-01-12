@@ -1,9 +1,9 @@
 #include "../headers/Orbitable.h"
 
 
-Orbitable::Orbitable(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorForward, glm::vec3 vectorTop, obj::Model model, glm::vec3 topInModelSpace, glm::vec3 forwardInModelSpace, glm::vec3 scale,
-	ObjectInSpace* orbitAround, glm::vec3 orbitPlaneVec2, float orbitSpeed):
-	RenderableObject(position, rotationQuat, vectorForward, vectorTop, model, topInModelSpace, forwardInModelSpace, scale)
+Orbitable::Orbitable(glm::vec3 position, ModelData& modelData, glm::vec3 scale,
+	ObjectInSpace* orbitAround, glm::vec3 orbitPlaneVec2, float orbitSpeed) :
+	RenderableObject(position, modelData, scale)
 	
 {
 	if (orbitAround)
@@ -26,6 +26,15 @@ Orbitable::Orbitable(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vecto
 	
 }
 
+void Orbitable::update()
+{
+	if (this->orbitAround)
+	{
+		orbit();
+	}
+	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
+}
+
 void Orbitable::orbit()
 {
 	if (this->orbitAround)
@@ -45,3 +54,5 @@ ObjectInSpace* Orbitable::getOrbitCenter()
 {
 	return this->orbitAround;
 }
+
+

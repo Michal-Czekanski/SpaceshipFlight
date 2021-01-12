@@ -1,8 +1,8 @@
 #include "../headers/Asteroid.h"
 
-Asteroid::Asteroid(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorForward, glm::vec3 vectorTop, obj::Model model, glm::vec3 topInModelSpace, glm::vec3 forwardInModelSpace,
-	glm::vec3 scale, float speed, glm::vec3 moveDirection) :
-	RenderableObject(position, rotationQuat, vectorForward, vectorTop, model, topInModelSpace, forwardInModelSpace, scale)
+Asteroid::Asteroid(ModelData& modelData, glm::vec3 position, glm::vec3 moveDirection, float speed,
+	glm::vec3 scale) :
+	RenderableObject(position, modelData, scale)
 {
 	this->speed = speed;
 	this->moveDirection = moveDirection;
@@ -11,5 +11,6 @@ Asteroid::Asteroid(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorF
 void Asteroid::update()
 {
 	this->position += moveDirection * speed * Time::getDeltaTimeSec();
-	this->modelMatrix = glm::translate(this->position) * this->rotationMat * glm::scale(this->scale);
+	this->positionMat = glm::translate(this->position);
+	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
 }

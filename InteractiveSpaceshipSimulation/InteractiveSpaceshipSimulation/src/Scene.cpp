@@ -1,55 +1,61 @@
 #include "../headers/Scene.h"
 
-void initScene(obj::Model& shipModel, obj::Model& sphereModel, obj::Model& asteroidModel, Ship*& ship, 
-	AttachableCamera*& camera, std::vector<RenderableObject*>& renderableObjects, 
-	int& renderableObjectsCount, std::vector<AsteroidField*>& asteroidFields, 
-	std::vector<Planet*>& planets, int& planetsCount, std::vector<Star*>& stars, int& starsCount,
+void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& asteroidModelData, Ship*& ship, AttachableCamera*& camera,
+	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount,
+	std::vector<AsteroidField*>& asteroidFields,
+	std::vector<Planet*>& planets, int& planetsCount,
+	std::vector<Star*>& stars, int& starsCount,
 	std::vector<Moon*>& moons, int& moonsCount)
 {
-	float star1Scale = 700.0f;
+	ShipLight* shipLight = new ShipLight();
+	
+	ship = new Ship(initShipPos, shipModelData, *shipLight, shipSpeed, shipRotationSpeed, shipScale);
+	//ship->rotate(initialShipRotation);
 
-	glm::vec3 startingPlanetColor = glm::vec3(1.0f, 0.1f, 0.1f);
-
-	ship = new Ship(initialShipPosition, initialShipDirection, initialShipTop, shipSpeed, shipRotationSpeed,
-		shipModel, initialShipRotation, shipTopInModelSpace, shipDirectionInModelSpace, shipScale);
 	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (ObjectInSpace*)ship);
-	Planet* startingPlanet = new Planet(glm::vec3(0, 0, 25.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(10.0f));
-	Star* star1 = new Star(glm::vec3(600.0f, -700.0f, 3000.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(star1Scale));
 
-	Moon* moon = new Moon(glm::vec3(0, 0, -15.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(5.0f), startingPlanet, 
-		glm::vec3(1, 1, 12), 1.0f);
+	Planet* startingPlanet = new Planet(startPlanetPos, sphereModelData, startPlanetScale);
 
-	Star* star2 = new Star(glm::vec3(-900.0f, -600.0f, -5000.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(500.0f));
+	Star* star1 = new Star(star1Pos, sphereModelData, star1Scale);
 
-	Star* star3 = new Star(glm::vec3(-4000.0f, 1500.0f, -300.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(650.f));
+
+	//Moon* moon = new Moon(glm::vec3(0, 0, -15.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(5.0f), startingPlanet, 
+	//	glm::vec3(1, 1, 12), 1.0f);
+
+	Star* star2 = new Star(star2Pos, sphereModelData, star2Scale);
+
+	Star* star3 = new Star(star3Pos, sphereModelData, star3Scale);
+
 
 
 	renderableObjects.push_back((RenderableObject*)ship); renderableObjectsCount++;
 	planets.push_back(startingPlanet); planetsCount++;
 	stars.push_back(star1); starsCount++;
 	//renderableObjects.push_back((RenderableObject*)moon); renderableObjectsCount++;
-	moons.push_back(moon); moonsCount++;
+	//moons.push_back(moon); moonsCount++;
 	stars.push_back(star2); starsCount++;
 	stars.push_back(star3); starsCount++;
 
 
 
 	//generateRandomPlanetsForStar(star1, 20, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModel);
-	generateRandomPlanetsForStar(star1, 20, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModel);
+	generateRandomPlanetsForStar(star1, 20, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModelData);
 	//generateRandomPlanetsForStar(star2, 25, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModel);
-	generateRandomPlanetsForStar(star2, 25, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModel);
+	generateRandomPlanetsForStar(star2, 25, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModelData);
 	//generateRandomPlanetsForStar(star3, 22, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModel);
-	generateRandomPlanetsForStar(star3, 22, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModel);
+	generateRandomPlanetsForStar(star3, 22, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModelData);
 
-	std::vector<obj::Model> asteroidModels; asteroidModels.push_back(asteroidModel);
-	AsteroidField* asteroidField1 = new AsteroidField(20, 30.0f, 1.0f, 1.0f, 7.0f, ship->getPosition() + glm::vec3(4.0f, 3.0f, 25.0f), glm::vec3(0, 0.1f, 1.0f), asteroidModels);
+	std::vector<ModelData*> asteroidModelsData; asteroidModelsData.push_back(&asteroidModelData);
+	
+	AsteroidField* asteroidField1 = new AsteroidField(20, 30.0f, 1.0f, 1.0f, 7.0f, glm::vec3(4.0f, 3.0f, 25.0f), glm::vec3(0, 0.1f, 1.0f),
+		asteroidModelsData);
 	asteroidFields.push_back(asteroidField1);
 
-	generateRandomAsteroidFields(asteroidFields, 5, asteroidModels);
+	generateRandomAsteroidFields(asteroidFields, 5, asteroidModelsData);
 }
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float minPlanetOrbitSpeed, float maxPlanetOrbitSpeed,
-	std::vector<RenderableObject*> &renderableObjects, int &renderableObjectsCount, obj::Model &planetModel)
+	std::vector<RenderableObject*> &renderableObjects, int &renderableObjectsCount, ModelData& planetModelData)
 {
 	float randomPlanetGenerationRadius = star->getScale().x * 2;
 	float pushPlanetsFromStarCenter = star->getScale().x;
@@ -64,13 +70,14 @@ void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetS
 		glm::vec3 orbitPlaneVec2 = glm::ballRand(1.0f);
 		float planetOrbitSpeed = randomFloat(minPlanetOrbitSpeed, maxPlanetOrbitSpeed);
 
-		Planet* planet = new Planet(planetPosRelativeToStar, planetModel, planetScale, star, orbitPlaneVec2, planetOrbitSpeed);
+		Planet* planet = new Planet(planetPosRelativeToStar, planetModelData, planetScale, star, orbitPlaneVec2, planetOrbitSpeed);
 		renderableObjects.push_back(planet); renderableObjectsCount++;
 	}
 }
 
-void generateRandomPlanetsForStar(Star* star, int howManyPlanetsGenerate, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
-	std::vector<Planet*>& planets, int& gamePlanetsCounter, obj::Model& planetModel)
+void generateRandomPlanetsForStar(Star* star, int howManyPlanetsGenerate, float minPlanetScale, float maxPlanetScale, 
+	float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
+	std::vector<Planet*>& planets, int& gamePlanetsCounter, ModelData &planetModelData)
 {
 	float randomPlanetGenerationRadius = star->getScale().x * 2;
 	float pushPlanetsFromStarCenter = star->getScale().x;
@@ -85,13 +92,13 @@ void generateRandomPlanetsForStar(Star* star, int howManyPlanetsGenerate, float 
 		glm::vec3 orbitPlaneVec2 = glm::ballRand(1.0f);
 		float planetOrbitSpeed = randomFloat(minPlanetOrbitSpeed, maxPlanetOrbitSpeed);
 
-		Planet* planet = new Planet(planetPosRelativeToStar, planetModel, planetScale, star, orbitPlaneVec2, planetOrbitSpeed);
+		Planet* planet = new Planet(planetPosRelativeToStar, planetModelData, planetScale, star, orbitPlaneVec2, planetOrbitSpeed);
 		planets.push_back(planet); gamePlanetsCounter++;
 	}
 
 }
 
-void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count, std::vector<obj::Model> asteroidModels,
+void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count, std::vector<ModelData*> &asteroidModelsData,
 	float generationRadius, float minAsteroidFieldRadius, float maxAsteroidFieldRadius,
 	float minAsteroidScale, float maxAsteroidScale,
 	float minSpeed, float maxSpeed, int minAsteroidCount, int maxAsteroidCount)
@@ -105,7 +112,8 @@ void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count
 		glm::vec3 fieldPos = glm::ballRand(generationRadius);
 		glm::vec3 moveDirection = glm::ballRand(1.0f);
 
-		AsteroidField* field = new AsteroidField(asteroidCount, fieldRadius, speed, minAsteroidScale, maxAsteroidScale, fieldPos, moveDirection, asteroidModels);
+		AsteroidField* field = new AsteroidField(asteroidCount, fieldRadius, speed, minAsteroidScale, maxAsteroidScale, 
+			fieldPos, moveDirection, asteroidModelsData);
 		fields.push_back(field);
 	}
 }

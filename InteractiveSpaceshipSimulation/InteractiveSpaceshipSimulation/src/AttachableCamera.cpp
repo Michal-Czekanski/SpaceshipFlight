@@ -1,12 +1,5 @@
 #include "../headers/AttachableCamera.h"
 
-glm::vec3 AttachableCamera::calculateCamOffset()
-{
-	glm::vec3 camOffset = this->attachedObject->getVectorForward() * this->camOffsetMultiplier;
-	camOffset -= this->attachedObject->getVectorTop() * this->upOffsetMultiplier;
-	return camOffset;
-}
-
 AttachableCamera::AttachableCamera(float camOffsetMultiplier, float upOffsetMultiplier)
 {
 	this->camOffsetMultiplier = camOffsetMultiplier;
@@ -22,6 +15,14 @@ AttachableCamera::AttachableCamera(float camOffsetMultiplier, float upOffsetMult
 	this->attachedObject = attachedObject;
 
 	this->initCameraRotation = rotateV1ToV2(this->initCameraLookDir, attachedObject->getVectorForward());
+	updateCameraMatrix();
+}
+
+glm::vec3 AttachableCamera::calculateCamOffset()
+{
+	glm::vec3 camOffset = this->attachedObject->getVectorForward() * this->camOffsetMultiplier;
+	camOffset -= this->attachedObject->getVectorTop() * this->upOffsetMultiplier;
+	return camOffset;
 }
 
 glm::mat4 AttachableCamera::updateCameraMatrix()

@@ -1,7 +1,8 @@
 #include "../../headers/data/ShipLight.h"
 
-ShipLight::ShipLight(float lightConeHeight, float lightConeBaseRadius, glm::vec3 position, glm::vec3 lightDirection, glm::vec3 lightColor)
+ShipLight::ShipLight(float lightStrength, float lightConeHeight, float lightConeBaseRadius, glm::vec3 position, glm::vec3 lightDirection, glm::vec3 lightColor)
 {
+	this->lightStrength = lightStrength;
 	this->lightConeHeight = lightConeHeight;
 	this->lightConeBaseRadius = lightConeBaseRadius;
 	this->position = position;
@@ -9,8 +10,9 @@ ShipLight::ShipLight(float lightConeHeight, float lightConeBaseRadius, glm::vec3
 	this->lightColor = lightColor;
 }
 
-ShipLight::ShipLight(float lightConeHeight, float lightConeBaseRadius, glm::vec3 lightColor)
+ShipLight::ShipLight(float lightStrength, float lightConeHeight, float lightConeBaseRadius, glm::vec3 lightColor)
 {
+	this->lightStrength = lightStrength;
 	this->lightConeHeight = lightConeHeight;
 	this->lightConeBaseRadius = lightConeBaseRadius;
 	this->lightColor = lightColor;

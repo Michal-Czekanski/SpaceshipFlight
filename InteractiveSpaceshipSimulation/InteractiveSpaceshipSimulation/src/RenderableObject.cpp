@@ -1,14 +1,18 @@
 #include "../headers/RenderableObject.h"
 
-RenderableObject::RenderableObject(glm::vec3 position, glm::quat rotationQuat, glm::vec3 vectorForward, 
-	glm::vec3 vectorTop, obj::Model model, glm::vec3 topInModelSpace, glm::vec3 forwardInModelSpace, glm::vec3 scale): ObjectInSpace(position, rotationQuat, vectorForward, vectorTop)
+RenderableObject::RenderableObject(glm::vec3 position, ModelData &modelData, glm::vec3 scale):
+	ObjectInSpace(position, modelData.getForward(), modelData.getTop())
 {
-	this->model = model;
-	this->topInModelSpace = topInModelSpace;
-	this->forwardInModelSpace = forwardInModelSpace;
-	this->scale = scale;
+	this->positionMat = glm::translate(position);
 
-	this->modelMatrix = glm::translate(position) * this->rotationMat * glm::scale(scale);
+	this->rotationMat = glm::mat4_cast(rotationQuat);
+	
+	this->scale = scale;
+	this->scaleMat = glm::scale(scale);
+
+	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
+
+	this->model = modelData.getModel();
 }
 
 glm::mat4 RenderableObject::getModelMatrix()
@@ -21,7 +25,19 @@ obj::Model RenderableObject::getModel()
 	return this->model;
 }
 
+void RenderableObject::update()
+{
+	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
+}
+
 glm::vec3 RenderableObject::getScale()
 {
 	return this->scale;
+}
+
+void RenderableObject::rotate(glm::quat rotation)
+{
+	this->rotationQuat = rotation;
+	this->rotationMat = glm::mat4_cast(this->rotationQuat);
+	updateDirections(rotation);
 }

@@ -57,7 +57,7 @@ void drawObjectColor(GLuint program, obj::Model* model, glm::mat4 perspectiveMat
 	glUseProgram(program);
 
 	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
-	glUniform3f(glGetUniformLocation(program, "lightDir"), lightDir.x, lightDir.y, lightDir.z);
+	glUniform3f(glGetUniformLocation(program, "lightDir"), testLightDir.x, testLightDir.y, testLightDir.z);
 
 	glm::mat4 transformation = perspectiveMatrix * cameraMatrix * modelMatrix;
 	glUniformMatrix4fv(glGetUniformLocation(program, "modelViewProjectionMatrix"), 1, GL_FALSE, (float*)&transformation);
@@ -148,23 +148,7 @@ void renderScene()
 	glutSwapBuffers();
 }
 
-void renderDebugHelpers(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix)
-{
-	helperShipDirectionLine->setPosition(ship->getPosition());
-	helperShipDirectionLine->setRottaionQuat(ship->getRotationQuat());
-	helperShipDirectionLine->update();
-	obj::Model model = helperShipDirectionLine->getModel();
-	drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipDirectionLine->getModelMatrix(), glm::vec3(0, 1, 0));
 
-	helperShipLightConeEndPoint->setPosition(ship->getPosition() + ship->getVectorForward() * helperShipDirectionLineLength);
-	helperShipLightConeEndPoint->setRottaionQuat(ship->getRotationQuat());
-	helperShipLightConeEndPoint->update();
-	drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeEndPoint->getModelMatrix(), glm::vec3(0, 1, 0));
-
-	helperShipLightConeRadius->setPosition(helperShipLightConeEndPoint->getPosition() + ship->getLightConeBaseRadius() * ship->getVectorTop());
-	helperShipLightConeRadius->update();
-	drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeRadius->getModelMatrix(), glm::vec3(1, 1, 0));
-}
 
 void shutdown()
 {
@@ -182,14 +166,21 @@ void init()
 	programStar = shaderLoader.CreateProgram((char*)"shaders/shader_star.vert", (char*)"shaders/shader_star.frag");
 
 	obj::Model shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
-	obj::Model sphereModel = obj::loadModelFromFile("models/sphere.obj");
-	obj::Model asteroidModel1 = obj::loadModelFromFile("models/asteroid1.obj");
+	ModelData shipModelData = ModelData(shipModel, glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 
-	initScene(shipModel, sphereModel, asteroidModel1, ship, camera, renderableObjects, 
+	obj::Model sphereModel = obj::loadModelFromFile("models/sphere.obj");
+	ModelData sphereModelData = ModelData(sphereModel, glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
+
+	obj::Model asteroidModel1 = obj::loadModelFromFile("models/asteroid1.obj");
+	ModelData asteroidModel1Data = ModelData(asteroidModel1, glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
+
+
+
+	initScene(shipModelData, sphereModelData, asteroidModel1Data, ship, camera, renderableObjects, 
 		renderableObjectsCount, asteroidFields, planets, planetsCount, stars, starsCount,
 		moons, moonsCount);
 
-	initDebugHelpers(sphereModel);
+	initDebugHelpers(sphereModelData);
 
 	Time::start();
 }
@@ -229,9 +220,11 @@ void drawAsteroidColor(GLuint asteroidProgram, Asteroid* asteroid, obj::Model* a
 	glUniform3f(glGetUniformLocation(asteroidProgram, "shipPos"), shipPosition.x, shipPosition.y, shipPosition.z);
 	glm::vec3 shipDirection = ship->getVectorForward();
 	glUniform3f(glGetUniformLocation(asteroidProgram, "shipDirection"), shipDirection.x, shipDirection.y, shipDirection.z);
-	glUniform1f(glGetUniformLocation(asteroidProgram, "shipLightConeHeight"), ship->getLightConeHeight());
-	glUniform1f(glGetUniformLocation(asteroidProgram, "shipLightConeRadius"), ship->getLightConeBaseRadius());
-	glUniform3f(glGetUniformLocation(asteroidProgram, "shipLightColor"), ship->getLightColor().x, ship->getLightColor().y, ship->getLightColor().z);
+	ShipLight shipLight = ship->getShipLight();
+	glUniform1f(glGetUniformLocation(asteroidProgram, "shipLightConeHeight"), shipLight.getLightConeHeight());
+	glUniform1f(glGetUniformLocation(asteroidProgram, "shipLightConeRadius"), shipLight.getLightConeBaseRadius());
+	glUniform3f(glGetUniformLocation(asteroidProgram, "shipLightColor"), 
+		shipLight.getLightColor().x, shipLight.getLightColor().y, shipLight.getLightColor().z);
 	glUniform3f(glGetUniformLocation(asteroidProgram, "objectColor"), color.x, color.y, color.z);
 
 	glm::vec3 camPos = camera->getCamPos();
@@ -255,9 +248,12 @@ void drawObjectColor(GLuint program, RenderableObject* object, obj::Model* model
 	glUniform3f(glGetUniformLocation(program, "shipPos"), shipPosition.x, shipPosition.y, shipPosition.z);
 	glm::vec3 shipDirection = ship->getVectorForward();
 	glUniform3f(glGetUniformLocation(program, "shipDirection"), shipDirection.x, shipDirection.y, shipDirection.z);
-	glUniform1f(glGetUniformLocation(program, "shipLightConeHeight"), ship->getLightConeHeight());
-	glUniform1f(glGetUniformLocation(program, "shipLightConeRadius"), ship->getLightConeBaseRadius());
-	glUniform3f(glGetUniformLocation(program, "shipLightColor"), ship->getLightColor().x, ship->getLightColor().y, ship->getLightColor().z);
+	ShipLight shipLight = ship->getShipLight();
+	glUniform1f(glGetUniformLocation(program, "shipLightConeHeight"), shipLight.getLightConeHeight());
+	glUniform1f(glGetUniformLocation(program, "shipLightConeRadius"), shipLight.getLightConeBaseRadius());
+	glUniform3f(glGetUniformLocation(program, "shipLightColor"),
+		shipLight.getLightColor().x, shipLight.getLightColor().y, shipLight.getLightColor().z);
+	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
 	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
 	glm::vec3 camPos = camera->getCamPos();
 	glUniform3f(glGetUniformLocation(program, "cameraPos"), camPos.x, camPos.y, camPos.z);
@@ -307,17 +303,39 @@ void drawStarColor(GLuint program, Star* star, obj::Model* model, glm::mat4 pers
 	glUseProgram(0);
 }
 
-void initDebugHelpers(obj::Model sphereModel)
+void initDebugHelpers(ModelData &sphereModelData)
 {
-	helperShipDirectionLineLength = ship->getLightConeHeight();
-	helperShipDirectionLine = new Planet(ship->getPosition(), ship->getRotationQuat(), ship->getVectorForward(), ship->getVectorTop(), sphereModel, glm::vec3(0, 1, 0),
-		glm::vec3(0, 0, 1), glm::vec3(0.1f, 0.1f, helperShipDirectionLineLength * 2));
+	ShipLight shipLight = ship->getShipLight();
+	helperShipDirectionLineLength = shipLight.getLightConeHeight();
+	glm::vec3 lineScale = glm::vec3(0.1f, 0.1f, helperShipDirectionLineLength * 2);
 
-	helperShipLightConeEndPoint = new Planet(ship->getPosition() + ship->getVectorForward() * helperShipDirectionLineLength,
-		ship->getRotationQuat(), ship->getVectorForward(), ship->getVectorTop(), sphereModel, glm::vec3(0, 1, 0),
-		glm::vec3(0, 0, 1), glm::vec3(1.0f, 1.0f, 1.0f));
+	helperShipDirectionLine = new Planet(ship->getPosition(), sphereModelData, lineScale);
+	helperShipDirectionLine->rotate(ship->getRotationQuat());
+	
+	glm::vec3 helper2Pos = ship->getPosition() + ship->getVectorForward() * helperShipDirectionLineLength;
+	helperShipLightConeEndPoint = new Planet(helper2Pos, sphereModelData, glm::vec3(1, 1, 1));
+	helperShipLightConeEndPoint->rotate(ship->getRotationQuat());
 
-	helperShipLightConeRadius = new Planet(helperShipLightConeEndPoint->getPosition() + ship->getLightConeBaseRadius() * ship->getVectorTop(),
-		ship->getRotationQuat(), ship->getVectorForward(), ship->getVectorTop(), sphereModel, glm::vec3(0, 1, 0),
-		glm::vec3(0, 0, 1), glm::vec3(1.0f, 1.0f, 1.0f));
+	glm::vec3 helper3Pos = helper2Pos + shipLight.getLightConeBaseRadius() * ship->getVectorTop();
+	helperShipLightConeRadius = new Planet(helper3Pos, sphereModelData, glm::vec3(1, 1, 1));
+	helperShipLightConeRadius->rotate(ship->getRotationQuat());
+}
+
+void renderDebugHelpers(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix)
+{
+	helperShipDirectionLine->setPosition(ship->getPosition());
+	helperShipDirectionLine->rotate(ship->getRotationQuat());
+	helperShipDirectionLine->update();
+	obj::Model model = helperShipDirectionLine->getModel();
+	drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipDirectionLine->getModelMatrix(), glm::vec3(0, 1, 0));
+
+	helperShipLightConeEndPoint->setPosition(ship->getPosition() + ship->getVectorForward() * helperShipDirectionLineLength);
+	helperShipLightConeEndPoint->rotate(ship->getRotationQuat());
+	helperShipLightConeEndPoint->update();
+	drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeEndPoint->getModelMatrix(), glm::vec3(0, 1, 0));
+
+	helperShipLightConeRadius->setPosition(helperShipLightConeEndPoint->getPosition()
+		+ ship->getShipLight().getLightConeBaseRadius() * ship->getVectorTop());
+	helperShipLightConeRadius->update();
+	drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeRadius->getModelMatrix(), glm::vec3(1, 1, 0));
 }
