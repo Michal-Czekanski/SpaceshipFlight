@@ -9,6 +9,13 @@ ShipLight::ShipLight(float lightConeHeight, float lightConeBaseRadius, glm::vec3
 	this->lightColor = lightColor;
 }
 
+ShipLight::ShipLight(float lightConeHeight, float lightConeBaseRadius, glm::vec3 lightColor)
+{
+	this->lightConeHeight = lightConeHeight;
+	this->lightConeBaseRadius = lightConeBaseRadius;
+	this->lightColor = lightColor;
+}
+
 void ShipLight::update(glm::vec3 position, glm::vec3 lightDirection)
 {
 	this->position = position;

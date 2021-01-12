@@ -26,6 +26,14 @@ public:
 	ShipLight(float lightConeHeight, float lightConeBaseRadius, glm::vec3 position, glm::vec3 lightDirection, glm::vec3 lightColor);
 
 	/// <summary>
+	/// Creates ship's light.
+	/// </summary>
+	/// <param name="lightConeHeight"></param>
+	/// <param name="lightConeBaseRadius"></param>
+	/// <param name="lightColor"></param>
+	ShipLight(float lightConeHeight, float lightConeBaseRadius, glm::vec3 lightColor);
+
+	/// <summary>
 	/// Updates ship's light data.
 	/// </summary>
 	/// <param name="position">Ship's position.</param>
