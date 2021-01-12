@@ -29,5 +29,13 @@ public:
 	/// <param name="position">Ship's position.</param>
 	/// <param name="lightDirection">Ship's direction.</param>
 	void update(glm::vec3 position, glm::vec3 lightDirection);
+
+	float getLightConeHeight();
+
+	float getLightConeBaseRadius();
+
+	glm::vec3 getPosition();
+
+	glm::vec3 getLightDirection();
 };
 
