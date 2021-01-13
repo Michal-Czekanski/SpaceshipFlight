@@ -41,3 +41,13 @@ void RenderableObject::rotate(glm::quat rotation)
 	this->rotationMat = glm::mat4_cast(this->rotationQuat);
 	updateDirections(rotation);
 }
+
+glm::vec3 RenderableObject::getColor()
+{
+	return this->color;
+}
+
+void RenderableObject::setColor(glm::vec3 color)
+{
+	this->color = color;
+}

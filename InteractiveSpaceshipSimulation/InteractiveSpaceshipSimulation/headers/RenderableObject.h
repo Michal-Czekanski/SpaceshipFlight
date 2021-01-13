@@ -27,6 +27,8 @@ protected:
 	glm::mat4 modelMatrix;
 
 	obj::Model model;
+
+	glm::vec3 color = glm::vec3();
 public:
 
 	RenderableObject(glm::vec3 position, ModelData &modelData,
@@ -48,5 +50,7 @@ public:
 	virtual void draw(GLuint program, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::vec3 color,
 		ShipLight shipLight, std::vector<StarLight*>& starsLight) {};
 
+	glm::vec3 getColor();
+	void setColor(glm::vec3 color);
 };
 
