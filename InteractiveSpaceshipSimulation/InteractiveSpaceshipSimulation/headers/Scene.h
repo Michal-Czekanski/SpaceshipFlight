@@ -58,7 +58,8 @@ void initScene(ModelData &shipModelData, ModelData &sphereModelData, ModelData& 
 	std::vector<StarLight*> &starsLights);
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
-	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, ModelData& planetModelData);
+	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, ModelData& planetModelData, 
+	bool randomColors = true);
 
 void generateRandomPlanetsForStar(Star* star, int howManyPlanetsGenerate, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
 	std::vector<Planet*>& planets, int& gamePlanetsCounter, ModelData& planetModelData);

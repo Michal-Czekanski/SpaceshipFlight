@@ -250,14 +250,14 @@ void drawObjectColor(GLuint program, RenderableObject* object, obj::Model* model
 	std::vector<float> starsLightStr;
 	for (int i = 0; i < stars.size(); i++)
 	{
-		starsLightStr.push_back(stars[i]->getLight().getStrength());
+		starsLightStr.push_back(stars[i]->getLight()->getStrength());
 	}
 	glUniform1fv(glGetUniformLocation(program, "starsLightStr"), stars.size(), reinterpret_cast<GLfloat*>(starsLightStr.data()));
 
 	std::vector<glm::vec3> starsLightCol;
 	for (int i = 0; i < stars.size(); i++)
 	{
-		starsLightCol.push_back(stars[i]->getLight().getColor());
+		starsLightCol.push_back(stars[i]->getLight()->getColor());
 	}
 	glUniform3fv(glGetUniformLocation(program, "starsLightCol"), stars.size(), reinterpret_cast<GLfloat*>(starsLightCol.data()));
 

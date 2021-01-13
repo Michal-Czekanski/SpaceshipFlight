@@ -6,7 +6,7 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 	std::vector<Planet*>& planets, int& planetsCount,
 	std::vector<Star*>& stars, int& starsCount,
 	std::vector<Moon*>& moons, int& moonsCount,
-	std::vector<StarLight*>& starsLights)
+	std::vector<StarLight*> &starsLights)
 {
 	ShipLight* shipLight = new ShipLight();
 	
@@ -17,17 +17,20 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 
 	Planet* startingPlanet = new Planet(startPlanetPos, sphereModelData, startPlanetScale);
 
-	StarLight* starLight = new StarLight();
+	StarLight* star1Light = new StarLight();
+	StarLight* star2Light = new StarLight();
+	StarLight* star3Light = new StarLight();
 
-	Star* star1 = new Star(star1Pos, sphereModelData, star1Scale, starLight);
+
+	Star* star1 = new Star(star1Pos, sphereModelData, star1Scale, star1Light);
 
 
 	//Moon* moon = new Moon(glm::vec3(0, 0, -15.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(5.0f), startingPlanet, 
 	//	glm::vec3(1, 1, 12), 1.0f);
 
-	Star* star2 = new Star(star2Pos, sphereModelData, star2Scale, starLight);
+	Star* star2 = new Star(star2Pos, sphereModelData, star2Scale, star2Light);
 
-	Star* star3 = new Star(star3Pos, sphereModelData, star3Scale, starLight);
+	Star* star3 = new Star(star3Pos, sphereModelData, star3Scale, star3Light);
 
 
 
@@ -41,8 +44,7 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 
 	for (int i = 0; i < stars.size(); i++)
 	{
-		StarLight starLight = stars[i]->getLight();
-		starsLights.push_back(&starLight);
+		starsLights.push_back(stars[i]->getLight());
 	}
 
 
@@ -65,7 +67,8 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 }
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float minPlanetOrbitSpeed, float maxPlanetOrbitSpeed,
-	std::vector<RenderableObject*> &renderableObjects, int &renderableObjectsCount, ModelData& planetModelData)
+	std::vector<RenderableObject*> &renderableObjects, int &renderableObjectsCount, ModelData& planetModelData,
+	bool randomColors)
 {
 	float randomPlanetGenerationRadius = star->getScale().x * 2;
 	float pushPlanetsFromStarCenter = star->getScale().x;
@@ -81,6 +84,10 @@ void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetS
 		float planetOrbitSpeed = randomFloat(minPlanetOrbitSpeed, maxPlanetOrbitSpeed);
 
 		Planet* planet = new Planet(planetPosRelativeToStar, planetModelData, planetScale, star, orbitPlaneVec2, planetOrbitSpeed);
+		if (randomColors)
+		{
+			planet->setColor(glm::vec3(randomFloat(0, 1), randomFloat(0, 1), randomFloat(0, 1)));
+		}
 		renderableObjects.push_back(planet); renderableObjectsCount++;
 	}
 }
