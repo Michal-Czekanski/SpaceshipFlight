@@ -2,21 +2,14 @@
 
 
 
-Star::Star(glm::vec3 position, ModelData &modelData, 
-	glm::vec3 scale, glm::vec3 lightColor, float lightStrength):
+Star::Star(glm::vec3 position, ModelData& modelData, glm::vec3 scale, StarLight* light):
 	RenderableObject(position, modelData, scale)
 {
-	this->lightColor = lightColor;
-	this->lightStrength = lightStrength;
+	this->light = *light;
 }
 
-glm::vec3 Star::getLightColor()
+StarLight Star::getLight()
 {
-	return this->lightColor;
-}
-
-float Star::getLightStrength()
-{
-	return this->lightStrength;
+	return this->light;
 }
 

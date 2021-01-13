@@ -16,15 +16,17 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 
 	Planet* startingPlanet = new Planet(startPlanetPos, sphereModelData, startPlanetScale);
 
-	Star* star1 = new Star(star1Pos, sphereModelData, star1Scale);
+	StarLight* starLight = new StarLight();
+
+	Star* star1 = new Star(star1Pos, sphereModelData, star1Scale, starLight);
 
 
 	//Moon* moon = new Moon(glm::vec3(0, 0, -15.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(5.0f), startingPlanet, 
 	//	glm::vec3(1, 1, 12), 1.0f);
 
-	Star* star2 = new Star(star2Pos, sphereModelData, star2Scale);
+	Star* star2 = new Star(star2Pos, sphereModelData, star2Scale, starLight);
 
-	Star* star3 = new Star(star3Pos, sphereModelData, star3Scale);
+	Star* star3 = new Star(star3Pos, sphereModelData, star3Scale, starLight);
 
 
 

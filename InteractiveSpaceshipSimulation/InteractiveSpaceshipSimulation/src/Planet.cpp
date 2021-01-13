@@ -9,6 +9,7 @@ Planet::Planet(glm::vec3 position, ModelData &modelData, glm::vec3 scale,
 	Star* orbitAround, glm::vec3 orbitPlaneVec2, float orbitSpeed):
 	Orbitable(position, modelData, scale, orbitAround, orbitPlaneVec2, orbitSpeed)
 {
+	this->orbitAround = orbitAround;
 }
 
 void Planet::update()
@@ -17,7 +18,7 @@ void Planet::update()
 	{
 		orbit();
 	}
-	this->modelMatrix = glm::translate(this->position) * this->rotationMat * glm::scale(this->scale);
+	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
 }
 
 Star* Planet::getOrbitCenter()

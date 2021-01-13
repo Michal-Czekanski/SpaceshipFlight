@@ -6,6 +6,10 @@
 #include "ObjectInSpace.h"
 #include "Time.h"
 #include "data/ModelData.h"
+#include "data/ShipLight.h"
+#include "freeglut.h"
+#include "data/StarLight.h"
+
 
 /// <summary>
 /// Object that can be drawn on the screen.
@@ -40,6 +44,9 @@ public:
 	glm::vec3 getScale();
 
 	void rotate(glm::quat rotation);
+
+	virtual void draw(GLuint program, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::vec3 color,
+		ShipLight shipLight, std::vector<StarLight*>& starsLight) {};
 
 };
 

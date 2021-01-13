@@ -166,6 +166,7 @@
     <ClCompile Include="src\utils\Texture.cpp" />
     <ClCompile Include="src\Star.cpp" />
     <ClCompile Include="src\Time.cpp" />
+    <ClCompile Include="src\data\StarLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\AsteroidField.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="headers\Time.h" />
     <ClInclude Include="headers\data\ShipLight.h" />
     <ClInclude Include="headers\data\ModelData.h" />
+    <ClInclude Include="headers\data\StarLight.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
