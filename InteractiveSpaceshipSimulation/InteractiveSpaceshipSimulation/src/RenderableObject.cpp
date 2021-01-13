@@ -53,7 +53,7 @@ void RenderableObject::setColor(glm::vec3 color)
 }
 
 void RenderableObject::draw(GLuint program, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,
-	std::vector<StarLight*>& starsLight)
+	std::vector<StarLight*>& starsLights)
 {
 	glUseProgram(program);
 
@@ -77,25 +77,25 @@ void RenderableObject::draw(GLuint program, glm::mat4 perspectiveMatrix, glm::ma
 
 
 	std::vector<glm::vec3> starsPos;
-	for (int i = 0; i < starsLight.size(); i++)
+	for (int i = 0; i < starsLights.size(); i++)
 	{
-		starsPos.push_back(starsLight[i]->getPosition());
+		starsPos.push_back(starsLights[i]->getPosition());
 	}
-	glUniform3fv(glGetUniformLocation(program, "starsPos"), starsLight.size(), reinterpret_cast<GLfloat*>(starsPos.data()));
+	glUniform3fv(glGetUniformLocation(program, "starsPos"), starsLights.size(), reinterpret_cast<GLfloat*>(starsPos.data()));
 
 	std::vector<float> starsLightStr;
-	for (int i = 0; i < starsLight.size(); i++)
+	for (int i = 0; i < starsLights.size(); i++)
 	{
-		starsLightStr.push_back(starsLight[i]->getStrength());
+		starsLightStr.push_back(starsLights[i]->getStrength());
 	}
-	glUniform1fv(glGetUniformLocation(program, "starsLightStr"), starsLight.size(), reinterpret_cast<GLfloat*>(starsLightStr.data()));
+	glUniform1fv(glGetUniformLocation(program, "starsLightStr"), starsLights.size(), reinterpret_cast<GLfloat*>(starsLightStr.data()));
 
 	std::vector<glm::vec3> starsLightCol;
-	for (int i = 0; i < starsLight.size(); i++)
+	for (int i = 0; i < starsLights.size(); i++)
 	{
-		starsLightCol.push_back(starsLight[i]->getColor());
+		starsLightCol.push_back(starsLights[i]->getColor());
 	}
-	glUniform3fv(glGetUniformLocation(program, "starsLightCol"), starsLight.size(), reinterpret_cast<GLfloat*>(starsLightCol.data()));
+	glUniform3fv(glGetUniformLocation(program, "starsLightCol"), starsLights.size(), reinterpret_cast<GLfloat*>(starsLightCol.data()));
 
 	obj::Model model = this->getModel();
 	Core::DrawModel(&model);
