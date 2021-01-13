@@ -51,3 +51,53 @@ void RenderableObject::setColor(glm::vec3 color)
 {
 	this->color = color;
 }
+
+void RenderableObject::draw(GLuint program, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,
+	std::vector<StarLight*>& starsLight)
+{
+	glUseProgram(program);
+
+	glm::mat4 modelMatrix = this->getModelMatrix();
+	glUniformMatrix4fv(glGetUniformLocation(program, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
+	glm::mat4 modelViewProjectionMatrix = perspectiveMatrix * cameraMatrix * modelMatrix;
+	glUniformMatrix4fv(glGetUniformLocation(program, "modelViewProjectionMatrix"), 1, GL_FALSE, (float*)&modelViewProjectionMatrix);
+	glm::vec3 shipPosition = shipLight.getPosition();
+	glUniform3f(glGetUniformLocation(program, "shipPos"), shipPosition.x, shipPosition.y, shipPosition.z);
+	glm::vec3 shipDirection = shipLight.getLightDirection();
+	glUniform3f(glGetUniformLocation(program, "shipDirection"), shipDirection.x, shipDirection.y, shipDirection.z);
+
+	glUniform1f(glGetUniformLocation(program, "shipLightConeHeight"), shipLight.getLightConeHeight());
+	glUniform1f(glGetUniformLocation(program, "shipLightConeRadius"), shipLight.getLightConeBaseRadius());
+	glUniform3f(glGetUniformLocation(program, "shipLightColor"),
+		shipLight.getLightColor().x, shipLight.getLightColor().y, shipLight.getLightColor().z);
+
+	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
+	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
+	glUniform3f(glGetUniformLocation(program, "cameraPos"), camPos.x, camPos.y, camPos.z);
+
+
+	std::vector<glm::vec3> starsPos;
+	for (int i = 0; i < starsLight.size(); i++)
+	{
+		starsPos.push_back(starsLight[i]->getPosition());
+	}
+	glUniform3fv(glGetUniformLocation(program, "starsPos"), starsLight.size(), reinterpret_cast<GLfloat*>(starsPos.data()));
+
+	std::vector<float> starsLightStr;
+	for (int i = 0; i < starsLight.size(); i++)
+	{
+		starsLightStr.push_back(starsLight[i]->getStrength());
+	}
+	glUniform1fv(glGetUniformLocation(program, "starsLightStr"), starsLight.size(), reinterpret_cast<GLfloat*>(starsLightStr.data()));
+
+	std::vector<glm::vec3> starsLightCol;
+	for (int i = 0; i < starsLight.size(); i++)
+	{
+		starsLightCol.push_back(starsLight[i]->getColor());
+	}
+	glUniform3fv(glGetUniformLocation(program, "starsLightCol"), starsLight.size(), reinterpret_cast<GLfloat*>(starsLightCol.data()));
+
+	obj::Model model = this->getModel();
+	Core::DrawModel(&model);
+	glUseProgram(0);
+}

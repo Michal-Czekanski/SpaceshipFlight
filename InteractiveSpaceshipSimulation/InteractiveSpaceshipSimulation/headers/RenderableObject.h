@@ -1,5 +1,7 @@
 #pragma once
 
+#include "glew.h"
+#include "freeglut.h"
 #include "glm.hpp"
 #include "ext.hpp"
 #include "utils/objload.h"
@@ -7,8 +9,9 @@
 #include "Time.h"
 #include "data/ModelData.h"
 #include "data/ShipLight.h"
-#include "freeglut.h"
 #include "data/StarLight.h"
+#include "utils/Render_Utils.h"
+
 
 
 /// <summary>
@@ -47,8 +50,8 @@ public:
 
 	void rotate(glm::quat rotation);
 
-	virtual void draw(GLuint program, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::vec3 color,
-		ShipLight shipLight, std::vector<StarLight*>& starsLight) {};
+	virtual void draw(GLuint program, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,
+		std::vector<StarLight*>& starsLight);
 
 	glm::vec3 getColor();
 	void setColor(glm::vec3 color);
