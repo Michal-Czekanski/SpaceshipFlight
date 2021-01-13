@@ -51,7 +51,7 @@ public:
 	void rotate(glm::quat rotation);
 
 	virtual void draw(GLuint program, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,
-		std::vector<StarLight*>& starsLights);
+		std::vector<StarLight*> &starsLights);
 
 	glm::vec3 getColor();
 	void setColor(glm::vec3 color);

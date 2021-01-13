@@ -53,7 +53,7 @@ void RenderableObject::setColor(glm::vec3 color)
 }
 
 void RenderableObject::draw(GLuint program, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,
-	std::vector<StarLight*>& starsLights)
+	std::vector<StarLight*> &starsLights)
 {
 	glUseProgram(program);
 
@@ -71,7 +71,6 @@ void RenderableObject::draw(GLuint program, glm::mat4 perspectiveMatrix, glm::ma
 	glUniform3f(glGetUniformLocation(program, "shipLightColor"),
 		shipLight.getLightColor().x, shipLight.getLightColor().y, shipLight.getLightColor().z);
 
-	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
 	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
 	glUniform3f(glGetUniformLocation(program, "cameraPos"), camPos.x, camPos.y, camPos.z);
 
