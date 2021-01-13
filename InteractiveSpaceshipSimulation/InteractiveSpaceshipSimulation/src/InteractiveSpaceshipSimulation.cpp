@@ -116,7 +116,7 @@ void renderScene()
 		RenderableObject* renderableObject = renderableObjects[i];
 		renderableObject->update();
 		obj::Model model = renderableObject->getModel();
-		renderableObject->draw(programColor2, perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(),
+		renderableObject->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(),
 			starsLights);
 	}
 	

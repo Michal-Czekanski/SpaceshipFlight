@@ -12,7 +12,7 @@ public:
 
 	StarLight* getLight();
 
-	void draw(GLuint program, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,
+	void draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,
 		std::vector<StarLight*>& starsLights);
 };
 

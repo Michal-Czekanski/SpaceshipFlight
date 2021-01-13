@@ -54,27 +54,27 @@ void RenderableObject::setColor(glm::vec3 color)
 	this->color = color;
 }
 
-void RenderableObject::draw(GLuint program, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,
+void RenderableObject::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,
 	std::vector<StarLight*> &starsLights)
 {
-	glUseProgram(program);
+	glUseProgram(programDraw);
 
 	glm::mat4 modelMatrix = this->getModelMatrix();
-	glUniformMatrix4fv(glGetUniformLocation(program, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
+	glUniformMatrix4fv(glGetUniformLocation(programDraw, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
 	glm::mat4 modelViewProjectionMatrix = perspectiveMatrix * cameraMatrix * modelMatrix;
-	glUniformMatrix4fv(glGetUniformLocation(program, "modelViewProjectionMatrix"), 1, GL_FALSE, (float*)&modelViewProjectionMatrix);
+	glUniformMatrix4fv(glGetUniformLocation(programDraw, "modelViewProjectionMatrix"), 1, GL_FALSE, (float*)&modelViewProjectionMatrix);
 	glm::vec3 shipPosition = shipLight.getPosition();
-	glUniform3f(glGetUniformLocation(program, "shipPos"), shipPosition.x, shipPosition.y, shipPosition.z);
+	glUniform3f(glGetUniformLocation(programDraw, "shipPos"), shipPosition.x, shipPosition.y, shipPosition.z);
 	glm::vec3 shipDirection = shipLight.getLightDirection();
-	glUniform3f(glGetUniformLocation(program, "shipDirection"), shipDirection.x, shipDirection.y, shipDirection.z);
+	glUniform3f(glGetUniformLocation(programDraw, "shipDirection"), shipDirection.x, shipDirection.y, shipDirection.z);
 
-	glUniform1f(glGetUniformLocation(program, "shipLightConeHeight"), shipLight.getLightConeHeight());
-	glUniform1f(glGetUniformLocation(program, "shipLightConeRadius"), shipLight.getLightConeBaseRadius());
-	glUniform3f(glGetUniformLocation(program, "shipLightColor"),
+	glUniform1f(glGetUniformLocation(programDraw, "shipLightConeHeight"), shipLight.getLightConeHeight());
+	glUniform1f(glGetUniformLocation(programDraw, "shipLightConeRadius"), shipLight.getLightConeBaseRadius());
+	glUniform3f(glGetUniformLocation(programDraw, "shipLightColor"),
 		shipLight.getLightColor().x, shipLight.getLightColor().y, shipLight.getLightColor().z);
 
-	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
-	glUniform3f(glGetUniformLocation(program, "cameraPos"), camPos.x, camPos.y, camPos.z);
+	glUniform3f(glGetUniformLocation(programDraw, "objectColor"), color.x, color.y, color.z);
+	glUniform3f(glGetUniformLocation(programDraw, "cameraPos"), camPos.x, camPos.y, camPos.z);
 
 
 	std::vector<glm::vec3> starsPos;
@@ -82,21 +82,21 @@ void RenderableObject::draw(GLuint program, glm::mat4 perspectiveMatrix, glm::ma
 	{
 		starsPos.push_back(starsLights[i]->getPosition());
 	}
-	glUniform3fv(glGetUniformLocation(program, "starsPos"), starsLights.size(), reinterpret_cast<GLfloat*>(starsPos.data()));
+	glUniform3fv(glGetUniformLocation(programDraw, "starsPos"), starsLights.size(), reinterpret_cast<GLfloat*>(starsPos.data()));
 
 	std::vector<float> starsLightStr;
 	for (int i = 0; i < starsLights.size(); i++)
 	{
 		starsLightStr.push_back(starsLights[i]->getStrength());
 	}
-	glUniform1fv(glGetUniformLocation(program, "starsLightStr"), starsLights.size(), reinterpret_cast<GLfloat*>(starsLightStr.data()));
+	glUniform1fv(glGetUniformLocation(programDraw, "starsLightStr"), starsLights.size(), reinterpret_cast<GLfloat*>(starsLightStr.data()));
 
 	std::vector<glm::vec3> starsLightCol;
 	for (int i = 0; i < starsLights.size(); i++)
 	{
 		starsLightCol.push_back(starsLights[i]->getColor());
 	}
-	glUniform3fv(glGetUniformLocation(program, "starsLightCol"), starsLights.size(), reinterpret_cast<GLfloat*>(starsLightCol.data()));
+	glUniform3fv(glGetUniformLocation(programDraw, "starsLightCol"), starsLights.size(), reinterpret_cast<GLfloat*>(starsLightCol.data()));
 
 	obj::Model model = this->getModel();
 	Core::DrawModel(&model);
