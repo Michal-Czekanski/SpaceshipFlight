@@ -12,11 +12,12 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 	ShipLight* shipLight = new ShipLight();
 	
 	ship = new Ship(initShipPos, shipModelData, *shipLight, shipSpeed, shipRotationSpeed, shipScale, programColor2);
-	//ship->rotate(initialShipRotation);
+	ship->setColor(shipColor);
 
 	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (ObjectInSpace*)ship);
 
 	Planet* startingPlanet = new Planet(startPlanetPos, sphereModelData, startPlanetScale, programColor2);
+	startingPlanet->setColor(glm::vec3(0.7, 0.1, 0.1f));
 
 	StarLight* star1Light = new StarLight(); starsLights.push_back(star1Light);
 	StarLight* star2Light = new StarLight(); starsLights.push_back(star2Light);

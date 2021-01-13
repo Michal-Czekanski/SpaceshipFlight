@@ -86,16 +86,7 @@ void renderScene()
 	// Render ship
 	ship->update();
 	obj::Model shipModel = ship->getModel();
-	drawObjectColor(programColor2, ship, &shipModel, perspectiveMatrix, cameraMatrix, glm::vec3(0.0f, 0.9f, 0.8f), stars);
-
-	// Render stars
-	for (int i = 0; i < starsCount; i++)
-	{
-		Star* star = stars[i];
-		star->update();
-		obj::Model model = star->getModel();
-		drawStarColor(programStar, star, &model, perspectiveMatrix, cameraMatrix, glm::vec3(0.980f, 0.450f, 0.0f));
-	}
+	ship->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(), starsLights);
 
 	// Render asteroid fields
 	for (int i = 0; i < asteroidFields.size(); i++)

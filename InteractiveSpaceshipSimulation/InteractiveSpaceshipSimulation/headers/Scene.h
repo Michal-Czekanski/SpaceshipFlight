@@ -36,6 +36,8 @@ const float camUpOffsetMultiplier = 0.5f;
 
 const glm::vec3 shipScale = glm::vec3(0.6f);
 
+const glm::vec3 shipColor = glm::vec3(0.0f, 0.9f, 0.8f);
+
 const glm::vec3 startPlanetPos = glm::vec3(0, 15.0f, 50.0f);
 const glm::vec3 startPlanetScale = glm::vec3(25.0f);
 
