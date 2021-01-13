@@ -29,6 +29,7 @@ std::vector<RenderableObject*> renderableObjects;
 int renderableObjectsCount = 0;
 std::vector<Planet*> planets; int planetsCount = 0;
 std::vector<Star*> stars; int starsCount = 0; // Ugly code - everything should be on renderableObjects vector and call virtual method draw(), but there is no time for this right now.
+std::vector<StarLight*> starsLights;
 std::vector<Moon*> moons; int moonsCount = 0;
 std::vector<AsteroidField*> asteroidFields;
 

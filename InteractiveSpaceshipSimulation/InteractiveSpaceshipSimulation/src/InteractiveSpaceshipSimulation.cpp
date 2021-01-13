@@ -83,21 +83,19 @@ void renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
-	/* TODO: Add virtual method to draw objects instead of having separate vectors for every possible object.
-	// Render renderable objects
-	for (int i = 0; i < renderableObjectsCount; i++)
-	{
-		RenderableObject* renderableObject = renderableObjects[i];
-		renderableObject->update();
-		obj::Model model = renderableObject->getModel();
-		drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, renderableObject->getModelMatrix(), glm::vec3(0.6f));
-	}
-	*/
-
 	// Render ship
 	ship->update();
 	obj::Model shipModel = ship->getModel();
 	drawObjectColor(programColor2, ship, &shipModel, perspectiveMatrix, cameraMatrix, glm::vec3(0.0f, 0.9f, 0.8f), stars);
+
+	// Render stars
+	for (int i = 0; i < starsCount; i++)
+	{
+		Star* star = stars[i];
+		star->update();
+		obj::Model model = star->getModel();
+		drawStarColor(programStar, star, &model, perspectiveMatrix, cameraMatrix, glm::vec3(0.980f, 0.450f, 0.0f));
+	}
 
 	// Render asteroid fields
 	for (int i = 0; i < asteroidFields.size(); i++)
@@ -112,33 +110,16 @@ void renderScene()
 		}
 	}
 
-	// Render planets
-	for (int i = 0; i < planetsCount; i++)
+	// Render renderable objects
+	for (int i = 0; i < renderableObjectsCount; i++)
 	{
-		Planet* planet = planets[i];
-		planet->update();
-		obj::Model model = planet->getModel();
-		drawObjectColor(programColor2, planet, &model, perspectiveMatrix, cameraMatrix, glm::vec3(0.3f, 0.0f, 0.0f), stars);
+		RenderableObject* renderableObject = renderableObjects[i];
+		renderableObject->update();
+		obj::Model model = renderableObject->getModel();
+		renderableObject->draw(programColor2, perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(),
+			starsLights);
 	}
-
-	// Render stars
-	for (int i = 0; i < starsCount; i++)
-	{
-		Star* star= stars[i];
-		star->update();
-		obj::Model model = star->getModel();
-		drawStarColor(programStar, star, &model, perspectiveMatrix, cameraMatrix, glm::vec3(0.980f, 0.450f, 0.0f));
-	}
-
-	// Render moons
-	for (int i = 0; i < moonsCount; i++)
-	{
-		Moon* moon = moons[i];
-		moon->update();
-		obj::Model model = moon->getModel();
-		drawObjectColor(programColor2, moon, &model, perspectiveMatrix, cameraMatrix, glm::vec3(0, 0.1f, 0.8f), stars);
-	}
-
+	
 	if (debugHelpersOn)
 	{
 		renderDebugHelpers(perspectiveMatrix, cameraMatrix);
@@ -178,7 +159,7 @@ void init()
 
 	initScene(shipModelData, sphereModelData, asteroidModel1Data, ship, camera, renderableObjects, 
 		renderableObjectsCount, asteroidFields, planets, planetsCount, stars, starsCount,
-		moons, moonsCount);
+		moons, moonsCount, starsLights);
 
 	initDebugHelpers(sphereModelData);
 

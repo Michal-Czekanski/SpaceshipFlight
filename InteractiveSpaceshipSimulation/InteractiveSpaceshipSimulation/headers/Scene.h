@@ -54,7 +54,8 @@ void initScene(ModelData &shipModelData, ModelData &sphereModelData, ModelData& 
 	std::vector<AsteroidField*> &asteroidFields, 
 	std::vector<Planet*>& planets, int &planetsCount, 
 	std::vector<Star*>& stars, int &starsCount,
-	std::vector<Moon*> &moons, int &moonsCount);
+	std::vector<Moon*> &moons, int &moonsCount,
+	std::vector<StarLight*> &starsLights);
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
 	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, ModelData& planetModelData);

@@ -5,7 +5,8 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 	std::vector<AsteroidField*>& asteroidFields,
 	std::vector<Planet*>& planets, int& planetsCount,
 	std::vector<Star*>& stars, int& starsCount,
-	std::vector<Moon*>& moons, int& moonsCount)
+	std::vector<Moon*>& moons, int& moonsCount,
+	std::vector<StarLight*>& starsLights)
 {
 	ShipLight* shipLight = new ShipLight();
 	
@@ -31,21 +32,28 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 
 
 	renderableObjects.push_back((RenderableObject*)ship); renderableObjectsCount++;
-	planets.push_back(startingPlanet); planetsCount++;
+	renderableObjects.push_back(startingPlanet); renderableObjectsCount++;
 	stars.push_back(star1); starsCount++;
 	//renderableObjects.push_back((RenderableObject*)moon); renderableObjectsCount++;
 	//moons.push_back(moon); moonsCount++;
 	stars.push_back(star2); starsCount++;
 	stars.push_back(star3); starsCount++;
 
+	for (int i = 0; i < stars.size(); i++)
+	{
+		StarLight starLight = stars[i]->getLight();
+		starsLights.push_back(&starLight);
+	}
 
 
-	//generateRandomPlanetsForStar(star1, 20, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModel);
-	generateRandomPlanetsForStar(star1, 20, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModelData);
-	//generateRandomPlanetsForStar(star2, 25, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModel);
-	generateRandomPlanetsForStar(star2, 25, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModelData);
-	//generateRandomPlanetsForStar(star3, 22, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModel);
-	generateRandomPlanetsForStar(star3, 22, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModelData);
+	generateRandomPlanetsForStar(star1, 20, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModelData);
+	//generateRandomPlanetsForStar(star1, 20, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModelData);
+	
+	generateRandomPlanetsForStar(star2, 25, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModelData);
+	//generateRandomPlanetsForStar(star2, 25, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModelData);
+	
+	generateRandomPlanetsForStar(star3, 22, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModelData);
+	//generateRandomPlanetsForStar(star3, 22, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModelData);
 
 	std::vector<ModelData*> asteroidModelsData; asteroidModelsData.push_back(&asteroidModelData);
 	
