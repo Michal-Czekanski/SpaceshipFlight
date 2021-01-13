@@ -2,8 +2,8 @@
 
 
 Orbitable::Orbitable(glm::vec3 position, ModelData& modelData, glm::vec3 scale,
-	ObjectInSpace* orbitAround, glm::vec3 orbitPlaneVec2, float orbitSpeed) :
-	RenderableObject(position, modelData, scale)
+	ObjectInSpace* orbitAround, glm::vec3 orbitPlaneVec2, float orbitSpeed, GLuint programDraw) :
+	RenderableObject(position, modelData, scale, programDraw)
 	
 {
 	if (orbitAround)

@@ -1,6 +1,6 @@
 #include "../headers/RenderableObject.h"
 
-RenderableObject::RenderableObject(glm::vec3 position, ModelData &modelData, glm::vec3 scale):
+RenderableObject::RenderableObject(glm::vec3 position, ModelData &modelData, glm::vec3 scale, GLuint programDraw):
 	ObjectInSpace(position, modelData.getForward(), modelData.getTop())
 {
 	this->positionMat = glm::translate(position);
@@ -13,6 +13,8 @@ RenderableObject::RenderableObject(glm::vec3 position, ModelData &modelData, glm
 	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
 
 	this->model = modelData.getModel();
+
+	this->programDraw = programDraw;
 }
 
 glm::mat4 RenderableObject::getModelMatrix()

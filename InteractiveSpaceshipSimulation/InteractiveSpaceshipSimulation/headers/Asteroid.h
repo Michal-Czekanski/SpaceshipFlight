@@ -9,7 +9,7 @@ private:
 
 public:
 	Asteroid(ModelData &modelData, glm::vec3 position, glm::vec3 moveDirection, float speed, 
-		glm::vec3 scale);
+		glm::vec3 scale, GLuint programDraw);
 
 	void update();
 };

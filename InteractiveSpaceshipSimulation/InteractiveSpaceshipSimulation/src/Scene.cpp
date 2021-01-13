@@ -6,68 +6,64 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 	std::vector<Planet*>& planets, int& planetsCount,
 	std::vector<Star*>& stars, int& starsCount,
 	std::vector<Moon*>& moons, int& moonsCount,
-	std::vector<StarLight*> &starsLights)
+	std::vector<StarLight*> &starsLights,
+	GLuint programColor2, GLuint programStar)
 {
 	ShipLight* shipLight = new ShipLight();
 	
-	ship = new Ship(initShipPos, shipModelData, *shipLight, shipSpeed, shipRotationSpeed, shipScale);
+	ship = new Ship(initShipPos, shipModelData, *shipLight, shipSpeed, shipRotationSpeed, shipScale, programColor2);
 	//ship->rotate(initialShipRotation);
 
 	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (ObjectInSpace*)ship);
 
-	Planet* startingPlanet = new Planet(startPlanetPos, sphereModelData, startPlanetScale);
+	Planet* startingPlanet = new Planet(startPlanetPos, sphereModelData, startPlanetScale, programColor2);
 
-	StarLight* star1Light = new StarLight();
-	StarLight* star2Light = new StarLight();
-	StarLight* star3Light = new StarLight();
+	StarLight* star1Light = new StarLight(); starsLights.push_back(star1Light);
+	StarLight* star2Light = new StarLight(); starsLights.push_back(star2Light);
+	StarLight* star3Light = new StarLight(); starsLights.push_back(star3Light);
 
 
-	Star* star1 = new Star(star1Pos, sphereModelData, star1Scale, star1Light);
-
+	Star* star1 = new Star(star1Pos, sphereModelData, star1Scale, star1Light, programStar);
+	star1->setColor(glm::vec3(0.980f, 0.450f, 0.0f));
 
 	//Moon* moon = new Moon(glm::vec3(0, 0, -15.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(5.0f), startingPlanet, 
 	//	glm::vec3(1, 1, 12), 1.0f);
 
-	Star* star2 = new Star(star2Pos, sphereModelData, star2Scale, star2Light);
+	Star* star2 = new Star(star2Pos, sphereModelData, star2Scale, star2Light, programStar);
+	star2->setColor(glm::vec3(0.980f, 0.450f, 0.0f));
 
-	Star* star3 = new Star(star3Pos, sphereModelData, star3Scale, star3Light);
-
-
+	Star* star3 = new Star(star3Pos, sphereModelData, star3Scale, star3Light, programStar);
+	star3->setColor(glm::vec3(0.980f, 0.450f, 0.0f));
 
 	renderableObjects.push_back((RenderableObject*)ship); renderableObjectsCount++;
 	renderableObjects.push_back(startingPlanet); renderableObjectsCount++;
-	stars.push_back(star1); starsCount++;
+	renderableObjects.push_back(star1); renderableObjectsCount++;
 	//renderableObjects.push_back((RenderableObject*)moon); renderableObjectsCount++;
 	//moons.push_back(moon); moonsCount++;
-	stars.push_back(star2); starsCount++;
-	stars.push_back(star3); starsCount++;
-
-	for (int i = 0; i < stars.size(); i++)
-	{
-		starsLights.push_back(stars[i]->getLight());
-	}
+	renderableObjects.push_back(star2); renderableObjectsCount++;
+	renderableObjects.push_back(star3); renderableObjectsCount++;
 
 
-	generateRandomPlanetsForStar(star1, 20, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModelData);
+	generateRandomPlanetsForStar(star1, 20, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModelData, programColor2);
 	//generateRandomPlanetsForStar(star1, 20, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModelData);
 	
-	generateRandomPlanetsForStar(star2, 25, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModelData);
+	generateRandomPlanetsForStar(star2, 25, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModelData, programColor2);
 	//generateRandomPlanetsForStar(star2, 25, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModelData);
 	
-	generateRandomPlanetsForStar(star3, 22, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModelData);
+	generateRandomPlanetsForStar(star3, 22, 3, 50, 0.001f, 0.05f, renderableObjects, renderableObjectsCount, sphereModelData, programColor2);
 	//generateRandomPlanetsForStar(star3, 22, 3, 50, 0.001f, 0.05f, planets, planetsCount, sphereModelData);
 
 	std::vector<ModelData*> asteroidModelsData; asteroidModelsData.push_back(&asteroidModelData);
 	
 	AsteroidField* asteroidField1 = new AsteroidField(20, 30.0f, 1.0f, 1.0f, 7.0f, glm::vec3(4.0f, 3.0f, 25.0f), glm::vec3(0, 0.1f, 1.0f),
-		asteroidModelsData);
+		asteroidModelsData, programColor2);
 	asteroidFields.push_back(asteroidField1);
 
-	generateRandomAsteroidFields(asteroidFields, 5, asteroidModelsData);
+	generateRandomAsteroidFields(asteroidFields, 5, asteroidModelsData, programColor2);
 }
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float minPlanetOrbitSpeed, float maxPlanetOrbitSpeed,
-	std::vector<RenderableObject*> &renderableObjects, int &renderableObjectsCount, ModelData& planetModelData,
+	std::vector<RenderableObject*> &renderableObjects, int &renderableObjectsCount, ModelData& planetModelData, GLuint programDraw,
 	bool randomColors)
 {
 	float randomPlanetGenerationRadius = star->getScale().x * 2;
@@ -83,7 +79,8 @@ void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetS
 		glm::vec3 orbitPlaneVec2 = glm::ballRand(1.0f);
 		float planetOrbitSpeed = randomFloat(minPlanetOrbitSpeed, maxPlanetOrbitSpeed);
 
-		Planet* planet = new Planet(planetPosRelativeToStar, planetModelData, planetScale, star, orbitPlaneVec2, planetOrbitSpeed);
+		Planet* planet = new Planet(planetPosRelativeToStar, planetModelData, planetScale, star, orbitPlaneVec2, planetOrbitSpeed,
+			programDraw);
 		if (randomColors)
 		{
 			planet->setColor(glm::vec3(randomFloat(0, 1), randomFloat(0, 1), randomFloat(0, 1)));
@@ -92,30 +89,8 @@ void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetS
 	}
 }
 
-void generateRandomPlanetsForStar(Star* star, int howManyPlanetsGenerate, float minPlanetScale, float maxPlanetScale, 
-	float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
-	std::vector<Planet*>& planets, int& gamePlanetsCounter, ModelData &planetModelData)
-{
-	float randomPlanetGenerationRadius = star->getScale().x * 2;
-	float pushPlanetsFromStarCenter = star->getScale().x;
-	for (int i = 0; i < 20; i++)
-	{
-		glm::vec3 planetPosRelativeToStar = glm::ballRand(randomPlanetGenerationRadius) + star->getPosition();
-		// push planet pos from star center
-		glm::vec3 directionFromStarToPlanet = glm::normalize(planetPosRelativeToStar - star->getPosition());
-		planetPosRelativeToStar += pushPlanetsFromStarCenter * directionFromStarToPlanet;
-
-		glm::vec3 planetScale = glm::vec3(randomFloat(minPlanetScale, maxPlanetScale));
-		glm::vec3 orbitPlaneVec2 = glm::ballRand(1.0f);
-		float planetOrbitSpeed = randomFloat(minPlanetOrbitSpeed, maxPlanetOrbitSpeed);
-
-		Planet* planet = new Planet(planetPosRelativeToStar, planetModelData, planetScale, star, orbitPlaneVec2, planetOrbitSpeed);
-		planets.push_back(planet); gamePlanetsCounter++;
-	}
-
-}
-
 void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count, std::vector<ModelData*> &asteroidModelsData,
+	GLuint programDraw,
 	float generationRadius, float minAsteroidFieldRadius, float maxAsteroidFieldRadius,
 	float minAsteroidScale, float maxAsteroidScale,
 	float minSpeed, float maxSpeed, int minAsteroidCount, int maxAsteroidCount)
@@ -130,7 +105,7 @@ void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count
 		glm::vec3 moveDirection = glm::ballRand(1.0f);
 
 		AsteroidField* field = new AsteroidField(asteroidCount, fieldRadius, speed, minAsteroidScale, maxAsteroidScale, 
-			fieldPos, moveDirection, asteroidModelsData);
+			fieldPos, moveDirection, asteroidModelsData, programDraw);
 		fields.push_back(field);
 	}
 }

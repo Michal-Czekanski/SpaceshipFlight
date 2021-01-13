@@ -32,10 +32,15 @@ protected:
 	obj::Model model;
 
 	glm::vec3 color = glm::vec3();
+
+	/// <summary>
+	/// Program used to draw this renderable object.
+	/// </summary>
+	GLuint programDraw;
 public:
 
 	RenderableObject(glm::vec3 position, ModelData &modelData,
-		glm::vec3 scale);
+		glm::vec3 scale, GLuint programDraw);
 
 	glm::mat4 getModelMatrix();
 

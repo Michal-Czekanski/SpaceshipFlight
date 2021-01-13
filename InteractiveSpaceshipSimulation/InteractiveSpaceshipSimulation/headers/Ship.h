@@ -31,7 +31,7 @@ public:
 	/// <param name="shipTopInModelSpace"></param>
 	/// <param name="shipDirectionInModelSpace"></param>
 	Ship(glm::vec3 position, ModelData &modelData, ShipLight shipLight,
-		float shipSpeed, float rotationSpeed, glm::vec3 scale);
+		float shipSpeed, float rotationSpeed, glm::vec3 scale, GLuint programDraw);
 
 	/// <summary>
 	/// Moves ship forward based on ship speed -> updates ship's model matrix.

@@ -1,8 +1,8 @@
 #include "../headers/Ship.h"
 
 Ship::Ship(glm::vec3 position, ModelData &modelData, ShipLight shipLight, 
-	float shipSpeed, float rotationSpeed, glm::vec3 scale):
-	RenderableObject(position, modelData, scale)
+	float shipSpeed, float rotationSpeed, glm::vec3 scale, GLuint programDraw):
+	RenderableObject(position, modelData, scale, programDraw)
 {
 	this->speed = shipSpeed;
 	this->rotationSpeed = rotationSpeed;

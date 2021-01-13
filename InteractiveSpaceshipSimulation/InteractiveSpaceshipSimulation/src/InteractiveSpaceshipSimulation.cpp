@@ -159,7 +159,7 @@ void init()
 
 	initScene(shipModelData, sphereModelData, asteroidModel1Data, ship, camera, renderableObjects, 
 		renderableObjectsCount, asteroidFields, planets, planetsCount, stars, starsCount,
-		moons, moonsCount, starsLights);
+		moons, moonsCount, starsLights, programColor2, programStar);
 
 	initDebugHelpers(sphereModelData);
 
@@ -290,15 +290,15 @@ void initDebugHelpers(ModelData &sphereModelData)
 	helperShipDirectionLineLength = shipLight.getLightConeHeight();
 	glm::vec3 lineScale = glm::vec3(0.1f, 0.1f, helperShipDirectionLineLength * 2);
 
-	helperShipDirectionLine = new Planet(ship->getPosition(), sphereModelData, lineScale);
+	helperShipDirectionLine = new Planet(ship->getPosition(), sphereModelData, lineScale, programColor);
 	helperShipDirectionLine->rotate(ship->getRotationQuat());
 	
 	glm::vec3 helper2Pos = ship->getPosition() + ship->getVectorForward() * helperShipDirectionLineLength;
-	helperShipLightConeEndPoint = new Planet(helper2Pos, sphereModelData, glm::vec3(1, 1, 1));
+	helperShipLightConeEndPoint = new Planet(helper2Pos, sphereModelData, glm::vec3(1, 1, 1), programColor);
 	helperShipLightConeEndPoint->rotate(ship->getRotationQuat());
 
 	glm::vec3 helper3Pos = helper2Pos + shipLight.getLightConeBaseRadius() * ship->getVectorTop();
-	helperShipLightConeRadius = new Planet(helper3Pos, sphereModelData, glm::vec3(1, 1, 1));
+	helperShipLightConeRadius = new Planet(helper3Pos, sphereModelData, glm::vec3(1, 1, 1), programColor);
 	helperShipLightConeRadius->rotate(ship->getRotationQuat());
 }
 
