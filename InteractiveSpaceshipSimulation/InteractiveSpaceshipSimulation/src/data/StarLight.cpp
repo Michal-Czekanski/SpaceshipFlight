@@ -20,3 +20,8 @@ glm::vec3 StarLight::getPosition()
 {
 	return this->position;
 }
+
+void StarLight::update(glm::vec3 position)
+{
+	this->position = position;
+}
