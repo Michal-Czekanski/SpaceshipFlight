@@ -10,6 +10,7 @@
 #include "utils/Texture.h"
 #include "utils/Shader_Loader.h"
 #include "utils/Render_Utils.h"
+#include "Mouse.h"
 
 
 #define WINDOW_WIDTH 720
@@ -61,3 +62,7 @@ void drawStarColor(GLuint program, Star* star, obj::Model* model, glm::mat4 pers
 void initDebugHelpers(ModelData& sphereModelData);
 
 void renderDebugHelpers(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix);
+
+void mouse(int x, int y);
+
+void rotateShip();

@@ -12,6 +12,19 @@ float helperShipDirectionLineLength;
 Planet* helperShipLightConeEndPoint = NULL;
 Planet* helperShipLightConeRadius = NULL;
 
+void rotateShip()
+{
+	float windowW = glutGet(GLUT_WINDOW_WIDTH);	float windowH = glutGet(GLUT_WINDOW_HEIGHT);
+	glm::vec2 windowCenter = glm::vec2(windowW / 2, windowH / 2);
+	float pitch = (windowCenter.y - Mouse::y) / (windowH / 2);
+	float roll = -(windowCenter.x - Mouse::x) / (windowW / 2);
+	ship->rotateShip(pitch, 0.0f, roll);
+}
+void mouse(int x, int y)
+{
+	Mouse::x = x;
+	Mouse::y = y;
+}
 
 void keyboard(unsigned char key, int x, int y)
 {
@@ -30,24 +43,11 @@ void keyboard(unsigned char key, int x, int y)
 			debugHelpersOn = !debugHelpersOn;
 			break;
 
-		// test rotation, later should be with mouse
 		case 'd': // right
 			ship->rotateShip(0.0f, 1.0f, 0.0f);
 			break;
 		case 'a': // left
 			ship->rotateShip(0.0f, -1.0f, 0.0f);
-			break;
-		case 'e': // roll right
-			ship->rotateShip(0.0f, 0.0f, 1.0f);
-			break;
-		case 'q': // roll left
-			ship->rotateShip(0.0f, 0.0f, -1.0f);
-			break;
-		case 'k': // pitch up
-			ship->rotateShip(1.0f, 0.0f, 0.0f);
-			break; 
-		case 'l': // pitch down
-			ship->rotateShip(-1.0f, 0.0f, 0.0f);
 			break;
 	}
 }
@@ -84,6 +84,7 @@ void renderScene()
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Render ship
+	rotateShip();
 	ship->update();
 	obj::Model shipModel = ship->getModel();
 	ship->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(), starsLights);
@@ -168,6 +169,7 @@ int main(int argc, char** argv)
 
 	init();
 	glutKeyboardFunc(keyboard);
+	glutPassiveMotionFunc(mouse);
 	glutDisplayFunc(renderScene);
 	glutIdleFunc(idle);
 
