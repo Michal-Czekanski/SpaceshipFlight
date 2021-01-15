@@ -11,7 +11,9 @@ class Ship: public RenderableObject
 {
 private:
 	float speed = 0.0f;
-	float rotationSpeed = 0.0f;
+	float pitchSpeed = 0.0f;
+	float yawSpeed = 0.0f;
+	float rollSpeed = 0.0f;
 
 	void updateModelMatrix();
 
@@ -22,16 +24,9 @@ public:
 	/// Creates ship.
 	/// </summary>
 	/// <param name="position">Where to position ship.</param>
-	/// <param name="shipModel"></param>
-	/// <param name="shipLight"></param>
-	/// <param name="shipSpeed"></param>
-	/// <param name="rotationSpeed"></param>
-	/// <param name="scale"></param>
 	/// <param name="rotationQuat">How to rotate ship on start.</param>
-	/// <param name="shipTopInModelSpace"></param>
-	/// <param name="shipDirectionInModelSpace"></param>
 	Ship(glm::vec3 position, ModelData &modelData, ShipLight shipLight,
-		float shipSpeed, float rotationSpeed, glm::vec3 scale, GLuint programDraw);
+		float shipSpeed, glm::vec3 scale, GLuint programDraw, float pitchSpeed = 1.0f, float yawSpeed = 1.0f, float rollSpeed = 1.0f);
 
 	/// <summary>
 	/// Moves ship forward based on ship speed -> updates ship's model matrix.
@@ -44,22 +39,11 @@ public:
 	void moveBackwards();
 
 	/// <summary>
-	/// Rotates ship along given axises using ship's rotationSpeed -> updates ship's model matrix.
-	/// </summary>
-	/// <param name="pitchUp">Rotates up along X axix.</param>
-	/// <param name="pitchDown">Rotates down along X axis.</param>
-	/// <param name="yawRight">Rotates right along Y axis.</param>
-	/// <param name="yawLeft">Rotates left along Y axis.</param>
-	/// <param name="rollRigt">Rotates right along Z axis.</param>
-	/// <param name="rollLeft">Rotates left along Z axis.</param>
-	void rotateShip(bool pitchUp, bool pitchDown, bool yawRight, bool yawLeft, bool rollRigt, bool rollLeft);
-
-	/// <summary>
 	/// Rotates ship.
 	/// </summary>
-	/// <param name="pitch">Value [-1, 1] specyfing in what direction and how much ship will pitch.</param>
-	/// <param name="yaw">Value [-1, 1] specyfing in what direction and how much ship will yaw.</param>
-	/// <param name="roll">Value [-1, 1] specyfing in what direction and how much ship will roll.</param>
+	/// <param name="pitch">Value [-1, 1] specyfing in what direction and how much ship will pitch. (1 max up, -1 max down)</param>
+	/// <param name="yaw">Value [-1, 1] specyfing in what direction and how much ship will yaw. (1 max right, -1 max left)</param>
+	/// <param name="roll">Value [-1, 1] specyfing in what direction and how much ship will roll.(1 max right, -1 max left)</param>
 	void rotateShip(float pitch, float yaw, float roll);
 
 	void update();

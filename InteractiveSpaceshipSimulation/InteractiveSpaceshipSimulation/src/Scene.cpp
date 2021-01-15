@@ -11,7 +11,7 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 {
 	ShipLight* shipLight = new ShipLight();
 	
-	ship = new Ship(initShipPos, shipModelData, *shipLight, shipSpeed, shipRotationSpeed, shipScale, programColor2);
+	ship = new Ship(initShipPos, shipModelData, *shipLight, shipSpeed, shipScale, programColor2);
 	ship->setColor(shipColor);
 
 	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (ObjectInSpace*)ship);

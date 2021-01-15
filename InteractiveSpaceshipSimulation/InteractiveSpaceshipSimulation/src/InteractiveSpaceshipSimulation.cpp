@@ -32,22 +32,22 @@ void keyboard(unsigned char key, int x, int y)
 
 		// test rotation, later should be with mouse
 		case 'd': // right
-			ship->rotateShip(false, false, true, false, false, false);
+			ship->rotateShip(0.0f, 1.0f, 0.0f);
 			break;
 		case 'a': // left
-			ship->rotateShip(false, false, false, true, false, false);
+			ship->rotateShip(0.0f, -1.0f, 0.0f);
 			break;
 		case 'e': // roll right
-			ship->rotateShip(false, false, false, false, true, false);
+			ship->rotateShip(0.0f, 0.0f, 1.0f);
 			break;
 		case 'q': // roll left
-			ship->rotateShip(false, false, false, false, false, true);
+			ship->rotateShip(0.0f, 0.0f, -1.0f);
 			break;
 		case 'k': // pitch up
-			ship->rotateShip(true, false, false, false, false, false);
+			ship->rotateShip(1.0f, 0.0f, 0.0f);
 			break; 
 		case 'l': // pitch down
-			ship->rotateShip(false, true, false, false, false, false);
+			ship->rotateShip(-1.0f, 0.0f, 0.0f);
 			break;
 	}
 }

@@ -27,8 +27,6 @@ const glm::quat initialShipRotation =
 
 const float shipSpeed = 100.0f;
 
-const float shipRotationSpeed = 10.0f;
-
 const glm::vec3 initCameraLookDir = glm::vec3(0, 0, -1);
 
 const float camOffsetMultiplier = 2.0f;
