@@ -39,11 +39,11 @@ bool isPointInShipLightRange(vec3 point, vec3 shipPos, vec3 shipDirection, float
 	return is_point_inside_cone;
 }
 
-float calculateAttentuation(vec3 lightPos, vec3 fragPos, float maxAttentuationDist)
+float calculateAttenuation(vec3 lightPos, vec3 fragPos, float maxAttenuationDist)
 {
 	vec3 toLight = lightPos - fragPos;
 	float distFromL = length(toLight);
-	return clamp(maxAttentuationDist / (distFromL*distFromL), 0.0, 1.0);
+	return clamp(maxAttenuationDist / (distFromL*distFromL), 0.0, 1.0);
 }
 
 float calculateDiffuseIntensity(vec3 normal, vec3 lightDir)
@@ -81,22 +81,22 @@ void main()
 	if(isPointInShipLightRange(fragPos, shipPos, shipDirection, shipLightConeHeight, shipLightConeRadius))
 	{
         vec3 shipLightDir = normalize(fragPos-shipPos);
-		float shipLightAttentuation = calculateAttentuation(shipPos, fragPos, shipLightStr);
-		diffuseColor += shipLightAttentuation * calculateDiffuseColor(calculateDiffuseIntensity(normal, shipLightDir), objectColor);
-		specularColor += shipLightAttentuation * calculateSpecularColor(calculateSpecularIntensity(cameraPos, fragPos, shipLightDir, normal, brilliancy), shipLightColor);
+		float shipLightAttenuation = calculateAttenuation(shipPos, fragPos, shipLightStr);
+		diffuseColor += shipLightAttenuation * calculateDiffuseColor(calculateDiffuseIntensity(normal, shipLightDir), objectColor);
+		specularColor += shipLightAttenuation * calculateSpecularColor(calculateSpecularIntensity(cameraPos, fragPos, shipLightDir, normal, brilliancy), shipLightColor);
 	}
 
 	// Light from stars
     for(int i = 0; i < starsCount; i++ )
     {
         vec3 starLightDir = normalize(fragPos-starsPos[i]);
-        float starLightAttentuation = calculateAttentuation(starsPos[i], fragPos, starsLightStr[i]);
+        float starLightAttenuation = calculateAttenuation(starsPos[i], fragPos, starsLightStr[i]);
         float starDiffuseIntensity = calculateDiffuseIntensity(normal, starLightDir);
-        diffuseColor += starLightAttentuation * calculateDiffuseColor(starDiffuseIntensity, objectColor);
+        diffuseColor += starLightAttenuation * calculateDiffuseColor(starDiffuseIntensity, objectColor);
         if(starDiffuseIntensity > 0)
     	{
     		// Prevent specular light from appearing on the back sides without light.
-    		specularColor += starLightAttentuation *
+    		specularColor += starLightAttenuation *
             calculateSpecularColor(calculateSpecularIntensity(cameraPos, fragPos, starLightDir, normal, brilliancy), starsLightCol[i]);
     	}
     }
