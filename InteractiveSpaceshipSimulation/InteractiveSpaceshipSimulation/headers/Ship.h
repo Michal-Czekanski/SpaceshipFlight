@@ -54,6 +54,14 @@ public:
 	/// <param name="rollLeft">Rotates left along Z axis.</param>
 	void rotateShip(bool pitchUp, bool pitchDown, bool yawRight, bool yawLeft, bool rollRigt, bool rollLeft);
 
+	/// <summary>
+	/// Rotates ship.
+	/// </summary>
+	/// <param name="pitch">Value [-1, 1] specyfing in what direction and how much ship will pitch.</param>
+	/// <param name="yaw">Value [-1, 1] specyfing in what direction and how much ship will yaw.</param>
+	/// <param name="roll">Value [-1, 1] specyfing in what direction and how much ship will roll.</param>
+	void rotateShip(float pitch, float yaw, float roll);
+
 	void update();
 
 	ShipLight getShipLight();
