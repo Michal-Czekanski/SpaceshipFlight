@@ -73,12 +73,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(ProjectDir)dependencies\freeglut\include\GL;$(ProjectDir)dependencies\glew-2.0.0\include\GL;$(ProjectDir)dependencies\glm;$(IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>$(ProjectDir)dependencies\freeglut\lib;$(ProjectDir)dependencies\glew-2.0.0\lib\Release\Win32;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <LibraryPath>$(ProjectDir)dependencies\freeglut\lib;$(ProjectDir)dependencies\glew-2.0.0\lib\;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(ProjectDir)dependencies\freeglut\include\GL;$(ProjectDir)dependencies\glew-2.0.0\include\GL;$(ProjectDir)dependencies\glm;$(IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>$(ProjectDir)dependencies\freeglut\lib;$(ProjectDir)dependencies\glew-2.0.0\lib\Release\Win32;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <LibraryPath>$(ProjectDir)dependencies\freeglut\lib;$(ProjectDir)dependencies\glew-2.0.0\lib\;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
