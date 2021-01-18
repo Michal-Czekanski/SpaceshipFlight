@@ -25,3 +25,8 @@ void StarLight::update(glm::vec3 position)
 {
 	this->position = position;
 }
+
+void StarLight::setStrength(float strength)
+{
+	this->strength = strength;
+}

@@ -19,5 +19,7 @@ public:
 	glm::vec3 getPosition();
 
 	void update(glm::vec3 position);
+
+	void setStrength(float strength);
 };
 
