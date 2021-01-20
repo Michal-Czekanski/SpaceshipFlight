@@ -97,8 +97,8 @@ void renderScene()
 		for (int j = 0; j < asteroids.size(); j++)
 		{
 			asteroids[j]->update();
-			obj::Model model = asteroids[j]->getModel();
-			drawObjectColor(programColor2, asteroids[j], &model, perspectiveMatrix, cameraMatrix, glm::vec3(0.3f), stars);
+			asteroids[j]->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(),
+				starsLights);
 		}
 	}
 
@@ -142,14 +142,18 @@ void init()
 	ModelData shipModelData = ModelData(shipModel, glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 
 	obj::Model sphereModel = obj::loadModelFromFile("models/sphere.obj");
-	ModelData sphereModelData = ModelData(sphereModel, glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
+	obj::Model sphereModelSimplified = obj::loadModelFromFile("models/sphere-simpl.obj");
+	ModelData sphereModelData = ModelData(sphereModel, sphereModelSimplified,
+		glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 
-	obj::Model asteroidModel1 = obj::loadModelFromFile("models/asteroid1.obj");
-	ModelData asteroidModel1Data = ModelData(asteroidModel1, glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
+	obj::Model asteroid1Model = obj::loadModelFromFile("models/asteroid1.obj");
+	obj::Model asteroid1ModelSimplified = obj::loadModelFromFile("models/asteroid1-simpl.obj");
+	ModelData asteroid1ModelData = ModelData(asteroid1Model, asteroid1ModelSimplified,
+		glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 
 
 
-	initScene(shipModelData, sphereModelData, asteroidModel1Data, ship, camera, renderableObjects, 
+	initScene(shipModelData, sphereModelData, asteroid1ModelData, ship, camera, renderableObjects,
 		renderableObjectsCount, asteroidFields, planets, planetsCount, stars, starsCount,
 		moons, moonsCount, starsLights, programColor2, programStar);
 
