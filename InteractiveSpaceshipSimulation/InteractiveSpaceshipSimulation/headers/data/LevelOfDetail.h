@@ -8,7 +8,7 @@ class LevelOfDetail
 {
 private:
 	LevelOfDetailEnum detailLevel;
-	const int highDetailMaxDistance = 150.0f;
+	const float highDetailMaxDistance = 200.0f;
 
 public:
 	LevelOfDetail(float distanceFromCamera);
