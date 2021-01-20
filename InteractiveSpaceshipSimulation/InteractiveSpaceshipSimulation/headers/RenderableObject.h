@@ -11,6 +11,7 @@
 #include "data/ShipLight.h"
 #include "data/StarLight.h"
 #include "utils/Render_Utils.h"
+#include "graphics_techniques/DiscreteLOD.h"
 
 
 

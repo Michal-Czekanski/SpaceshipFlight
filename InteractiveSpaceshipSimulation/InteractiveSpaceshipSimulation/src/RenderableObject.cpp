@@ -15,6 +15,8 @@ RenderableObject::RenderableObject(glm::vec3 position, ModelData &modelData, glm
 	this->model = modelData.getModel();
 
 	this->programDraw = programDraw;
+
+	this->simplifiedModel = this->model;
 }
 
 RenderableObject::RenderableObject(glm::vec3 position, ModelData& modelData, 
@@ -118,7 +120,8 @@ void RenderableObject::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix,
 	}
 	glUniform3fv(glGetUniformLocation(programDraw, "starsLightCol"), starsLights.size(), reinterpret_cast<GLfloat*>(starsLightCol.data()));
 
-	obj::Model model = this->getModel();
+	DiscreteLOD dlod = DiscreteLOD();
+	obj::Model model = dlod.whichModelUse(glm::fastDistance(position, camPos), simplifiedModel, model);
 	Core::DrawModel(&model);
 	glUseProgram(0);
 }
