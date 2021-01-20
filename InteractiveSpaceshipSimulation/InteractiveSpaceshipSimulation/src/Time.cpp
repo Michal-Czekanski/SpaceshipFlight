@@ -31,6 +31,7 @@ void Time::update()
 		Time::deltaTime = currentFrameTime - lastFrameTime;
 		Time::deltaTimeSec = Time::deltaTime / 1000.0f;
 		Time::gameDuration += Time::deltaTime;
+		PerformanceMeasure::updatePerformanceMeasures(Time::deltaTimeSec);
 	}
 }
 
