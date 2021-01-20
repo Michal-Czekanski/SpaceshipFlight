@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Time.h"
+#include <vector>
 
 class PerformanceMeasure
 {
@@ -33,6 +34,8 @@ private:
 
 	static void takeMeasures(int framesCount);
 
+	static std::vector<void(*)()> measuresTakenListeners;
+
 public:
 	/// <summary>
 	/// Returns miliseconds needed to render frame. Good performance measure.
@@ -55,5 +58,9 @@ public:
 	/// Stars measuring performance.
 	/// </summary>
 	static void start();
+
+	static void addMeasuresTakenListener(void(*measuresTakenListener)());
+
+	static void removeMeasuresTakenListener(void(*measuresTakenListener)());
 };
 

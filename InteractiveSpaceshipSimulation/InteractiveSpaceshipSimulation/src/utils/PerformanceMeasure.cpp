@@ -4,6 +4,7 @@ float PerformanceMeasure::msPerFrame;
 int PerformanceMeasure::framesPerSecond;
 float PerformanceMeasure::timer;
 const float PerformanceMeasure::measureTime = 1.0f;
+std::vector<void (*)()> PerformanceMeasure::measuresTakenListeners;
 
 void PerformanceMeasure::updatePerformanceMeasures(float deltaTime)
 {
@@ -51,4 +52,16 @@ void PerformanceMeasure::start()
 		PerformanceMeasure::isRunning = true;
 		PerformanceMeasure::timer = PerformanceMeasure::measureTime;
 	}
+}
+
+void PerformanceMeasure::addMeasuresTakenListener(void(*measuresTakenListener)())
+{
+	PerformanceMeasure::measuresTakenListeners.push_back(measuresTakenListener);
+}
+
+void PerformanceMeasure::removeMeasuresTakenListener(void(*measuresTakenListener)())
+{
+	auto begin = PerformanceMeasure::measuresTakenListeners.begin();
+	auto end = PerformanceMeasure::measuresTakenListeners.end();
+	PerformanceMeasure::measuresTakenListeners.erase(std::remove(begin, end, measuresTakenListener), end);
 }
