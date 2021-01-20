@@ -17,6 +17,26 @@ RenderableObject::RenderableObject(glm::vec3 position, ModelData &modelData, glm
 	this->programDraw = programDraw;
 }
 
+RenderableObject::RenderableObject(glm::vec3 position, ModelData& modelData, 
+	obj::Model& simplifiedModel, glm::vec3 scale, GLuint programDraw):
+	ObjectInSpace(position, modelData.getForward(), modelData.getTop())
+{
+	this->positionMat = glm::translate(position);
+
+	this->rotationMat = glm::mat4_cast(rotationQuat);
+
+	this->scale = scale;
+	this->scaleMat = glm::scale(scale);
+
+	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
+
+	this->model = modelData.getModel();
+
+	this->programDraw = programDraw;
+
+	this->simplifiedModel = simplifiedModel;
+}
+
 glm::mat4 RenderableObject::getModelMatrix()
 {
 	return this->modelMatrix;
