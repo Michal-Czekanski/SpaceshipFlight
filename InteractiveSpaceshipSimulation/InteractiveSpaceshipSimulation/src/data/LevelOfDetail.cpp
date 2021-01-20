@@ -2,7 +2,7 @@
 
 LevelOfDetail::LevelOfDetail(float distanceFromCamera)
 {
-	if (distanceFromCamera > highDetailMaxDistance)
+	if (distanceFromCamera <= highDetailMaxDistance)
 	{
 		detailLevel = LevelOfDetailEnum::High;
 	}
