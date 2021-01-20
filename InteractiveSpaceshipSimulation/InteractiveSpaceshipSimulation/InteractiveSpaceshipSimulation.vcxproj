@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\data\LevelOfDetail.cpp" />
     <ClCompile Include="src\Mouse.cpp" />
     <ClCompile Include="src\data\ModelData.cpp" />
     <ClCompile Include="src\data\ShipLight.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="headers\data\ModelData.h" />
     <ClInclude Include="headers\data\StarLight.h" />
     <ClInclude Include="headers\Mouse.h" />
+    <ClInclude Include="headers\data\LevelOfDetail.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

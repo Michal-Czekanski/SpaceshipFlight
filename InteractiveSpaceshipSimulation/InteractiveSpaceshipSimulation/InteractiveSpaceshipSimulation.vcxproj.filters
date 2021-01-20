@@ -84,6 +84,9 @@
     <ClCompile Include="src\Mouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\data\LevelOfDetail.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\InteractiveSpaceshipSimulation.h">
@@ -156,6 +159,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\Mouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\data\LevelOfDetail.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
