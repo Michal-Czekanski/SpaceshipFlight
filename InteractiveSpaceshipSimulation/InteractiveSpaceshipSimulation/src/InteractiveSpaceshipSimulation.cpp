@@ -12,6 +12,12 @@ float helperShipDirectionLineLength;
 Planet* helperShipLightConeEndPoint = NULL;
 Planet* helperShipLightConeRadius = NULL;
 
+void printPerformanceMeasures()
+{
+	std::cout << PerformanceMeasure::getMsPerFrame() << " ms/frame | ";
+	std::cout << PerformanceMeasure::getFPS() << " FPS" << std::endl;
+}
+
 void rotateShip()
 {
 	float windowW = glutGet(GLUT_WINDOW_WIDTH);	float windowH = glutGet(GLUT_WINDOW_HEIGHT);
@@ -160,6 +166,7 @@ void init()
 	initDebugHelpers(sphereModelData);
 
 	Time::start();
+	PerformanceMeasure::addMeasuresTakenListener(printPerformanceMeasures);
 }
 
 int main(int argc, char** argv)
