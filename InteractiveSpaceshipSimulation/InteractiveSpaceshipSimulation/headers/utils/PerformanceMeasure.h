@@ -36,6 +36,8 @@ private:
 
 	static std::vector<void(*)()> measuresTakenListeners;
 
+	static void callListeners();
+
 public:
 	/// <summary>
 	/// Returns miliseconds needed to render frame. Good performance measure.

@@ -2,8 +2,10 @@
 
 float PerformanceMeasure::msPerFrame;
 int PerformanceMeasure::framesPerSecond;
+int PerformanceMeasure::framesCounter;
 float PerformanceMeasure::timer;
 const float PerformanceMeasure::measureTime = 1.0f;
+bool PerformanceMeasure::isRunning;
 std::vector<void (*)()> PerformanceMeasure::measuresTakenListeners;
 
 void PerformanceMeasure::updatePerformanceMeasures(float deltaTime)
@@ -24,6 +26,15 @@ void PerformanceMeasure::takeMeasures(int framesCount)
 {
 	PerformanceMeasure::framesPerSecond = framesCount;
 	PerformanceMeasure::msPerFrame = 1000.0f / framesCount;
+	PerformanceMeasure::callListeners();
+}
+
+void PerformanceMeasure::callListeners()
+{
+	for (void(*listener)() : PerformanceMeasure::measuresTakenListeners)
+	{
+		listener();
+	}
 }
 
 void PerformanceMeasure::reset()
