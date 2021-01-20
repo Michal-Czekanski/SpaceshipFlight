@@ -1,6 +1,7 @@
 #pragma once
 
 #include <chrono>
+#include "utils/PerformanceMeasure.h"
 
 using namespace std::chrono;
 

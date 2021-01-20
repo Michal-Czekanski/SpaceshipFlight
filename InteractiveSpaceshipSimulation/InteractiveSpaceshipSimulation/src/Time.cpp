@@ -18,6 +18,7 @@ void Time::start()
 		Time::currentFrameTime = 0;
 		Time::deltaTime = 0;
 		Time::gameDuration = 0;
+		PerformanceMeasure::start();
 	}
 }
 
