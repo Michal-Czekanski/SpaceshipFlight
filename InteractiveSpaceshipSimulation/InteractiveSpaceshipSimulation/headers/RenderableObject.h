@@ -45,9 +45,6 @@ public:
 	RenderableObject(glm::vec3 position, ModelData &modelData,
 		glm::vec3 scale, GLuint programDraw);
 
-	RenderableObject(glm::vec3 position, ModelData& modelData, obj::Model &simplifiedModel,
-		glm::vec3 scale, GLuint programDraw);
-
 	glm::mat4 getModelMatrix();
 
 	obj::Model getModel();
