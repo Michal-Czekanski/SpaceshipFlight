@@ -14,7 +14,8 @@ private:
 
 	void generateRandomAsteroids(glm::vec3 generationCenter, glm::vec3 moveDirection, int asteroidsCount, 
 		float asteroidFieldRadius, float asteroidSpeed,
-		float minAsteroidScale, float maxAsteroidScale, std::vector<ModelData*> &modelsData, GLuint programDraw);
+		float minAsteroidScale, float maxAsteroidScale, 
+		std::vector<ModelData*> &modelsData, GLuint programDraw, glm::vec3 asteroidColor);
 public:
 	/// <summary>
 	/// Creates AsteroidField which generates random asteroids.
@@ -30,7 +31,7 @@ public:
 	/// <param name="vectorTop"></param>
 	AsteroidField(int asteroidCount, float asteroidFieldRadius, float asteroidSpeed, float minAsteroidScale, float maxAsteroidScale,
 		glm::vec3 position, glm::vec3 moveDirection, std::vector<ModelData*>& modelsData, GLuint programDraw,
-		glm::vec3 vectorTop = glm::vec3(0, 0, 1));
+		glm::vec3 vectorTop = glm::vec3(0, 0, 1), glm::vec3 asteroidColor = glm::vec3(0.3f));
 
 	std::vector<Asteroid*> getAsteroids();
 };
