@@ -101,7 +101,8 @@ void RenderableObject::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix,
 	glUniform3fv(glGetUniformLocation(programDraw, "starsLightCol"), starsLights.size(), reinterpret_cast<GLfloat*>(starsLightCol.data()));
 
 	DiscreteLOD dlod = DiscreteLOD();
-	obj::Model model = dlod.whichModelUse(glm::fastDistance(position, camPos), simplifiedModel, model);
-	Core::DrawModel(&model);
+	float distFromCam = glm::distance(position, camPos);
+	obj::Model chosenModel = dlod.whichModelUse(distFromCam, simplifiedModel, this->model);
+	Core::DrawModel(&chosenModel);
 	glUseProgram(0);
 }
