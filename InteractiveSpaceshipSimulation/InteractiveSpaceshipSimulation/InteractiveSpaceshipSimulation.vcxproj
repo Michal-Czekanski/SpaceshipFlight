@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics_techniques\DiscreteLOD.cpp" />
     <ClCompile Include="src\data\LevelOfDetail.cpp" />
     <ClCompile Include="src\Mouse.cpp" />
     <ClCompile Include="src\data\ModelData.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="src\data\StarLight.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\graphics_techniques\DiscreteLOD.h" />
     <ClInclude Include="headers\AsteroidField.h" />
     <ClInclude Include="headers\Asteroid.h" />
     <ClInclude Include="headers\AttachableCamera.h" />
