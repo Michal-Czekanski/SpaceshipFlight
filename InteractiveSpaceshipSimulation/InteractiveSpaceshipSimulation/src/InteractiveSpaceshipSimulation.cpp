@@ -58,22 +58,6 @@ void keyboard(unsigned char key, int x, int y)
 	}
 }
 
-void drawObjectColor(GLuint program, obj::Model* model, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::mat4 modelMatrix, glm::vec3 color)
-{
-	glUseProgram(program);
-
-	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
-	glUniform3f(glGetUniformLocation(program, "lightDir"), testLightDir.x, testLightDir.y, testLightDir.z);
-
-	glm::mat4 transformation = perspectiveMatrix * cameraMatrix * modelMatrix;
-	glUniformMatrix4fv(glGetUniformLocation(program, "modelViewProjectionMatrix"), 1, GL_FALSE, (float*)&transformation);
-	glUniformMatrix4fv(glGetUniformLocation(program, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
-
-	Core::DrawModel(model);
-
-	glUseProgram(0);
-}
-
 void idle()
 {
 	glutPostRedisplay();
@@ -158,10 +142,9 @@ void init()
 		glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 
 
-
 	initScene(shipModelData, sphereModelData, asteroid1ModelData, ship, camera, renderableObjects,
-		renderableObjectsCount, asteroidFields, planets, planetsCount, stars, starsCount,
-		moons, moonsCount, starsLights, programColor2, programStar);
+		renderableObjectsCount, asteroidFields,
+		starsLights, programColor2, programStar);
 
 	initDebugHelpers(sphereModelData);
 
@@ -189,103 +172,6 @@ int main(int argc, char** argv)
 	shutdown();
 
 	return 0;
-}
-
-void drawAsteroidColor(GLuint asteroidProgram, Asteroid* asteroid, obj::Model* asteroidModel, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::vec3 color)
-{
-	glUseProgram(asteroidProgram);
-
-	glm::mat4 modelMatrix = asteroid->getModelMatrix();
-	glUniformMatrix4fv(glGetUniformLocation(asteroidProgram, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
-	glm::mat4 modelViewProjectionMatrix = perspectiveMatrix * cameraMatrix * modelMatrix;
-	glUniformMatrix4fv(glGetUniformLocation(asteroidProgram, "modelViewProjectionMatrix"), 1, GL_FALSE, (float*)&modelViewProjectionMatrix);
-
-
-	glm::vec3 shipPosition = ship->getPosition();
-	glUniform3f(glGetUniformLocation(asteroidProgram, "shipPos"), shipPosition.x, shipPosition.y, shipPosition.z);
-	glm::vec3 shipDirection = ship->getVectorForward();
-	glUniform3f(glGetUniformLocation(asteroidProgram, "shipDirection"), shipDirection.x, shipDirection.y, shipDirection.z);
-	ShipLight shipLight = ship->getShipLight();
-	glUniform1f(glGetUniformLocation(asteroidProgram, "shipLightConeHeight"), shipLight.getLightConeHeight());
-	glUniform1f(glGetUniformLocation(asteroidProgram, "shipLightConeRadius"), shipLight.getLightConeBaseRadius());
-	glUniform3f(glGetUniformLocation(asteroidProgram, "shipLightColor"), 
-		shipLight.getLightColor().x, shipLight.getLightColor().y, shipLight.getLightColor().z);
-	glUniform3f(glGetUniformLocation(asteroidProgram, "objectColor"), color.x, color.y, color.z);
-
-	glm::vec3 camPos = camera->getCamPos();
-	glUniform3f(glGetUniformLocation(asteroidProgram, "cameraPos"), camPos.x, camPos.y, camPos.z);
-
-	Core::DrawModel(asteroidModel);
-
-	glUseProgram(0);
-}
-
-void drawObjectColor(GLuint program, RenderableObject* object, obj::Model* model, glm::mat4 perspectiveMatrix, 
-	glm::mat4 cameraMatrix, glm::vec3 color, std::vector<Star*>& stars)
-{
-	glUseProgram(program);
-
-	glm::mat4 modelMatrix = object->getModelMatrix();
-	glUniformMatrix4fv(glGetUniformLocation(program, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
-	glm::mat4 modelViewProjectionMatrix = perspectiveMatrix * cameraMatrix * modelMatrix;
-	glUniformMatrix4fv(glGetUniformLocation(program, "modelViewProjectionMatrix"), 1, GL_FALSE, (float*)&modelViewProjectionMatrix);
-	glm::vec3 shipPosition = ship->getPosition();
-	glUniform3f(glGetUniformLocation(program, "shipPos"), shipPosition.x, shipPosition.y, shipPosition.z);
-	glm::vec3 shipDirection = ship->getVectorForward();
-	glUniform3f(glGetUniformLocation(program, "shipDirection"), shipDirection.x, shipDirection.y, shipDirection.z);
-	ShipLight shipLight = ship->getShipLight();
-	glUniform1f(glGetUniformLocation(program, "shipLightConeHeight"), shipLight.getLightConeHeight());
-	glUniform1f(glGetUniformLocation(program, "shipLightConeRadius"), shipLight.getLightConeBaseRadius());
-	glUniform3f(glGetUniformLocation(program, "shipLightColor"),
-		shipLight.getLightColor().x, shipLight.getLightColor().y, shipLight.getLightColor().z);
-	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
-	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
-	glm::vec3 camPos = camera->getCamPos();
-	glUniform3f(glGetUniformLocation(program, "cameraPos"), camPos.x, camPos.y, camPos.z);
-
-
-	std::vector<glm::vec3> starsPos;
-	for (int i = 0; i < stars.size(); i++)
-	{
-		starsPos.push_back(stars[i]->getPosition());
-	}
-	glUniform3fv(glGetUniformLocation(program, "starsPos"), stars.size(), reinterpret_cast<GLfloat*>(starsPos.data()));
-
-	std::vector<float> starsLightStr;
-	for (int i = 0; i < stars.size(); i++)
-	{
-		starsLightStr.push_back(stars[i]->getLight()->getStrength());
-	}
-	glUniform1fv(glGetUniformLocation(program, "starsLightStr"), stars.size(), reinterpret_cast<GLfloat*>(starsLightStr.data()));
-
-	std::vector<glm::vec3> starsLightCol;
-	for (int i = 0; i < stars.size(); i++)
-	{
-		starsLightCol.push_back(stars[i]->getLight()->getColor());
-	}
-	glUniform3fv(glGetUniformLocation(program, "starsLightCol"), stars.size(), reinterpret_cast<GLfloat*>(starsLightCol.data()));
-
-	Core::DrawModel(model);
-	glUseProgram(0);
-}
-
-
-void drawStarColor(GLuint program, Star* star, obj::Model* model, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::vec3 color)
-{
-	glUseProgram(program);
-
-	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
-	glm::vec3 starPos = star->getPosition();
-	glUniform3f(glGetUniformLocation(program, "starPos"), starPos.x, starPos.y, starPos.z);
-
-	glm::mat4 modelMatrix = star->getModelMatrix();
-	glm::mat4 transformation = perspectiveMatrix * cameraMatrix * modelMatrix;
-	glUniformMatrix4fv(glGetUniformLocation(program, "modelViewProjectionMatrix"), 1, GL_FALSE, (float*)&transformation);
-	glUniformMatrix4fv(glGetUniformLocation(program, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
-
-	Core::DrawModel(model);
-
-	glUseProgram(0);
 }
 
 void initDebugHelpers(ModelData &sphereModelData)
@@ -323,4 +209,20 @@ void renderDebugHelpers(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix)
 		+ ship->getShipLight().getLightConeBaseRadius() * ship->getVectorTop());
 	helperShipLightConeRadius->update();
 	drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeRadius->getModelMatrix(), glm::vec3(1, 1, 0));
+}
+
+void drawObjectColor(GLuint program, obj::Model* model, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::mat4 modelMatrix, glm::vec3 color)
+{
+	glUseProgram(program);
+
+	glUniform3f(glGetUniformLocation(program, "objectColor"), color.x, color.y, color.z);
+	glUniform3f(glGetUniformLocation(program, "lightDir"), testLightDir.x, testLightDir.y, testLightDir.z);
+
+	glm::mat4 transformation = perspectiveMatrix * cameraMatrix * modelMatrix;
+	glUniformMatrix4fv(glGetUniformLocation(program, "modelViewProjectionMatrix"), 1, GL_FALSE, (float*)&transformation);
+	glUniformMatrix4fv(glGetUniformLocation(program, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
+
+	Core::DrawModel(model);
+
+	glUseProgram(0);
 }

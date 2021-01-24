@@ -51,10 +51,7 @@ const glm::vec3 star3Scale = glm::vec3(600.0f);
 
 void initScene(ModelData &shipModelData, ModelData &sphereModelData, ModelData& asteroidModelData, Ship* &ship, AttachableCamera* &camera, 
 	std::vector<RenderableObject*> &renderableObjects, int& renderableObjectsCount, 
-	std::vector<AsteroidField*> &asteroidFields, 
-	std::vector<Planet*>& planets, int &planetsCount, 
-	std::vector<Star*>& stars, int &starsCount,
-	std::vector<Moon*> &moons, int &moonsCount,
+	std::vector<AsteroidField*> &asteroidFields,
 	std::vector<StarLight*> &starsLights,
 	GLuint programColor2, GLuint programStar);
 
