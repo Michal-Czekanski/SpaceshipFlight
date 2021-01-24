@@ -4,8 +4,6 @@
 
 Ship* ship = NULL;
 AttachableCamera* camera = NULL;
-Planet* planet = NULL;
-Star* star = NULL;
 
 Planet* helperShipDirectionLine = NULL;
 float helperShipDirectionLineLength;
