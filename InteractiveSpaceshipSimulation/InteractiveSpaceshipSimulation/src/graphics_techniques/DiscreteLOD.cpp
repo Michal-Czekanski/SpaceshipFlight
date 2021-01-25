@@ -12,3 +12,16 @@ obj::Model& DiscreteLOD::whichModelUse(float distanceFromCamera, obj::Model& sim
 		return simplifiedModel;
 	}
 }
+
+Core::RenderContext DiscreteLOD::whichContextUse(float distanceFromCamera, Core::RenderContext& simplifiedContext, Core::RenderContext& detailedContext)
+{
+	LevelOfDetail levelOfDetail = LevelOfDetail(distanceFromCamera);
+	if (levelOfDetail.getDetailLevel() == LevelOfDetailEnum::High)
+	{
+		return detailedContext;
+	}
+	else if (levelOfDetail.getDetailLevel() == LevelOfDetailEnum::Low)
+	{
+		return simplifiedContext;
+	}
+}
