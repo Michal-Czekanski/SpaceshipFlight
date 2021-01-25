@@ -6,6 +6,7 @@ void Core::RenderContext::initFromOBJ(obj::Model& model)
     vertexArray = 0;
     vertexBuffer = 0;
     vertexIndexBuffer = 0;
+	instanceModelMatrixesBuffer = 0;
     unsigned int vertexDataBufferSize = sizeof(float) * model.vertex.size();
     unsigned int vertexNormalBufferSize = sizeof(float) * model.normal.size();
     unsigned int vertexTexBufferSize = sizeof(float) * model.texCoord.size();
@@ -48,33 +49,39 @@ void Core::RenderContext::initFromOBJ(obj::Model& model)
 
 void Core::RenderContext::initInstanceBuffer()
 {
-	glBindVertexArray(vertexArray);
-	glGenBuffers(1, &instanceModelMatrixesBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, instanceModelMatrixesBuffer);
+	if (instanceModelMatrixesBuffer == 0)
+	{
+		glBindVertexArray(vertexArray);
+		glGenBuffers(1, &instanceModelMatrixesBuffer);
+		glBindBuffer(GL_ARRAY_BUFFER, instanceModelMatrixesBuffer);
 
-	glEnableVertexAttribArray(3);
-	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)0);
-	glEnableVertexAttribArray(4);
-	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4)));
-	glEnableVertexAttribArray(5);
-	glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
-	glEnableVertexAttribArray(6);
-	glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
+		glEnableVertexAttribArray(3);
+		glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)0);
+		glEnableVertexAttribArray(4);
+		glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4)));
+		glEnableVertexAttribArray(5);
+		glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
+		glEnableVertexAttribArray(6);
+		glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
 
-	glVertexAttribDivisor(3, 1);
-	glVertexAttribDivisor(4, 1);
-	glVertexAttribDivisor(5, 1);
-	glVertexAttribDivisor(6, 1);
+		glVertexAttribDivisor(3, 1);
+		glVertexAttribDivisor(4, 1);
+		glVertexAttribDivisor(5, 1);
+		glVertexAttribDivisor(6, 1);
 
-	glBindVertexArray(0);
+		glBindVertexArray(0);
+	}
 }
 
 void Core::RenderContext::sendInstanceBufferData(unsigned int instanceNum, std::vector<glm::mat4> &modelMatrixes)
 {
-	glBindVertexArray(vertexArray);
-	glBindBuffer(GL_ARRAY_BUFFER, instanceModelMatrixesBuffer);
-	glBufferData(GL_ARRAY_BUFFER, instanceNum * sizeof(glm::mat4), &modelMatrixes[0], GL_STATIC_DRAW);
-	glBindVertexArray(0);
+	if (instanceModelMatrixesBuffer != 0)
+	{
+		glBindVertexArray(vertexArray);
+		glBindBuffer(GL_ARRAY_BUFFER, instanceModelMatrixesBuffer);
+		glBufferData(GL_ARRAY_BUFFER, instanceNum * sizeof(glm::mat4), &modelMatrixes[0], GL_STATIC_DRAW);
+		glBindVertexArray(0);
+	}
 }
 
 void Core::DrawContext(Core::RenderContext& context)
@@ -92,16 +99,19 @@ void Core::DrawContext(Core::RenderContext& context)
 
 void Core::DrawContextInstanced(RenderContext& context, unsigned int instanceNum, std::vector<glm::mat4> &modelMatrixes)
 {
-	context.sendInstanceBufferData(instanceNum, modelMatrixes);
-	glBindVertexArray(context.vertexArray);
-	glDrawElementsInstanced(
-		GL_TRIANGLES,
-		context.size,
-		GL_UNSIGNED_SHORT,
-		(void*)0,
-		instanceNum
-	);
-	glBindVertexArray(0);
+	if (context.instanceModelMatrixesBuffer != 0)
+	{
+		context.sendInstanceBufferData(instanceNum, modelMatrixes);
+		glBindVertexArray(context.vertexArray);
+		glDrawElementsInstanced(
+			GL_TRIANGLES,
+			context.size,
+			GL_UNSIGNED_SHORT,
+			(void*)0,
+			instanceNum
+		);
+		glBindVertexArray(0);
+	}
 }
 
 
