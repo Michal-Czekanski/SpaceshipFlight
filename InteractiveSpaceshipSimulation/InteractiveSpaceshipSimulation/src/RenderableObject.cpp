@@ -114,7 +114,7 @@ void RenderableObject::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix,
 
 	DiscreteLOD dlod = DiscreteLOD();
 	float distFromCam = glm::distance(position, camPos);
-	obj::Model chosenModel = dlod.whichModelUse(distFromCam, simplifiedModel, this->model);
-	Core::DrawModel(&chosenModel);
+	Core::RenderContext chosenContext = dlod.whichContextUse(distFromCam, simplifiedRenderContext, renderContext);
+	Core::DrawContext(chosenContext);
 	glUseProgram(0);
 }
