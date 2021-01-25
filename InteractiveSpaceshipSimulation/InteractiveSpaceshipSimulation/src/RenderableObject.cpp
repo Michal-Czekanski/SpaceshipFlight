@@ -13,10 +13,12 @@ RenderableObject::RenderableObject(glm::vec3 position, ModelData &modelData, glm
 	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
 
 	this->model = modelData.getModel();
+	this->renderContext.initFromOBJ(this->model);
 
 	this->programDraw = programDraw;
 
 	this->simplifiedModel = modelData.getSimplifiedModel();
+	this->simplifiedRenderContext.initFromOBJ(this->simplifiedModel);
 }
 
 glm::mat4 RenderableObject::getModelMatrix()
@@ -54,6 +56,16 @@ glm::vec3 RenderableObject::getColor()
 void RenderableObject::setColor(glm::vec3 color)
 {
 	this->color = color;
+}
+
+Core::RenderContext RenderableObject::getRenderContext()
+{
+	return this->renderContext;
+}
+
+Core::RenderContext RenderableObject::getSimplifiedRenderContext()
+{
+	return simplifiedRenderContext;
 }
 
 void RenderableObject::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,

@@ -31,6 +31,7 @@ protected:
 	glm::mat4 modelMatrix;
 
 	obj::Model model;
+	Core::RenderContext renderContext;
 
 	glm::vec3 color = glm::vec3();
 
@@ -40,6 +41,8 @@ protected:
 	GLuint programDraw;
 
 	obj::Model simplifiedModel;
+	Core::RenderContext simplifiedRenderContext;
+
 public:
 
 	RenderableObject(glm::vec3 position, ModelData &modelData,
@@ -63,5 +66,8 @@ public:
 
 	glm::vec3 getColor();
 	void setColor(glm::vec3 color);
+
+	Core::RenderContext getRenderContext();
+	Core::RenderContext getSimplifiedRenderContext();
 };
 
