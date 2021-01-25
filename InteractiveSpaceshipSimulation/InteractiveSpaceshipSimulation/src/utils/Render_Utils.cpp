@@ -40,6 +40,10 @@ void Core::RenderContext::initFromOBJ(obj::Model& model)
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)(0));
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)(vertexDataBufferSize));
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(vertexNormalBufferSize + vertexDataBufferSize));
+
+	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void Core::DrawContext(Core::RenderContext& context)
