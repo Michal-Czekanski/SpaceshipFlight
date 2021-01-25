@@ -6,6 +6,8 @@
 
 #include "glew.h"
 #include "freeglut.h"
+#include "glm.hpp"
+#include "ext.hpp"
 
 namespace Core
 {
@@ -15,11 +17,30 @@ namespace Core
 		GLuint vertexBuffer;
 		GLuint vertexIndexBuffer;
 		int size = 0;
+		GLuint instanceModelMatrixesBuffer;
 
 		void initFromOBJ(obj::Model& model);
+
+		/// <summary>
+		/// Initializes buffer for instanced rendering.
+		/// </summary>
+		void initInstanceBuffer();
+
+		/// <summary>
+		/// Sends model matrixes to instances buffer so that these matrixes can be used when rendering instances.
+		/// </summary>
+		void sendInstanceBufferData(unsigned int instanceNum, std::vector<glm::mat4> &modelMatrixes);
 	};
 
 	void DrawContext(RenderContext& context);
+
+	/// <summary>
+	/// Draws instances of given context.
+	/// </summary>
+	/// <param name="context">Render context to draw.</param>
+	/// <param name="instanceNum">Number of instances to draw.</param>
+	/// <param name="modelMatrixes">Model matrixes of instances.</param>
+	void DrawContextInstanced(RenderContext& context, unsigned int instanceNum, std::vector<glm::mat4> &modelMatrixes);
 
 	// vertexArray - jednowymiarowa tablica zawierajaca wartosci opisujace pozycje kolejnych wierzcholkow w jednym ciagu (x1, y1, z1, w1, x2, y2, z2, w2, ...)
 	// numVertices - liczba wierzcholkow do narysowania
