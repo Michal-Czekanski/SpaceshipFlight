@@ -9,6 +9,18 @@
 
 namespace Core
 {
+	struct RenderContext
+	{
+		GLuint vertexArray;
+		GLuint vertexBuffer;
+		GLuint vertexIndexBuffer;
+		int size = 0;
+
+		void initFromOBJ(obj::Model& model);
+	};
+
+	void DrawContext(RenderContext& context);
+
 	// vertexArray - jednowymiarowa tablica zawierajaca wartosci opisujace pozycje kolejnych wierzcholkow w jednym ciagu (x1, y1, z1, w1, x2, y2, z2, w2, ...)
 	// numVertices - liczba wierzcholkow do narysowania
 	// elementSize - liczba wartosci opisujacych pojedynczy wierzcholek (np. 3 gdy wierzcholek opisany jest trojka (x, y, z))
