@@ -11,7 +11,7 @@ private:
 	glm::vec3 position;
 
 public:
-	StarLight(glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f), float strenght = 6580000.0f);
+	StarLight(glm::vec3 color = glm::vec3(1.0f, 1.0f, 1.0f), float strenght = 10080000.0f);
 
 	float getStrength();
 

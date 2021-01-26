@@ -75,6 +75,6 @@ void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetS
 /// <param name="maxAsteroidCount">Maximal asteroid count of one asteroid field.</param>
 void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count, std::vector<ModelData*>& asteroidModelsData,
 	GLuint programDraw,
-	float generationRadius = 3000.0f, float minAsteroidFieldRadius = 50.0f, float maxAsteroidFieldRadius = 300.0f,
+	float generationRadius = 3000.0f, float minAsteroidFieldRadius = 100.0f, float maxAsteroidFieldRadius = 400.0f,
 	float minAsteroidScale = 0.5f, float maxAsteroidScale = 5.0f,
-	float minSpeed = 0.1f, float maxSpeed = 10.0f, int minAsteroidCount = 30, int maxAsteroidCount = 500);
+	float minSpeed = 0.1f, float maxSpeed = 10.0f, int minAsteroidCount = 100, int maxAsteroidCount = 500);
