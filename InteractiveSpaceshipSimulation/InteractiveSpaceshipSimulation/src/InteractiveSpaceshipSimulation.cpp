@@ -81,15 +81,6 @@ void renderScene()
 	for (int i = 0; i < asteroidFields.size(); i++)
 	{
 		AsteroidField* asteroidField = asteroidFields[i];
-		/*
-		* std::vector<Asteroid*> asteroids = asteroidField->getAsteroids();
-		for (int j = 0; j < asteroids.size(); j++)
-		{
-			asteroids[j]->update();
-			asteroids[j]->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(),
-				starsLights);
-		}
-		*/
 		asteroidField->update();
 		asteroidField->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(), starsLights);
 	}
