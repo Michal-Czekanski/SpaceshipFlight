@@ -145,7 +145,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="src\utils\PerformanceMeasure.cpp" />
     <ClCompile Include="src\graphics_techniques\DiscreteLOD.cpp" />
     <ClCompile Include="src\data\LevelOfDetail.cpp" />
@@ -201,7 +200,6 @@
     <ClInclude Include="headers\Mouse.h" />
     <ClInclude Include="headers\data\LevelOfDetail.h" />
     <ClInclude Include="headers\utils\PerformanceMeasure.h" />
-    <ClInclude Include="Renderer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
