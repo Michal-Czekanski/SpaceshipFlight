@@ -23,6 +23,7 @@ GLuint programColor;
 /// </summary>
 GLuint programColor2;
 GLuint programStar;
+GLuint programInstanceColor;
 
 Core::Shader_Loader shaderLoader;
 

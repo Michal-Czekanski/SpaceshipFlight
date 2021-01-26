@@ -53,7 +53,7 @@ void initScene(ModelData &shipModelData, ModelData &sphereModelData, ModelData& 
 	std::vector<RenderableObject*> &renderableObjects, int& renderableObjectsCount, 
 	std::vector<AsteroidField*> &asteroidFields,
 	std::vector<StarLight*> &starsLights,
-	GLuint programColor2, GLuint programStar);
+	GLuint programColor2, GLuint programStar, GLuint programInstanceColor);
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
 	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, ModelData& planetModelData, GLuint programDraw, 
@@ -75,6 +75,6 @@ void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetS
 /// <param name="maxAsteroidCount">Maximal asteroid count of one asteroid field.</param>
 void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count, std::vector<ModelData*>& asteroidModelsData,
 	GLuint programDraw,
-	float generationRadius = 500.0f, float minAsteroidFieldRadius = 30.0f, float maxAsteroidFieldRadius = 70.0f,
+	float generationRadius = 3000.0f, float minAsteroidFieldRadius = 50.0f, float maxAsteroidFieldRadius = 300.0f,
 	float minAsteroidScale = 0.5f, float maxAsteroidScale = 5.0f,
-	float minSpeed = 0.1f, float maxSpeed = 10.0f, int minAsteroidCount = 30, int maxAsteroidCount = 100);
+	float minSpeed = 0.1f, float maxSpeed = 10.0f, int minAsteroidCount = 30, int maxAsteroidCount = 500);

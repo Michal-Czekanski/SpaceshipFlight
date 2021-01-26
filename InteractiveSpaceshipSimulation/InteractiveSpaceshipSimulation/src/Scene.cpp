@@ -4,7 +4,7 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount,
 	std::vector<AsteroidField*>& asteroidFields,
 	std::vector<StarLight*> &starsLights,
-	GLuint programColor2, GLuint programStar)
+	GLuint programColor2, GLuint programStar, GLuint programInstanceColor)
 {
 	ShipLight* shipLight = new ShipLight();
 	
@@ -54,10 +54,10 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 	std::vector<ModelData*> asteroidModelsData; asteroidModelsData.push_back(&asteroidModelData);
 	
 	AsteroidField* asteroidField1 = new AsteroidField(20, 30.0f, 1.0f, 1.0f, 7.0f, glm::vec3(4.0f, 3.0f, 25.0f), glm::vec3(0, 0.1f, 1.0f),
-		asteroidModelsData, programColor2);
+		asteroidModelsData, programInstanceColor);
 	asteroidFields.push_back(asteroidField1);
 
-	generateRandomAsteroidFields(asteroidFields, 5, asteroidModelsData, programColor2);
+	generateRandomAsteroidFields(asteroidFields, 55, asteroidModelsData, programInstanceColor);
 }
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float minPlanetOrbitSpeed, float maxPlanetOrbitSpeed,

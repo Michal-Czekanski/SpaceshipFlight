@@ -11,6 +11,10 @@ private:
 	std::vector<Asteroid*> asteroids;
 	int asteroidsCount;
 	glm::vec3 initialPosition;
+	GLuint programDraw;
+	Core::RenderContext renderContext;
+	Core::RenderContext simplifiedRenderContext;
+	glm::vec3 asteroidColor;
 
 	void generateRandomAsteroids(glm::vec3 generationCenter, glm::vec3 moveDirection, int asteroidsCount, 
 		float asteroidFieldRadius, float asteroidSpeed,
@@ -34,4 +38,9 @@ public:
 		glm::vec3 vectorTop = glm::vec3(0, 0, 1), glm::vec3 asteroidColor = glm::vec3(0.3f));
 
 	std::vector<Asteroid*> getAsteroids();
+
+	void draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,
+		std::vector<StarLight*>& starsLights);
+
+	void update();
 };

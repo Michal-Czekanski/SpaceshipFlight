@@ -81,13 +81,17 @@ void renderScene()
 	for (int i = 0; i < asteroidFields.size(); i++)
 	{
 		AsteroidField* asteroidField = asteroidFields[i];
-		std::vector<Asteroid*> asteroids = asteroidField->getAsteroids();
+		/*
+		* std::vector<Asteroid*> asteroids = asteroidField->getAsteroids();
 		for (int j = 0; j < asteroids.size(); j++)
 		{
 			asteroids[j]->update();
 			asteroids[j]->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(),
 				starsLights);
 		}
+		*/
+		asteroidField->update();
+		asteroidField->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(), starsLights);
 	}
 
 	// Render renderable objects
@@ -125,6 +129,9 @@ void init()
 	programColor = shaderLoader.CreateProgram((char*)"shaders/shader_color.vert", (char*)"shaders/shader_color.frag");
 	programColor2 = shaderLoader.CreateProgram((char*)"shaders/shader_color2.vert", (char*)"shaders/shader_color2.frag");
 	programStar = shaderLoader.CreateProgram((char*)"shaders/shader_star.vert", (char*)"shaders/shader_star.frag");
+	programInstanceColor = shaderLoader.CreateProgram(
+		(char*)"shaders/shader_color_instancing.vert", (char*)"shaders/shader_color_instancing.frag");
+
 
 	obj::Model shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
 	ModelData shipModelData = ModelData(shipModel, glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
@@ -142,7 +149,7 @@ void init()
 
 	initScene(shipModelData, sphereModelData, asteroid1ModelData, ship, camera, renderableObjects,
 		renderableObjectsCount, asteroidFields,
-		starsLights, programColor2, programStar);
+		starsLights, programColor2, programStar, programInstanceColor);
 
 	initDebugHelpers(sphereModelData);
 
