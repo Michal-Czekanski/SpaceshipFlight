@@ -53,7 +53,8 @@ void initScene(ModelData &shipModelData, ModelData &sphereModelData, ModelData& 
 	std::vector<RenderableObject*> &renderableObjects, int& renderableObjectsCount, 
 	std::vector<AsteroidField*> &asteroidFields,
 	std::vector<StarLight*> &starsLights,
-	GLuint programColor2, GLuint programStar, GLuint programInstanceColor);
+	GLuint programColor2, GLuint programStar, GLuint programInstanceColor,
+	GLuint programStarTexture, GLuint textureStar1);
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
 	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, ModelData& planetModelData, GLuint programDraw, 

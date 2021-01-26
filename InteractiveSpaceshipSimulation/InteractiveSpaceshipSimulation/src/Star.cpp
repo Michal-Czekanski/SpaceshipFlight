@@ -25,7 +25,14 @@ void Star::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight s
 	glUniformMatrix4fv(glGetUniformLocation(programDraw, "modelViewProjectionMatrix"), 1, GL_FALSE, (float*)&transformation);
 	glUniformMatrix4fv(glGetUniformLocation(programDraw, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
 
+
+	if (texture != 0)
+	{
+		Core::SetActiveTexture(texture, "textureSampler", programDraw, 0);
+	}
 	Core::DrawContext(renderContext);
+
+	
 
 	glUseProgram(0);
 }

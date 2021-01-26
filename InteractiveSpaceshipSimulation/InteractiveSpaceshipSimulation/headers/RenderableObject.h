@@ -12,6 +12,7 @@
 #include "data/StarLight.h"
 #include "utils/Render_Utils.h"
 #include "graphics_techniques/DiscreteLOD.h"
+#include "utils/Texture.h"
 
 
 

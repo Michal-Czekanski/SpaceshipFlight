@@ -122,6 +122,8 @@ void init()
 	programStar = shaderLoader.CreateProgram((char*)"shaders/shader_star.vert", (char*)"shaders/shader_star.frag");
 	programInstanceColor = shaderLoader.CreateProgram(
 		(char*)"shaders/shader_color_instancing.vert", (char*)"shaders/shader_color_instancing.frag");
+	programStarTexture = shaderLoader.CreateProgram(
+		(char*)"shaders/shader_star_tex.vert", (char*)"shaders/shader_star_tex.frag");
 
 
 	obj::Model shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
@@ -137,10 +139,12 @@ void init()
 	ModelData asteroid1ModelData = ModelData(asteroid1Model, asteroid1ModelSimplified,
 		glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 
+	textureStar1 = Core::LoadTexture("textures/2k_sun.png");
 
 	initScene(shipModelData, sphereModelData, asteroid1ModelData, ship, camera, renderableObjects,
 		renderableObjectsCount, asteroidFields,
-		starsLights, programColor2, programStar, programInstanceColor);
+		starsLights, programColor2, programStar, programInstanceColor,
+		programStarTexture, textureStar1);
 
 	initDebugHelpers(sphereModelData);
 

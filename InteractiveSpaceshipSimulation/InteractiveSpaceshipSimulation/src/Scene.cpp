@@ -4,7 +4,8 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount,
 	std::vector<AsteroidField*>& asteroidFields,
 	std::vector<StarLight*> &starsLights,
-	GLuint programColor2, GLuint programStar, GLuint programInstanceColor)
+	GLuint programColor2, GLuint programStar, GLuint programInstanceColor,
+	GLuint programStarTexture, GLuint textureStar1)
 {
 	ShipLight* shipLight = new ShipLight();
 	
@@ -21,8 +22,9 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 	StarLight* star3Light = new StarLight(); starsLights.push_back(star3Light);
 
 
-	Star* star1 = new Star(star1Pos, sphereModelData, star1Scale, star1Light, programStar);
-	star1->setColor(glm::vec3(0.980f, 0.450f, 0.0f));
+	Star* star1 = new Star(star1Pos, sphereModelData, star1Scale, star1Light, programStarTexture);
+	//star1->setColor(glm::vec3(0.980f, 0.450f, 0.0f));
+	star1->setTexture(textureStar1);
 
 	//Moon* moon = new Moon(glm::vec3(0, 0, -15.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(5.0f), startingPlanet, 
 	//	glm::vec3(1, 1, 12), 1.0f);
