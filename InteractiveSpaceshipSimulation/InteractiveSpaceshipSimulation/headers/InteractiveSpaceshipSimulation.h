@@ -26,7 +26,7 @@ GLuint programStar;
 GLuint programInstanceColor;
 GLuint programStarTexture;
 
-GLuint textureStar1;
+GLuint starTextures[3]{0,0,0};
 
 Core::Shader_Loader shaderLoader;
 

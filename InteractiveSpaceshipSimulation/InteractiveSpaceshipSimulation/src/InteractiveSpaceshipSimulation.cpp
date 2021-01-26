@@ -139,12 +139,14 @@ void init()
 	ModelData asteroid1ModelData = ModelData(asteroid1Model, asteroid1ModelSimplified,
 		glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 
-	textureStar1 = Core::LoadTexture("textures/2k_sun.png");
+	starTextures[0] = Core::LoadTexture("textures/2k_sun.png");
+	starTextures[1] = Core::LoadTexture("textures/star2.png");
+
 
 	initScene(shipModelData, sphereModelData, asteroid1ModelData, ship, camera, renderableObjects,
 		renderableObjectsCount, asteroidFields,
 		starsLights, programColor2, programStar, programInstanceColor,
-		programStarTexture, textureStar1);
+		programStarTexture, starTextures);
 
 	initDebugHelpers(sphereModelData);
 
