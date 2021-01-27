@@ -48,6 +48,8 @@ const glm::vec3 star2Scale = glm::vec3(500.0f);
 const glm::vec3 star3Pos = glm::vec3(-4000.0f, 1500.0f, -300.0f);
 const glm::vec3 star3Scale = glm::vec3(600.0f);
 
+const glm::vec3 star4Pos = glm::vec3(0.0f, 0.0f, 0.0f);
+const glm::vec3 star4Scale = glm::vec3(7000.0f);
 
 void initScene(ModelData &shipModelData, ModelData &sphereModelData, ModelData& asteroidModelData, Ship* &ship, AttachableCamera* &camera, 
 	std::vector<RenderableObject*> &renderableObjects, int& renderableObjectsCount, 

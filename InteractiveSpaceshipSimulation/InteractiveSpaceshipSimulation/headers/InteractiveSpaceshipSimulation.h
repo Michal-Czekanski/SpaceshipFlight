@@ -27,6 +27,7 @@ GLuint programInstanceColor;
 GLuint programStarTexture;
 
 GLuint starTextures[3]{0,0,0};
+GLuint _skybox[6];
 
 Core::Shader_Loader shaderLoader;
 

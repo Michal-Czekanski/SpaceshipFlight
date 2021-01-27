@@ -2,6 +2,13 @@
 //
 #include "../headers/InteractiveSpaceshipSimulation.h"
 
+#include <cmath>
+
+
+using namespace std;
+
+
+
 Ship* ship = NULL;
 AttachableCamera* camera = NULL;
 
@@ -62,6 +69,88 @@ void idle()
 }
 
 
+void skybox() {
+	glPushMatrix();
+
+	glm::vec3 campos = camera->getCamPos();
+
+	//Reset and transform the matrix.
+	//glLoadIdentity();
+	//gluLookAt(
+	//	0, 0, 0,
+	//	1, 0, 0,
+	//	0, 1, 0);
+
+	// Enable/Disable features
+	glPushAttrib(GL_ENABLE_BIT);
+	glEnable(GL_TEXTURE_2D);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_BLEND);
+
+	// Just in case we set all vertices to white.
+	//glColor4f(1, 1, 1, 1);
+
+	// Render the front quad
+	glBindTexture(GL_TEXTURE_2D, _skybox[0]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 0); glVertex3f(1.0f, -1.0f, -1.0f);
+	glTexCoord2f(1, 0); glVertex3f(-1.0f, -1.0f, -1.0f);
+	glTexCoord2f(1, 1); glVertex3f(-1.0f, 1.0f, -1.0f);
+	glTexCoord2f(0, 1); glVertex3f(1.0f, 1.0f, -1.0f);
+	glEnd();
+
+	// Render the left quad
+	glBindTexture(GL_TEXTURE_2D, _skybox[1]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 0); glVertex3f(1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1, 0); glVertex3f(1.0f, -1.0f, -1.0f);
+	glTexCoord2f(1, 1); glVertex3f(1.0f, 1.0f, -1.0f);
+	glTexCoord2f(0, 1); glVertex3f(1.0f, 1.0f, 1.0f);
+	glEnd();
+
+	// Render the back quad
+	glBindTexture(GL_TEXTURE_2D, _skybox[2]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 0); glVertex3f(-1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1, 0); glVertex3f(1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1, 1); glVertex3f(1.0f, 1.0f, 1.0f);
+	glTexCoord2f(0, 1); glVertex3f(-1.0f, 1.0f, 1.0f);
+
+	glEnd();
+
+	// Render the right quad
+	glBindTexture(GL_TEXTURE_2D, _skybox[3]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 0); glVertex3f(-1.0f, -1.0f, -1.0f);
+	glTexCoord2f(1, 0); glVertex3f(-1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1, 1); glVertex3f(-1.0f, 1.0f, 1.0f);
+	glTexCoord2f(0, 1); glVertex3f(-1.0f, 1.0f, -1.0f);
+	glEnd();
+
+	// Render the top quad
+	glBindTexture(GL_TEXTURE_2D, _skybox[4]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 1); glVertex3f(-1.0f, 1.0f, -1.0f);
+	glTexCoord2f(0, 0); glVertex3f(-1.0f, 1.0f, 1.0f);
+	glTexCoord2f(1, 0); glVertex3f(1.0f, 1.0f, 1.0f);
+	glTexCoord2f(1, 1); glVertex3f(1.0f, 1.0f, -1.0f);
+	glEnd();
+
+	// Render the bottom quad
+	glBindTexture(GL_TEXTURE_2D, _skybox[5]);
+	glBegin(GL_QUADS);
+	glTexCoord2f(0, 0); glVertex3f(-1.0f, -1.0f, -1.0f);
+	glTexCoord2f(0, 1); glVertex3f(-1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1, 1); glVertex3f(1.0f, -1.0f, 1.0f);
+	glTexCoord2f(1, 0); glVertex3f(1.0f, -1.0f, -1.0f);
+	glEnd();
+
+	glPopAttrib();
+	glPopMatrix();
+}
+
+
 void renderScene() 
 {
 	Time::update();
@@ -71,11 +160,14 @@ void renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
+	skybox();
+
 	// Render ship
 	rotateShip();
 	ship->update();
 	obj::Model shipModel = ship->getModel();
 	ship->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(), starsLights);
+
 
 	// Render asteroid fields
 	for (int i = 0; i < asteroidFields.size(); i++)
@@ -94,7 +186,8 @@ void renderScene()
 		renderableObject->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(),
 			starsLights);
 	}
-	
+
+
 	if (debugHelpersOn)
 	{
 		renderDebugHelpers(perspectiveMatrix, cameraMatrix);
@@ -125,7 +218,6 @@ void init()
 	programStarTexture = shaderLoader.CreateProgram(
 		(char*)"shaders/shader_star_tex.vert", (char*)"shaders/shader_star_tex.frag");
 
-
 	obj::Model shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
 	ModelData shipModelData = ModelData(shipModel, glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 
@@ -141,6 +233,16 @@ void init()
 
 	starTextures[0] = Core::LoadTexture("textures/2k_sun.png");
 	starTextures[1] = Core::LoadTexture("textures/star2.png");
+
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+	_skybox[0] = Core::LoadTexture("textures/kosmos2.png");
+	_skybox[1] = Core::LoadTexture("textures/kosmos2.png");
+	_skybox[2] = Core::LoadTexture("textures/kosmos2.png");
+	_skybox[3] = Core::LoadTexture("textures/kosmos2.png");
+	_skybox[4] = Core::LoadTexture("textures/kosmos2.png");
+	_skybox[5] = Core::LoadTexture("textures/kosmos2.png");
 
 
 	initScene(shipModelData, sphereModelData, asteroid1ModelData, ship, camera, renderableObjects,
@@ -228,3 +330,9 @@ void drawObjectColor(GLuint program, obj::Model* model, glm::mat4 perspectiveMat
 
 	glUseProgram(0);
 }
+
+
+
+
+
+
