@@ -65,12 +65,13 @@ void idle()
 void renderScene() 
 {
 	Time::update();
+
+	frameBufferTest->initRenderingToThisFramebuffer();
+
 	glm::mat4 cameraMatrix = camera->updateCameraMatrix();
 	glm::mat4 perspectiveMatrix = Core::createPerspectiveMatrix(0.1, 7000.0f);
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
+	
 	// Render ship
 	rotateShip();
 	ship->update();
@@ -100,6 +101,13 @@ void renderScene()
 		renderDebugHelpers(perspectiveMatrix, cameraMatrix);
 	}
 
+	frameBufferTest->endRenderingToThisFramebuffer();
+	glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+	frameBufferTest->renderScreenQuadTexture();
 
 	glutSwapBuffers();
 }
@@ -149,6 +157,10 @@ void init()
 		programStarTexture, starTextures);
 
 	initDebugHelpers(sphereModelData);
+
+	GLuint programScreen = shaderLoader.CreateProgram(
+		(char*)"shaders/shader_screen.vert", (char*)"shaders/shader_screen.frag");
+	frameBufferTest = new FrameBufferTest(WINDOW_WIDTH, WINDOW_HEIGHT, programScreen);
 
 	Time::start();
 	PerformanceMeasure::addMeasuresTakenListener(printPerformanceMeasures);

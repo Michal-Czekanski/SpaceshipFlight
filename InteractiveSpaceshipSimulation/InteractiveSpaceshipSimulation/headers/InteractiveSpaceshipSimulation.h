@@ -11,6 +11,7 @@
 #include "utils/Shader_Loader.h"
 #include "utils/Render_Utils.h"
 #include "Mouse.h"
+#include "../FrameBufferTest.h"
 
 
 #define WINDOW_WIDTH 720
@@ -51,3 +52,5 @@ void renderDebugHelpers(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix);
 void mouse(int x, int y);
 
 void rotateShip();
+
+FrameBufferTest* frameBufferTest;
