@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FrameBufferTest.cpp" />
     <ClCompile Include="src\utils\PerformanceMeasure.cpp" />
     <ClCompile Include="src\graphics_techniques\DiscreteLOD.cpp" />
     <ClCompile Include="src\data\LevelOfDetail.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="src\data\StarLight.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FrameBufferTest.h" />
     <ClInclude Include="headers\graphics_techniques\DiscreteLOD.h" />
     <ClInclude Include="headers\AsteroidField.h" />
     <ClInclude Include="headers\Asteroid.h" />
