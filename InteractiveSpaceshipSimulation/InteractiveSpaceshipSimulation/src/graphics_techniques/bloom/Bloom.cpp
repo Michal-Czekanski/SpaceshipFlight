@@ -7,3 +7,8 @@ Bloom::Bloom(unsigned int windowWidth, unsigned int windowHeight, GLuint program
 {
 
 }
+
+void Bloom::beforeRendering()
+{
+	hdrFramebuffer.initRenderingToThisFBO();
+}

@@ -11,6 +11,7 @@ class Bloom
 {
 public:
 	Bloom(unsigned int windowWidth, unsigned int windowHeight, GLuint programBlur, GLuint programBloomFinalBlend);
+	void beforeRendering();
 private:
 	GLuint programBloomFinalBlend;
 	float exposure;
