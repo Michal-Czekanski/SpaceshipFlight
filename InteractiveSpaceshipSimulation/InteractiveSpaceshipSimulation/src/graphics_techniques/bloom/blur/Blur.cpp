@@ -1,7 +1,7 @@
 #include "../../../../headers/graphics_techniques/bloom/blur/Blur.h"
 
 Blur::Blur(unsigned int windowWidth, unsigned int windowHeight, GLuint programBlur):
-	blurAmount(10), programBlur(programBlur), blurFramebuffer(windowWidth, windowHeight)
+	blurAmount(40), programBlur(programBlur), blurFramebuffer(windowWidth, windowHeight)
 {
 }
 
