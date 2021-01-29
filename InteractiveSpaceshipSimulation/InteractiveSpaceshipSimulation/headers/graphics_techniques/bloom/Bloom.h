@@ -9,8 +9,8 @@
 
 class Bloom
 {
-	Bloom(unsigned int windowWidth, unsigned int windowHeight, GLuint programBlur, GLuint programBloomFinalBlend);
 public:
+	Bloom(unsigned int windowWidth, unsigned int windowHeight, GLuint programBlur, GLuint programBloomFinalBlend);
 private:
 	GLuint programBloomFinalBlend;
 	float exposure;
