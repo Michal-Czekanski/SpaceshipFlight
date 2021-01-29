@@ -8,6 +8,10 @@ class HDRFramebuffer
 {
 public:
 	HDRFramebuffer(unsigned int windowWidth, unsigned int windowHeight);
+
+	void initRenderingToThisFBO();
+	void endRenderingToThisFBO();
+	
 private:
 	unsigned int hdrFBO;
 	unsigned int colorBuffers[2];
