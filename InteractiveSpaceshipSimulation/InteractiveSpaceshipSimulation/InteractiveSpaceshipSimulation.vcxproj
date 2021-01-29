@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics_techniques\bloom\Bloom.cpp" />
     <ClCompile Include="src\graphics_techniques\bloom\blur\Blur.cpp" />
     <ClCompile Include="src\graphics_techniques\bloom\hdr\HDRFramebuffer.cpp" />
     <ClCompile Include="src\graphics_techniques\bloom\blur\BlurFramebuffer.cpp" />
@@ -177,6 +178,7 @@
     <ClCompile Include="src\data\StarLight.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\graphics_techniques\bloom\Bloom.h" />
     <ClInclude Include="headers\graphics_techniques\bloom\blur\Blur.h" />
     <ClInclude Include="headers\graphics_techniques\bloom\hdr\HDRFramebuffer.h" />
     <ClInclude Include="headers\graphics_techniques\bloom\blur\BlurFramebuffer.h" />
