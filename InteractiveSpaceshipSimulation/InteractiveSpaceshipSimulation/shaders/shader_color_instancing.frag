@@ -1,4 +1,7 @@
 #version 430 core
+layout (location = 0) out vec4 fragColor;
+layout (location = 1) out vec4 brightColor;
+
 in vec3 interpNormal;
 in vec3 fragPos;
 
@@ -20,8 +23,6 @@ uniform vec3[starsCount] starsLightCol;
 
 const float ambientLightIntensity = 0.01;
 const int brilliancy = 10;
-
-out vec4 fragColor;
 // --- Func defs --- ///
 bool isPointInShipLightRange(vec3 point, vec3 shipPos, vec3 shipDirection, float shipLightConeHeight, float shipLightConeRadius)
 {
@@ -69,6 +70,15 @@ vec3 calculateSpecularColor(float intensity, vec3 color)
 	return intensity * color;
 }
 
+void calculateBrightColor(vec3 color, vec3 threshold)
+{
+    float brightness = dot(color, threshold);
+    if(brightness > 1.0)
+        brightColor = vec4(color, 1.0);
+    else
+        brightColor = vec4(0.0, 0.0, 0.0, 1.0);
+}
+
 // --- main --- ///
 void main()
 {
@@ -102,4 +112,6 @@ void main()
     }
 
 	fragColor = vec4(ambientColor + diffuseColor + specularColor , 1.0f);
+    vec3 brightColorThreshold = vec3(1.0, 1.0, 1.0);
+    calculateBrightColor(fragColor.rgb, brightColorThreshold);
 }

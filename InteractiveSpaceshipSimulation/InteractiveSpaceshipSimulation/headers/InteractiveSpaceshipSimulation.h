@@ -12,6 +12,7 @@
 #include "utils/Render_Utils.h"
 #include "Mouse.h"
 #include "../FrameBufferTest.h"
+#include "../BloomTest.h"
 
 
 #define WINDOW_WIDTH 800
@@ -54,3 +55,4 @@ void mouse(int x, int y);
 void rotateShip();
 
 FrameBufferTest* frameBufferTest;
+BloomTest* bloomTest;

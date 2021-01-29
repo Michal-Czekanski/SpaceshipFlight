@@ -59,20 +59,28 @@ void keyboard(unsigned char key, int x, int y)
 
 		// hdr
 		case 'g':
-			frameBufferTest->gamma += 0.01f;
-			std::cout << "G: " << frameBufferTest->gamma << std::endl;
+			bloomTest->gamma += 0.01f;
+			std::cout << "G: " << bloomTest->gamma << std::endl;
 			break;
 		case 'h':
-			frameBufferTest->gamma -= 0.01f;
-			std::cout << "G: " << frameBufferTest->gamma << std::endl;
+			bloomTest->gamma -= 0.01f;
+			std::cout << "G: " << bloomTest->gamma << std::endl;
 			break;
 		case 'e':
-			frameBufferTest->exposure += 0.02;
-			std::cout << "E: " << frameBufferTest->exposure << std::endl;
+			bloomTest->exposure += 0.2;
+			std::cout << "E: " << bloomTest->exposure << std::endl;
 			break;
 		case 'r':
-			frameBufferTest->exposure -= 0.02f;
-			std::cout << "E: " << frameBufferTest->exposure << std::endl;
+			bloomTest->exposure -= 0.2;
+			std::cout << "E: " << bloomTest->exposure << std::endl;
+			break;
+		case 'k':
+			bloomTest->blurAmount += 1;
+			std::cout << "Blur amount: " << bloomTest->blurAmount << std::endl;
+			break;
+		case 'l':
+			bloomTest->blurAmount -= 1;
+			std::cout << "Blur amount: " << bloomTest->blurAmount << std::endl;
 			break;
 
 	}
@@ -88,10 +96,14 @@ void renderScene()
 {
 	Time::update();
 
-	frameBufferTest->initRenderingToThisFramebuffer();
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	//frameBufferTest->initRenderingToThisFramebuffer();
+	bloomTest->initRendering();
 
 	glm::mat4 cameraMatrix = camera->updateCameraMatrix();
-	glm::mat4 perspectiveMatrix = Core::createPerspectiveMatrix(0.1, 7000.0f);
+	glm::mat4 perspectiveMatrix = Core::createPerspectiveMatrix(1.0f, 7000.0f);
 
 	
 	// Render ship
@@ -123,13 +135,12 @@ void renderScene()
 		renderDebugHelpers(perspectiveMatrix, cameraMatrix);
 	}
 
-	frameBufferTest->endRenderingToThisFramebuffer();
-	glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
+	//frameBufferTest->endRenderingToThisFramebuffer();
+	bloomTest->endRendering();
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	bloomTest->blur();
 
-	frameBufferTest->renderScreenQuadTexture();
+	bloomTest->finalBloomBlend();
 
 	glutSwapBuffers();
 }
@@ -171,6 +182,8 @@ void init()
 
 	starTextures[0] = Core::LoadTexture("textures/2k_sun.png");
 	starTextures[1] = Core::LoadTexture("textures/star2.png");
+	starTextures[2] = Core::LoadTexture("textures/star3.png");
+
 
 
 	initScene(shipModelData, sphereModelData, asteroid1ModelData, ship, camera, renderableObjects,
@@ -182,7 +195,14 @@ void init()
 
 	GLuint programScreen = shaderLoader.CreateProgram(
 		(char*)"shaders/shader_screen.vert", (char*)"shaders/shader_screen.frag");
-	frameBufferTest = new FrameBufferTest(WINDOW_WIDTH, WINDOW_HEIGHT, programScreen);
+	//frameBufferTest = new FrameBufferTest(WINDOW_WIDTH, WINDOW_HEIGHT, programScreen);
+
+	GLuint programBlur = shaderLoader.CreateProgram(
+		(char*)"shaders/shader_gaussian_blur.vert", (char*)"shaders/shader_gaussian_blur.frag");
+	GLuint programBloomFinalBlend = shaderLoader.CreateProgram(
+		(char*)"shaders/shader_bloom_final_blend.vert", (char*)"shaders/shader_bloom_final_blend.frag");
+
+	bloomTest = new BloomTest(WINDOW_WIDTH, WINDOW_HEIGHT, programBlur, programBloomFinalBlend);
 
 	Time::start();
 	PerformanceMeasure::addMeasuresTakenListener(printPerformanceMeasures);

@@ -17,9 +17,9 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 	Planet* startingPlanet = new Planet(startPlanetPos, sphereModelData, startPlanetScale, programColor2);
 	startingPlanet->setColor(glm::vec3(0.7, 0.1, 0.1f));
 
-	StarLight* star1Light = new StarLight(); starsLights.push_back(star1Light);
-	StarLight* star2Light = new StarLight(); starsLights.push_back(star2Light);
-	StarLight* star3Light = new StarLight(); starsLights.push_back(star3Light);
+	StarLight* star1Light = new StarLight(glm::vec3(20.0f, 20.0f, 16.0f)); starsLights.push_back(star1Light);
+	StarLight* star2Light = new StarLight(glm::vec3(20.0f, 18.0f, 12.0f)); starsLights.push_back(star2Light);
+	StarLight* star3Light = new StarLight(glm::vec3(10.0f, 16.0f, 18.0f)); starsLights.push_back(star3Light);
 
 
 	Star* star1 = new Star(star1Pos, sphereModelData, star1Scale, star1Light, programStarTexture);
@@ -31,8 +31,9 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 	Star* star2 = new Star(star2Pos, sphereModelData, star2Scale, star2Light, programStarTexture);
 	star2->setTexture(starTextures[1]);
 
-	Star* star3 = new Star(star3Pos, sphereModelData, star3Scale, star3Light, programStar);
-	star3->setColor(glm::vec3(0.980f, 0.450f, 0.0f));
+	Star* star3 = new Star(star3Pos, sphereModelData, star3Scale, star3Light, programStarTexture);
+	//star3->setColor(glm::vec3(0.980f, 0.450f, 0.0f));
+	star3->setTexture(starTextures[2]);
 
 	renderableObjects.push_back((RenderableObject*)ship); renderableObjectsCount++;
 	renderableObjects.push_back(startingPlanet); renderableObjectsCount++;

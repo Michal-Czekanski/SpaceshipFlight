@@ -26,7 +26,7 @@ public:
 	/// <param name="position">Where to position ship.</param>
 	/// <param name="rotationQuat">How to rotate ship on start.</param>
 	Ship(glm::vec3 position, ModelData &modelData, ShipLight shipLight,
-		float shipSpeed, glm::vec3 scale, GLuint programDraw, float pitchSpeed = 1.0f, float yawSpeed = 1.0f, float rollSpeed = 1.0f);
+		float shipSpeed, glm::vec3 scale, GLuint programDraw, float pitchSpeed = 2.0f, float yawSpeed = 5.0f, float rollSpeed = 5.0f);
 
 	/// <summary>
 	/// Moves ship forward based on ship speed -> updates ship's model matrix.

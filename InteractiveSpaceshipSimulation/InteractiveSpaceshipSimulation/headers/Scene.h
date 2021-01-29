@@ -25,7 +25,7 @@ const glm::quat initialShipRotation =
 	calculateRotationQuatWorldAxises(glm::quat(), 0, glm::radians(180.0f), 0);
 
 
-const float shipSpeed = 100.0f;
+const float shipSpeed = 10000.0f;
 
 const glm::vec3 initCameraLookDir = glm::vec3(0, 0, -1);
 
@@ -45,7 +45,7 @@ const glm::vec3 star1Scale = glm::vec3(700.0f);
 const glm::vec3 star2Pos = glm::vec3(-900.0f, -600.0f, -5000.0f);
 const glm::vec3 star2Scale = glm::vec3(500.0f);
 
-const glm::vec3 star3Pos = glm::vec3(-4000.0f, 1500.0f, -300.0f);
+const glm::vec3 star3Pos = glm::vec3(-2000.0f, 1500.0f, -300.0f);
 const glm::vec3 star3Scale = glm::vec3(600.0f);
 
 
