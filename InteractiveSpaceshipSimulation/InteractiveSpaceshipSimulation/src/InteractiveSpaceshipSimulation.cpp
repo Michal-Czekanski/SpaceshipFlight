@@ -124,7 +124,11 @@ void init()
 		(char*)"shaders/shader_color_instancing.vert", (char*)"shaders/shader_color_instancing.frag");
 	programStarTexture = shaderLoader.CreateProgram(
 		(char*)"shaders/shader_star_tex.vert", (char*)"shaders/shader_star_tex.frag");
-
+	
+	GLuint programBlur = shaderLoader.CreateProgram(
+		(char*)"shaders/bloom/shader_gaussian_blur.vert", (char*)"shaders/bloom/shader_gaussian_blur.frag");
+	GLuint programBloomFinalBlend = shaderLoader.CreateProgram(
+		(char*)"shaders/bloom/shader_bloom_final_blend.vert", (char*)"shaders/bloom/shader_bloom_final_blend.frag");
 
 	obj::Model shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
 	ModelData shipModelData = ModelData(shipModel, glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
@@ -149,6 +153,9 @@ void init()
 		programStarTexture, starTextures);
 
 	initDebugHelpers(sphereModelData);
+
+
+	bloom = new Bloom(WINDOW_WIDTH, WINDOW_HEIGHT, programBlur, programBloomFinalBlend);
 
 	Time::start();
 	PerformanceMeasure::addMeasuresTakenListener(printPerformanceMeasures);
