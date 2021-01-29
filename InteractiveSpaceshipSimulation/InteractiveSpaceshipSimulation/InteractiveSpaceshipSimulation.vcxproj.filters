@@ -99,6 +99,9 @@
     <ClCompile Include="src\graphics_techniques\bloom\blur\BlurFramebuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics_techniques\bloom\hdr\HDRFramebuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\InteractiveSpaceshipSimulation.h">
@@ -186,6 +189,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\graphics_techniques\bloom\blur\BlurFramebuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\graphics_techniques\bloom\hdr\HDRFramebuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics_techniques\bloom\hdr\HDRFramebuffer.cpp" />
     <ClCompile Include="src\graphics_techniques\bloom\blur\BlurFramebuffer.cpp" />
     <ClCompile Include="src\graphics_techniques\bloom\ScreenQuad.cpp" />
     <ClCompile Include="src\utils\PerformanceMeasure.cpp" />
@@ -175,6 +176,7 @@
     <ClCompile Include="src\data\StarLight.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\graphics_techniques\bloom\hdr\HDRFramebuffer.h" />
     <ClInclude Include="headers\graphics_techniques\bloom\blur\BlurFramebuffer.h" />
     <ClInclude Include="headers\graphics_techniques\DiscreteLOD.h" />
     <ClInclude Include="headers\AsteroidField.h" />
