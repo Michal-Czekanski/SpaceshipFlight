@@ -5,6 +5,7 @@
 
 #include "glew.h"
 #include "freeglut.h"
+#include "headers/utils/Texture.h"
 
 class BloomTest
 {

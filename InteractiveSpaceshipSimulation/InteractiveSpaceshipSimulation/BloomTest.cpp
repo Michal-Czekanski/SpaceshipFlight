@@ -29,9 +29,7 @@ void BloomTest::blur()
     {
         glBindFramebuffer(GL_FRAMEBUFFER, blurFBOs[horizontal]);
         glUniform1i(glGetUniformLocation(programBlur, "horizontal"), horizontal);
-        glBindTexture(
-            GL_TEXTURE_2D, first_iteration ? colorBuffers[1] : blurColorBuffers[!horizontal]
-        );
+        Core::SetActiveTexture(first_iteration ? colorBuffers[1] : blurColorBuffers[!horizontal], "image", programBlur, 0);
         renderQuad();
         horizontal = !horizontal;
         if (first_iteration)
@@ -144,15 +142,9 @@ void BloomTest::finalBloomBlend()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(programBloomFinalBlend);
     
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, colorBuffers[0]);
-    glUniform1i(glGetUniformLocation(programBloomFinalBlend, "scene"), 0);
+    Core::SetActiveTexture(colorBuffers[0], "scene", programBloomFinalBlend, 0);
 
-
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, blurColorBuffers[0]);
-    glUniform1i(glGetUniformLocation(programBloomFinalBlend, "bloomBlur"), 1);
-
+    Core::SetActiveTexture(blurColorBuffers[0], "bloomBlur", programBloomFinalBlend, 1);
 
     glUniform1f(glGetUniformLocation(programBloomFinalBlend, "exposure"), exposure);
     glUniform1f(glGetUniformLocation(programBloomFinalBlend, "gamma"), gamma);
