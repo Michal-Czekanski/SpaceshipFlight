@@ -7,12 +7,6 @@ BloomTest::BloomTest(unsigned int windowWidth, unsigned int windowHeight, GLuint
     initFramebuffer(windowWidth, windowHeight);
     initBlurFramebuffers(windowWidth, windowHeight);
     initScreenQuad();
-
-    glUseProgram(programBlur);
-    glUniform1d(glGetUniformLocation(programBlur, "image"), 0);
-    glUseProgram(programBloomFinalBlend);
-    glUniform1d(glGetUniformLocation(programBloomFinalBlend, "scene"), 0);
-    glUniform1d(glGetUniformLocation(programBloomFinalBlend, "bloomBlur"), 1);
 }
 
 void BloomTest::initRendering()
