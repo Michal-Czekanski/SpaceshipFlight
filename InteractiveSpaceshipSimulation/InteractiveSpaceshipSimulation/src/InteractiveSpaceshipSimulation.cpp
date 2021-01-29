@@ -157,8 +157,10 @@ void init()
 	ModelData asteroid1ModelData = ModelData(asteroid1Model, asteroid1ModelSimplified,
 		glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 
-	starTextures[0] = Core::LoadTexture("textures/2k_sun.png");
+	starTextures[0] = Core::LoadTexture("textures/star1.png");
 	starTextures[1] = Core::LoadTexture("textures/star2.png");
+	starTextures[2] = Core::LoadTexture("textures/star3.png");
+
 
 
 	initScene(shipModelData, sphereModelData, asteroid1ModelData, ship, camera, renderableObjects,

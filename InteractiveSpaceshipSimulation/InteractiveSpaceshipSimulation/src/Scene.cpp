@@ -31,8 +31,8 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 	Star* star2 = new Star(star2Pos, sphereModelData, star2Scale, star2Light, programStarTexture);
 	star2->setTexture(starTextures[1]);
 
-	Star* star3 = new Star(star3Pos, sphereModelData, star3Scale, star3Light, programStar);
-	star3->setColor(glm::vec3(0.980f, 0.450f, 0.0f));
+	Star* star3 = new Star(star3Pos, sphereModelData, star3Scale, star3Light, programStarTexture);
+	star3->setTexture(starTextures[2]);
 
 	renderableObjects.push_back((RenderableObject*)ship); renderableObjectsCount++;
 	renderableObjects.push_back(startingPlanet); renderableObjectsCount++;
