@@ -27,7 +27,7 @@ void main()
   vec3 lightDir = normalize(starPos-fragPos);
 	float diffuse = max(dot(normal, -lightDir), 0.0);
 
-	vec3 color = texture2D(textureSampler, interpTexCoord).rgb;
+	vec3 color = 2*texture2D(textureSampler, interpTexCoord).rgb;
 	fragColor = vec4(color * diffuse, 1.0);
 
     vec3 brightColorThreshold = vec3(vec3(5.0, 0.8, 0.3));
