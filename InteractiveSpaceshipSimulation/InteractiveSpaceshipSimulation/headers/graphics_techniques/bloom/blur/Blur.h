@@ -15,6 +15,9 @@ public:
 	/// </summary>
 	/// <returns>Blurred texture id.</returns>
 	GLuint blur(ScreenQuad screenQuad, GLuint brightLightsTexture);
+
+	void setBlurAmount(int blurAmount);
+	int getBlurAmount();
 private:
 	int blurAmount;
 	GLuint programBlur;

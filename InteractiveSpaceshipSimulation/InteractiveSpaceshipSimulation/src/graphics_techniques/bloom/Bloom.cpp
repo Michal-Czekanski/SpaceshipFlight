@@ -22,6 +22,36 @@ void Bloom::afterRendering()
 	bloomBlend(sceneTexture, blurredBrightLightsTexture);
 }
 
+void Bloom::setExposure(float exp)
+{
+	this->exposure = exp;
+}
+
+float Bloom::getExposure()
+{
+	return exposure;
+}
+
+void Bloom::setGamma(float gamma)
+{
+	this->gamma = gamma;
+}
+
+float Bloom::getGamma()
+{
+	return this->gamma;
+}
+
+void Bloom::setBlurAmount(int blurAmount)
+{
+	blur.setBlurAmount(blurAmount);
+}
+
+int Bloom::getBlurAmount()
+{
+	return blur.getBlurAmount();
+}
+
 void Bloom::bloomBlend(GLuint sceneTexture, GLuint blurredBrightLightsTexture)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

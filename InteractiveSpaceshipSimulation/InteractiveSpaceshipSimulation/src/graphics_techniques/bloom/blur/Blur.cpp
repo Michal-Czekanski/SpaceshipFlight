@@ -26,3 +26,13 @@ GLuint Blur::blur(ScreenQuad screenQuad, GLuint brightLightsTexture)
 
     return blurFramebuffer.getColorBuffers()[0];
 }
+
+void Blur::setBlurAmount(int blurAmount)
+{
+    this->blurAmount = blurAmount;
+}
+
+int Blur::getBlurAmount()
+{
+    return blurAmount;
+}

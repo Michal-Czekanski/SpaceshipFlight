@@ -15,6 +15,15 @@ public:
 	Bloom(unsigned int windowWidth, unsigned int windowHeight, GLuint programBlur, GLuint programBloomFinalBlend);
 	void beforeRendering();
 	void afterRendering();
+
+	void setExposure(float exp);
+	float getExposure();
+
+	void setGamma(float gamma);
+	float getGamma();
+
+	void setBlurAmount(int blurAmount);
+	int getBlurAmount();
 private:
 	GLuint programBloomFinalBlend;
 	float exposure;
