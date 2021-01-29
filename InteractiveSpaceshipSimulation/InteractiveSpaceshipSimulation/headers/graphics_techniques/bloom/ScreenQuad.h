@@ -7,6 +7,7 @@ class ScreenQuad
 {
 public:
 	ScreenQuad();
+	void render();
 private:
 	unsigned int quadVAO;
 	float quadVertices[4 * 5] = {
