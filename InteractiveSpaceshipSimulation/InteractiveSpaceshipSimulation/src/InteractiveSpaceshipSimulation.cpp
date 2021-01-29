@@ -71,6 +71,8 @@ void renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
+	bloom->beforeRendering();
+
 	// Render ship
 	rotateShip();
 	ship->update();
@@ -100,6 +102,7 @@ void renderScene()
 		renderDebugHelpers(perspectiveMatrix, cameraMatrix);
 	}
 
+	bloom->afterRendering();
 
 	glutSwapBuffers();
 }
