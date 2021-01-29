@@ -12,7 +12,7 @@ HDRFramebuffer::HDRFramebuffer(unsigned int windowWidth, unsigned int windowHeig
 
 void HDRFramebuffer::initRenderingToThisFBO()
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
@@ -33,8 +33,8 @@ unsigned int HDRFramebuffer::getBrightLightsTexture()
 
 void HDRFramebuffer::initFramebuffer()
 {
-    glGenFramebuffers(1, &hdrFBO);
-    glBindFramebuffer(GL_FRAMEBUFFER, hdrFBO);
+    glGenFramebuffers(1, &FBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 }
 
 void HDRFramebuffer::initColorBuffers(unsigned int windowWidth, unsigned int windowHeight)

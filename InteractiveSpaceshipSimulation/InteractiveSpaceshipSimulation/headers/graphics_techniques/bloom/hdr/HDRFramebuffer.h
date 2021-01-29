@@ -16,7 +16,7 @@ public:
 	unsigned int getBrightLightsTexture();
 	
 private:
-	unsigned int hdrFBO;
+	unsigned int FBO;
 	unsigned int colorBuffers[2];
 
 	void initFramebuffer();
