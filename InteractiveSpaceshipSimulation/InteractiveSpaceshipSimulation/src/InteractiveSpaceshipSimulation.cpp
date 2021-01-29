@@ -53,6 +53,17 @@ void keyboard(unsigned char key, int x, int y)
 		case 'a': // left
 			ship->rotateShip(0.0f, -1.0f, 0.0f);
 			break;
+
+
+		// Input test
+		case 'e':
+			bloom->setExposure(bloom->getExposure() + 0.01f);
+			std::cout << "Exposure: " << bloom->getExposure() << std::endl;
+			break;
+		case 'r':
+			bloom->setExposure(bloom->getExposure() - 0.01f);
+			std::cout << "Exposure: " << bloom->getExposure() << std::endl;
+			break;
 	}
 }
 
