@@ -12,6 +12,9 @@ using namespace std;
 Ship* ship = NULL;
 AttachableCamera* camera = NULL;
 
+GLuint skyboxVAO, skyboxVBO;
+unsigned int cubemapTexture;
+
 Planet* helperShipDirectionLine = NULL;
 float helperShipDirectionLineLength;
 Planet* helperShipLightConeEndPoint = NULL;
@@ -68,86 +71,103 @@ void idle()
 	glutPostRedisplay();
 }
 
+float skyboxVertices[] = {
+	// positions          
+	-1.0f,  1.0f, -1.0f,
+	-1.0f, -1.0f, -1.0f,
+	 1.0f, -1.0f, -1.0f,
+	 1.0f, -1.0f, -1.0f,
+	 1.0f,  1.0f, -1.0f,
+	-1.0f,  1.0f, -1.0f,
 
-void skybox() {
-	glPushMatrix();
+	-1.0f, -1.0f,  1.0f,
+	-1.0f, -1.0f, -1.0f,
+	-1.0f,  1.0f, -1.0f,
+	-1.0f,  1.0f, -1.0f,
+	-1.0f,  1.0f,  1.0f,
+	-1.0f, -1.0f,  1.0f,
 
-	glm::vec3 campos = camera->getCamPos();
+	 1.0f, -1.0f, -1.0f,
+	 1.0f, -1.0f,  1.0f,
+	 1.0f,  1.0f,  1.0f,
+	 1.0f,  1.0f,  1.0f,
+	 1.0f,  1.0f, -1.0f,
+	 1.0f, -1.0f, -1.0f,
 
-	//Reset and transform the matrix.
-	//glLoadIdentity();
-	//gluLookAt(
-	//	0, 0, 0,
-	//	1, 0, 0,
-	//	0, 1, 0);
+	-1.0f, -1.0f,  1.0f,
+	-1.0f,  1.0f,  1.0f,
+	 1.0f,  1.0f,  1.0f,
+	 1.0f,  1.0f,  1.0f,
+	 1.0f, -1.0f,  1.0f,
+	-1.0f, -1.0f,  1.0f,
 
-	// Enable/Disable features
-	glPushAttrib(GL_ENABLE_BIT);
-	glEnable(GL_TEXTURE_2D);
-	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_LIGHTING);
-	glDisable(GL_BLEND);
+	-1.0f,  1.0f, -1.0f,
+	 1.0f,  1.0f, -1.0f,
+	 1.0f,  1.0f,  1.0f,
+	 1.0f,  1.0f,  1.0f,
+	-1.0f,  1.0f,  1.0f,
+	-1.0f,  1.0f, -1.0f,
 
-	// Just in case we set all vertices to white.
-	//glColor4f(1, 1, 1, 1);
+	-1.0f, -1.0f, -1.0f,
+	-1.0f, -1.0f,  1.0f,
+	 1.0f, -1.0f, -1.0f,
+	 1.0f, -1.0f, -1.0f,
+	-1.0f, -1.0f,  1.0f,
+	 1.0f, -1.0f,  1.0f
+};
 
-	// Render the front quad
-	glBindTexture(GL_TEXTURE_2D, _skybox[0]);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0); glVertex3f(1.0f, -1.0f, -1.0f);
-	glTexCoord2f(1, 0); glVertex3f(-1.0f, -1.0f, -1.0f);
-	glTexCoord2f(1, 1); glVertex3f(-1.0f, 1.0f, -1.0f);
-	glTexCoord2f(0, 1); glVertex3f(1.0f, 1.0f, -1.0f);
-	glEnd();
+unsigned int loadCubemap(vector<std::string> faces)
+{
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
 
-	// Render the left quad
-	glBindTexture(GL_TEXTURE_2D, _skybox[1]);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0); glVertex3f(1.0f, -1.0f, 1.0f);
-	glTexCoord2f(1, 0); glVertex3f(1.0f, -1.0f, -1.0f);
-	glTexCoord2f(1, 1); glVertex3f(1.0f, 1.0f, -1.0f);
-	glTexCoord2f(0, 1); glVertex3f(1.0f, 1.0f, 1.0f);
-	glEnd();
+	unsigned long width, height, nrChannels;
+	for (unsigned int i = 0; i < faces.size(); i++)
+	{
+		std::ifstream input(faces[i], std::ios::binary);
+		std::vector<char> buffer((
+			std::istreambuf_iterator<char>(input)),
+			(std::istreambuf_iterator<char>()));
 
-	// Render the back quad
-	glBindTexture(GL_TEXTURE_2D, _skybox[2]);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0); glVertex3f(-1.0f, -1.0f, 1.0f);
-	glTexCoord2f(1, 0); glVertex3f(1.0f, -1.0f, 1.0f);
-	glTexCoord2f(1, 1); glVertex3f(1.0f, 1.0f, 1.0f);
-	glTexCoord2f(0, 1); glVertex3f(-1.0f, 1.0f, 1.0f);
+		std::vector<unsigned char> decoded;
+		decodePNG(decoded, width, height, (unsigned char*)&buffer[0], buffer.size(), true);
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &decoded[0]);
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-	glEnd();
+	return textureID;
+}
 
-	// Render the right quad
-	glBindTexture(GL_TEXTURE_2D, _skybox[3]);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0); glVertex3f(-1.0f, -1.0f, -1.0f);
-	glTexCoord2f(1, 0); glVertex3f(-1.0f, -1.0f, 1.0f);
-	glTexCoord2f(1, 1); glVertex3f(-1.0f, 1.0f, 1.0f);
-	glTexCoord2f(0, 1); glVertex3f(-1.0f, 1.0f, -1.0f);
-	glEnd();
+vector<std::string> faces
+{
+		"textures/kosmos2.png",
+		"textures/kosmos2.png",
+		"textures/kosmos2.png",
+		"textures/kosmos2.png",
+		"textures/kosmos2.png",
+		"textures/kosmos2.png"
+};
 
-	// Render the top quad
-	glBindTexture(GL_TEXTURE_2D, _skybox[4]);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0, 1); glVertex3f(-1.0f, 1.0f, -1.0f);
-	glTexCoord2f(0, 0); glVertex3f(-1.0f, 1.0f, 1.0f);
-	glTexCoord2f(1, 0); glVertex3f(1.0f, 1.0f, 1.0f);
-	glTexCoord2f(1, 1); glVertex3f(1.0f, 1.0f, -1.0f);
-	glEnd();
 
-	// Render the bottom quad
-	glBindTexture(GL_TEXTURE_2D, _skybox[5]);
-	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0); glVertex3f(-1.0f, -1.0f, -1.0f);
-	glTexCoord2f(0, 1); glVertex3f(-1.0f, -1.0f, 1.0f);
-	glTexCoord2f(1, 1); glVertex3f(1.0f, -1.0f, 1.0f);
-	glTexCoord2f(1, 0); glVertex3f(1.0f, -1.0f, -1.0f);
-	glEnd();
 
-	glPopAttrib();
-	glPopMatrix();
+void skybox(glm::mat4 view, glm::mat4 projection, unsigned int id) {
+	glDepthFunc(GL_LEQUAL);
+	glUseProgram(programSkybox);
+	view = glm::mat4(glm::mat3(view));
+	glUniformMatrix4fv(glGetUniformLocation(programSkybox, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(glGetUniformLocation(programSkybox, "view"), 1, GL_FALSE, glm::value_ptr(view));
+	glBindVertexArray(skyboxVAO);
+	glActiveTexture(GL_TEXTURE0);
+	glUniform1i(glGetUniformLocation(programSkybox, "skybox"), 0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, id);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glBindVertexArray(0);
+	glDepthFunc(GL_LESS);
 }
 
 
@@ -158,9 +178,17 @@ void renderScene()
 	glm::mat4 perspectiveMatrix = Core::createPerspectiveMatrix(0.1, 7000.0f);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-	skybox();
+	//glm::vec3 campos = camera->getCamPos();
+	//glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
+	//glm::vec3 cameraDirection = (campos - cameraTarget);
+	//glLoadIdentity();
+	//gluLookAt(
+	//	0, 0, 0,
+	//	cameraDirection.x, 0, 0,
+	//	0, 1, 0);
+
 
 	// Render ship
 	rotateShip();
@@ -187,6 +215,7 @@ void renderScene()
 			starsLights);
 	}
 
+	skybox(cameraMatrix, perspectiveMatrix, cubemapTexture);
 
 	if (debugHelpersOn)
 	{
@@ -210,6 +239,7 @@ void init()
 {
 	srand(time(0));
 	glEnable(GL_DEPTH_TEST);
+	programSkybox = shaderLoader.CreateProgram((char*)"shaders/skybox.vert", (char*)"shaders/skybox.frag");
 	programColor = shaderLoader.CreateProgram((char*)"shaders/shader_color.vert", (char*)"shaders/shader_color.frag");
 	programColor2 = shaderLoader.CreateProgram((char*)"shaders/shader_color2.vert", (char*)"shaders/shader_color2.frag");
 	programStar = shaderLoader.CreateProgram((char*)"shaders/shader_star.vert", (char*)"shaders/shader_star.frag");
@@ -231,19 +261,22 @@ void init()
 	ModelData asteroid1ModelData = ModelData(asteroid1Model, asteroid1ModelSimplified,
 		glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 
+
 	starTextures[0] = Core::LoadTexture("textures/2k_sun.png");
 	starTextures[1] = Core::LoadTexture("textures/star2.png");
 
+	_skybox[0] = Core::LoadTexture("textures/kosmos3.png");
+	_skybox[1] = Core::LoadTexture("textures/kosmos3.png");
+	_skybox[2] = Core::LoadTexture("textures/kosmos3.png");
+	_skybox[3] = Core::LoadTexture("textures/kosmos3.png");
+	_skybox[4] = Core::LoadTexture("textures/kosmos3.png");
+	_skybox[5] = Core::LoadTexture("textures/kosmos3.png");
 
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	_skybox[0] = Core::LoadTexture("textures/kosmos2.png");
-	_skybox[1] = Core::LoadTexture("textures/kosmos2.png");
-	_skybox[2] = Core::LoadTexture("textures/kosmos2.png");
-	_skybox[3] = Core::LoadTexture("textures/kosmos2.png");
-	_skybox[4] = Core::LoadTexture("textures/kosmos2.png");
-	_skybox[5] = Core::LoadTexture("textures/kosmos2.png");
+	cubemapTexture = loadCubemap(faces);
 
+
+
+	
 
 	initScene(shipModelData, sphereModelData, asteroid1ModelData, ship, camera, renderableObjects,
 		renderableObjectsCount, asteroidFields,
@@ -266,8 +299,18 @@ int main(int argc, char** argv)
 	glewInit();
 
 	init();
+
 	glutKeyboardFunc(keyboard);
 	glutPassiveMotionFunc(mouse);
+	glGenVertexArrays(1, &skyboxVAO);
+	glGenBuffers(1, &skyboxVBO);
+	glBindVertexArray(skyboxVAO);
+	glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	glBindVertexArray(0);
+
 	glutDisplayFunc(renderScene);
 	glutIdleFunc(idle);
 

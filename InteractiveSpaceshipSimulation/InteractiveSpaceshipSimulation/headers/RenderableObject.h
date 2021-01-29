@@ -44,6 +44,7 @@ protected:
 	obj::Model simplifiedModel;
 	Core::RenderContext simplifiedRenderContext;
 	GLuint texture;
+	GLuint textureMap;
 
 public:
 
@@ -73,5 +74,6 @@ public:
 	Core::RenderContext getSimplifiedRenderContext();
 
 	void setTexture(GLuint texture);
+	void setTextureMap(GLuint texture);
 };
 

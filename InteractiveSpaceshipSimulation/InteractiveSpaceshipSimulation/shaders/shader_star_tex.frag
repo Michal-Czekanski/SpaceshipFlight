@@ -6,10 +6,11 @@ uniform sampler2D textureSampler;
 
 in vec3 interpNormal;
 in vec3 fragPos;
-
 in vec2 interpTexCoord;
 
+
 out vec4 fragColor;
+
 
 void main()
 {

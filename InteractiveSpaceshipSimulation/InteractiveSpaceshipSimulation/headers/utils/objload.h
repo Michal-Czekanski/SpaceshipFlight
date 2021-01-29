@@ -39,6 +39,8 @@ struct Model {
     std::vector<float> vertex; //< 3 * N entries
     std::vector<float> texCoord; //< 2 * N entries
     std::vector<float> normal; //< 3 * N entries
+    std::vector<float> tangent; //< 3 * N entries
+    std::vector<float> bitangent; //< 3 * N entries
     
     std::map<std::string, std::vector<unsigned short> > faces; //< assume triangels and uniform indexing
 };
@@ -228,6 +230,7 @@ Model convertToModel( const ObjModel & obj ) {
             v.push_back(index);
         }
     }
+
     return model;
 }
 

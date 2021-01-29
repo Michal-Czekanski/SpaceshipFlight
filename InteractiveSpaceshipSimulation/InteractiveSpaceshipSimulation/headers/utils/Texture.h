@@ -8,9 +8,11 @@
 #include <vector>
 #include "picopng.h"
 
+
 namespace Core
 {
 	GLuint LoadTexture(const char * filepath);
+	GLuint LoadTextureSky(const char* filepath, int i);
 
 	// textureID - identyfikator tekstury otrzymany z funkcji LoadTexture
 	// shaderVariableName - nazwa zmiennej typu 'sampler2D' w shaderze, z ktora ma zostac powiazana tekstura

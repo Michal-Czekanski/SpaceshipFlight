@@ -25,8 +25,10 @@ GLuint programColor2;
 GLuint programStar;
 GLuint programInstanceColor;
 GLuint programStarTexture;
+GLuint programSkybox;
 
 GLuint starTextures[3]{0,0,0};
+GLuint skyboksik;
 GLuint _skybox[6];
 
 Core::Shader_Loader shaderLoader;

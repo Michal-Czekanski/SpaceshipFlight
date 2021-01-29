@@ -1,7 +1,7 @@
 #include "../headers/RenderableObject.h"
 
 RenderableObject::RenderableObject(glm::vec3 position, ModelData &modelData, glm::vec3 scale, GLuint programDraw):
-	ObjectInSpace(position, modelData.getForward(), modelData.getTop()), texture(0)
+	ObjectInSpace(position, modelData.getForward(), modelData.getTop()), texture(0), textureMap(1)
 {
 	this->positionMat = glm::translate(position);
 
@@ -71,6 +71,11 @@ Core::RenderContext RenderableObject::getSimplifiedRenderContext()
 void RenderableObject::setTexture(GLuint texture)
 {
 	this->texture = texture;
+}
+
+void RenderableObject::setTextureMap(GLuint texture)
+{
+	this->textureMap = texture;
 }
 
 void RenderableObject::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,

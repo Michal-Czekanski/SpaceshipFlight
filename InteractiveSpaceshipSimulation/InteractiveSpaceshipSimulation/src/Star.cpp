@@ -29,6 +29,7 @@ void Star::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight s
 	if (texture != 0)
 	{
 		Core::SetActiveTexture(texture, "textureSampler", programDraw, 0);
+
 	}
 	Core::DrawContext(renderContext);
 
