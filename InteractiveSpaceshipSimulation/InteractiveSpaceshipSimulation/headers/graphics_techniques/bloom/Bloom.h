@@ -7,6 +7,8 @@
 #include "blur/Blur.h"
 #include "hdr/HDRFramebuffer.h"
 
+#include "../../utils/Texture.h"
+
 class Bloom
 {
 public:

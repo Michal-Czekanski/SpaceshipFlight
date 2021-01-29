@@ -16,11 +16,10 @@ void Bloom::beforeRendering()
 void Bloom::afterRendering()
 {
 	hdrFramebuffer.endRenderingToThisFBO();
-	GLuint brightLightsTexture = hdrFramebuffer.getBrightLightsTexture();
-	blur.blur(screenQuad, brightLightsTexture);
+	GLuint blurredBrightLightsTexture = blur.blur(screenQuad, hdrFramebuffer.getBrightLightsTexture());
 
 	GLuint sceneTexture = hdrFramebuffer.getSceneTexture();
-	bloomBlend(sceneTexture, brightLightsTexture);
+	bloomBlend(sceneTexture, blurredBrightLightsTexture);
 }
 
 void Bloom::bloomBlend(GLuint sceneTexture, GLuint blurredBrightLightsTexture)
@@ -28,15 +27,9 @@ void Bloom::bloomBlend(GLuint sceneTexture, GLuint blurredBrightLightsTexture)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(programBloomFinalBlend);
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, sceneTexture);
-    glUniform1i(glGetUniformLocation(programBloomFinalBlend, "scene"), 0);
+    Core::SetActiveTexture(sceneTexture, "scene", programBloomFinalBlend, 0);
 
-
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, blurredBrightLightsTexture);
-    glUniform1i(glGetUniformLocation(programBloomFinalBlend, "bloomBlur"), 1);
-
+    Core::SetActiveTexture(blurredBrightLightsTexture, "bloomBlur", programBloomFinalBlend, 1);
 
     glUniform1f(glGetUniformLocation(programBloomFinalBlend, "exposure"), exposure);
     glUniform1f(glGetUniformLocation(programBloomFinalBlend, "gamma"), gamma);
