@@ -32,7 +32,7 @@ public:
 	/// <param name="lightConeHeight"></param>
 	/// <param name="lightConeBaseRadius"></param>
 	/// <param name="lightColor"></param>
-	ShipLight(float lightStrength = 800.0f, float lightConeHeight = 800.0f, float lightConeBaseRadius = 300.0f, glm::vec3 lightColor = glm::vec3(1, 1, 1));
+	ShipLight(float lightStrength = 1.0f, float lightConeHeight = 800.0f, float lightConeBaseRadius = 300.0f, glm::vec3 lightColor = glm::vec3(1, 1, 1));
 
 	/// <summary>
 	/// Updates ship's light data.

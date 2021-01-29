@@ -1,7 +1,7 @@
 #include "FrameBufferTest.h"
 
-FrameBufferTest::FrameBufferTest(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, GLuint programScreen):
-    programScreen(programScreen)
+FrameBufferTest::FrameBufferTest(unsigned int SCR_WIDTH, unsigned int SCR_HEIGHT, GLuint programScreen) :
+    programScreen(programScreen), gamma(1.0f), exposure(4.18f)
 {
 	glGenFramebuffers(1, &framebuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
@@ -20,7 +20,7 @@ void FrameBufferTest::createColorAttachmentTexture(unsigned int SCR_WIDTH, unsig
 {
     glGenTextures(1, &textureColorbuffer);
     glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
@@ -72,6 +72,10 @@ void FrameBufferTest::renderScreenQuadTexture()
 {
     glUseProgram(programScreen);
     //glUniform1i(glGetUniformLocation(programScreen, "screenTexture"), 0);
+
+    glUniform1f(glGetUniformLocation(programScreen, "gamma"), gamma);
+    glUniform1f(glGetUniformLocation(programScreen, "exposure"), exposure);
+
 
     glBindVertexArray(quadVAO);
     glBindTexture(GL_TEXTURE_2D, textureColorbuffer);

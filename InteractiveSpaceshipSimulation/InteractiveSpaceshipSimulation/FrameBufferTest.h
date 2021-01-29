@@ -15,6 +15,9 @@ public:
 
     void renderScreenQuadTexture();
 
+    float gamma;
+    float exposure;
+
 private:
     unsigned int framebuffer;
     unsigned int textureColorbuffer;

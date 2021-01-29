@@ -10,6 +10,9 @@ float helperShipDirectionLineLength;
 Planet* helperShipLightConeEndPoint = NULL;
 Planet* helperShipLightConeRadius = NULL;
 
+float exposure = 5.0f;
+float gamma = 1.0f;
+
 void printPerformanceMeasures()
 {
 	std::cout << PerformanceMeasure::getMsPerFrame() << " ms/frame | ";
@@ -53,6 +56,25 @@ void keyboard(unsigned char key, int x, int y)
 		case 'a': // left
 			ship->rotateShip(0.0f, -1.0f, 0.0f);
 			break;
+
+		// hdr
+		case 'g':
+			frameBufferTest->gamma += 0.01f;
+			std::cout << "G: " << frameBufferTest->gamma << std::endl;
+			break;
+		case 'h':
+			frameBufferTest->gamma -= 0.01f;
+			std::cout << "G: " << frameBufferTest->gamma << std::endl;
+			break;
+		case 'e':
+			frameBufferTest->exposure += 0.02;
+			std::cout << "E: " << frameBufferTest->exposure << std::endl;
+			break;
+		case 'r':
+			frameBufferTest->exposure -= 0.02f;
+			std::cout << "E: " << frameBufferTest->exposure << std::endl;
+			break;
+
 	}
 }
 
