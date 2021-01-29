@@ -9,7 +9,12 @@ class Blur
 {
 public:
 	Blur(unsigned int windowWidth, unsigned int windowHeight, GLuint programBlur);
-	void blur(ScreenQuad screenQuad, GLuint brightLightsTexture);
+
+	/// <summary>
+	/// Blurs given bright lights texture and returns blurred texture id.
+	/// </summary>
+	/// <returns>Blurred texture id.</returns>
+	GLuint blur(ScreenQuad screenQuad, GLuint brightLightsTexture);
 private:
 	int blurAmount;
 	GLuint programBlur;

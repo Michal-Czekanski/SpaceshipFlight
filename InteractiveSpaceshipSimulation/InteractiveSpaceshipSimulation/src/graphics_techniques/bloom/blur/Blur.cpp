@@ -5,7 +5,7 @@ Blur::Blur(unsigned int windowWidth, unsigned int windowHeight, GLuint programBl
 {
 }
 
-void Blur::blur(ScreenQuad screenQuad, GLuint brightLightsTexture)
+GLuint Blur::blur(ScreenQuad screenQuad, GLuint brightLightsTexture)
 {
     bool horizontal = true, first_iteration = true;
     int amount = blurAmount;
@@ -23,4 +23,6 @@ void Blur::blur(ScreenQuad screenQuad, GLuint brightLightsTexture)
             first_iteration = false;
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    return blurFramebuffer.getColorBuffers()[0];
 }
