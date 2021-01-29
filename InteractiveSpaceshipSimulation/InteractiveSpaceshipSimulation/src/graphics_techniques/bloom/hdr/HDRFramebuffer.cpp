@@ -21,6 +21,16 @@ void HDRFramebuffer::endRenderingToThisFBO()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
+unsigned int HDRFramebuffer::getSceneTexture()
+{
+    return colorBuffers[0];
+}
+
+unsigned int HDRFramebuffer::getBrightLightsTexture()
+{
+    return colorBuffers[1];
+}
+
 void HDRFramebuffer::initFramebuffer()
 {
     glGenFramebuffers(1, &hdrFBO);

@@ -11,6 +11,9 @@ public:
 
 	void initRenderingToThisFBO();
 	void endRenderingToThisFBO();
+
+	unsigned int getSceneTexture();
+	unsigned int getBrightLightsTexture();
 	
 private:
 	unsigned int hdrFBO;
