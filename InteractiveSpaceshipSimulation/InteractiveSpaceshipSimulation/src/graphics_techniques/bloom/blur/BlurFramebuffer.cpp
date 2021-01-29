@@ -25,6 +25,16 @@ BlurFramebuffer::BlurFramebuffer(unsigned int windowWidth, unsigned int windowHe
     }
 }
 
+unsigned int* BlurFramebuffer::getFBOs()
+{
+    return FBOs;
+}
+
+unsigned int* BlurFramebuffer::getColorBuffers()
+{
+    return colorBuffers;
+}
+
 void BlurFramebuffer::checkIfFramebufferComplete()
 {
     if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
