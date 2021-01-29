@@ -1,7 +1,7 @@
 #include "BloomTest.h"
 
 BloomTest::BloomTest(unsigned int windowWidth, unsigned int windowHeight, GLuint programBlur, GLuint programBloomFinalBlend)
-    : programBlur(programBlur), programBloomFinalBlend(programBloomFinalBlend), exposure(4.8f), gamma(1.0f), blurAmount(10),
+    : programBlur(programBlur), programBloomFinalBlend(programBloomFinalBlend), exposure(3.2f), gamma(1.0f), blurAmount(30),
     bloomAmount(1.0f)
 {
     initFramebuffer(windowWidth, windowHeight);

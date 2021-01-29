@@ -29,6 +29,6 @@ void main()
 
 	vec3 color = texture2D(textureSampler, interpTexCoord).rgb;
 	fragColor = vec4(color * diffuse, 1.0);
-    vec3 brightColorThreshold = vec3(vec3(0.8, 0.8, 0.8));
+    vec3 brightColorThreshold = vec3(vec3(5.0, 0.8, 0.3));
     calculateBrightColor(fragColor.rgb, brightColorThreshold);
 }

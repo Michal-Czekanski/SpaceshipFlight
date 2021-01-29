@@ -22,7 +22,7 @@ uniform float[starsCount] starsLightStr;
 uniform vec3[starsCount] starsLightCol;
 
 const float ambientLightIntensity = 0.01;
-const int brilliancy = 10;
+const int brilliancy = 50;
 // --- Func defs --- ///
 bool isPointInShipLightRange(vec3 point, vec3 shipPos, vec3 shipDirection, float shipLightConeHeight, float shipLightConeRadius)
 {
