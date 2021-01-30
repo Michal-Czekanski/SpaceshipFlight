@@ -3,7 +3,7 @@
 
 Ship::Ship(glm::vec3 position, ModelData& modelData, ShipLight shipLight, float shipSpeed, glm::vec3 scale, GLuint programDraw, 
 	float pitchSpeed, float yawSpeed, float rollSpeed):
-	RenderableObject(position, modelData, scale, programDraw)
+	RenderableObject(position, modelData, scale, programDraw, 0, 0)
 {
 	this->speed = shipSpeed;
 	this->pitchSpeed = pitchSpeed;

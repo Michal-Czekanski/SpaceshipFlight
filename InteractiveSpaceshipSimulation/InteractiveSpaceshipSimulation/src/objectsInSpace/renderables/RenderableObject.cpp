@@ -1,7 +1,8 @@
 #include "objectsInSpace/renderables/RenderableObject.h"
 
-RenderableObject::RenderableObject(glm::vec3 position, ModelData &modelData, glm::vec3 scale, GLuint programDraw):
-	ObjectInSpace(position, modelData.getForward(), modelData.getTop()), texture(0), textureMap(1)
+RenderableObject::RenderableObject(glm::vec3 position, ModelData &modelData, glm::vec3 scale, GLuint programDraw, 
+	GLuint texture, GLuint textureNormals):
+	ObjectInSpace(position, modelData.getForward(), modelData.getTop()), texture(texture), textureNormals(textureNormals)
 {
 	this->positionMat = glm::translate(position);
 
@@ -68,16 +69,6 @@ Core::RenderContext RenderableObject::getSimplifiedRenderContext()
 	return simplifiedRenderContext;
 }
 
-void RenderableObject::setTexture(GLuint texture)
-{
-	this->texture = texture;
-}
-
-void RenderableObject::setTextureMap(GLuint texture)
-{
-	this->textureMap = texture;
-}
-
 void RenderableObject::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,
 	std::vector<StarLight*> &starsLights)
 {
@@ -125,6 +116,12 @@ void RenderableObject::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix,
 	DiscreteLOD dlod = DiscreteLOD();
 	float distFromCam = glm::distance(position, camPos);
 	Core::RenderContext chosenContext = dlod.whichContextUse(distFromCam, simplifiedRenderContext, renderContext);
+
+	if (texture != 0)
+		Core::SetActiveTexture(texture, "textureSampler", programDraw, 0);
+	if (textureNormals != 0)
+		Core::SetActiveTexture(textureNormals, "normalSampler", programDraw, 1);
+
 	Core::DrawContext(chosenContext);
 	glUseProgram(0);
 }

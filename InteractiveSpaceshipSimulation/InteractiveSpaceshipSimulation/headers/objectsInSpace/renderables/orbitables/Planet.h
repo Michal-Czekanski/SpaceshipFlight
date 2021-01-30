@@ -14,7 +14,7 @@ public:
 	/// Creates Planet which will not orbit around any star.
 	/// </summary>
 	Planet(glm::vec3 position, ModelData& modelData,
-		glm::vec3 scale, GLuint programDraw);
+		glm::vec3 scale, GLuint programDraw, GLuint texture, GLuint textureNormals);
 
 	/// <summary>
 	/// Creates Planet which orbits around given Star.
@@ -22,7 +22,7 @@ public:
 	/// <param name="orbitAround">Star to orbit around.</param>
 	/// <param name="orbitPlaneVec2">Second of the two vectors defining rotation plane. First one is calculated as vector pointing from Sun to Planet.</param>
 	Planet(glm::vec3 position, ModelData& modelData,
-		glm::vec3 scale, Star* orbitAround, glm::vec3 orbitPlaneVec2, float orbitSpeed, GLuint programDraw);
+		glm::vec3 scale, Star* orbitAround, glm::vec3 orbitPlaneVec2, float orbitSpeed, GLuint programDraw, GLuint texture, GLuint textureNormals);
 
 	void update();
 

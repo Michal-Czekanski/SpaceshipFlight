@@ -5,9 +5,10 @@
 AsteroidField::AsteroidField(int asteroidCount, float asteroidFieldRadius, float asteroidSpeed, 
 	float minAsteroidScale, float maxAsteroidScale,
 	glm::vec3 position, glm::vec3 moveDirection, std::vector<ModelData*>& modelsData, GLuint programDraw,
-	std::vector<GLuint>& asteroidTextures,
+	std::vector<GLuint>& asteroidTextures, std::vector<GLuint>& asteroidNormalTextures,
 	glm::vec3 vectorTop, glm::vec3 asteroidColor):
-	ObjectInSpace(position, moveDirection, vectorTop), asteroidTextures(asteroidTextures)
+	ObjectInSpace(position, moveDirection, vectorTop), asteroidTextures(asteroidTextures),
+	asteroidNormalTextures(asteroidNormalTextures)
 {
 	this->asteroidsCount = asteroidCount;
 	this->initialPosition = position;
@@ -102,6 +103,7 @@ void AsteroidField::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, Sh
 	Core::RenderContext chosenContext = dlod.whichContextUse(distFromCam, simplifiedRenderContext, renderContext);
 
 	Core::SetActiveTexture(asteroidTexture, "textureSampler", programDraw, 0);
+	Core::SetActiveTexture(asteroidTexture, "normalSampler", programDraw, 1);
 
 	Core::DrawContextInstanced(chosenContext, asteroids.size(), modelMatrixes);
 	glUseProgram(0);

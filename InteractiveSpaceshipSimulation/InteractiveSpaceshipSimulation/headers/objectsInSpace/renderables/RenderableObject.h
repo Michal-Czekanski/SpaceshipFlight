@@ -44,12 +44,12 @@ protected:
 	obj::Model simplifiedModel;
 	Core::RenderContext simplifiedRenderContext;
 	GLuint texture;
-	GLuint textureMap;
+	GLuint textureNormals;
 
 public:
 
-	RenderableObject(glm::vec3 position, ModelData &modelData,
-		glm::vec3 scale, GLuint programDraw);
+	RenderableObject(glm::vec3 position, ModelData& modelData, glm::vec3 scale, GLuint programDraw,
+		GLuint texture, GLuint textureNormals=0);
 
 	glm::mat4 getModelMatrix();
 
@@ -73,7 +73,5 @@ public:
 	Core::RenderContext getRenderContext();
 	Core::RenderContext getSimplifiedRenderContext();
 
-	void setTexture(GLuint texture);
-	void setTextureMap(GLuint texture);
 };
 

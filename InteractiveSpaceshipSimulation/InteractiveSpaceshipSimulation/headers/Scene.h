@@ -56,11 +56,13 @@ void initScene(ModelData &shipModelData, ModelData &sphereModelData, ModelData& 
 	std::vector<AsteroidField*> &asteroidFields,
 	std::vector<StarLight*> &starsLights,
 	GLuint programColor2, GLuint programStar, GLuint programInstanceTexture,
-	GLuint programStarTexture, GLuint starTextures[], std::vector<GLuint> asteroidTextures);
+	GLuint programStarTexture, GLuint starTextures[], std::vector<GLuint> asteroidTextures,
+	std::vector<GLuint> asteroidNormalTextures,
+	std::vector<GLuint> planetTextures, std::vector<GLuint> planetNormalTextures);
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
-	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, ModelData& planetModelData, GLuint programDraw, 
-	bool randomColors = true);
+	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, ModelData& planetModelData, GLuint programDraw,
+	std::vector<GLuint> planetTextures, std::vector<GLuint> planetTexturesNormals);
 /// <summary>
 /// Generates asteroid fields randomly across world space.
 /// </summary>
@@ -77,7 +79,7 @@ void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetS
 /// <param name="minAsteroidCount">Minimal asteroid count of one asteroid field.</param>
 /// <param name="maxAsteroidCount">Maximal asteroid count of one asteroid field.</param>
 void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count, std::vector<ModelData*>& asteroidModelsData,
-	GLuint programDraw, std::vector<GLuint> asteroidTextures,
+	GLuint programDraw, std::vector<GLuint> asteroidTextures, std::vector<GLuint> asteroidNormalTextures,
 	float generationRadius = 3000.0f, float minAsteroidFieldRadius = 100.0f, float maxAsteroidFieldRadius = 400.0f,
 	float minAsteroidScale = 0.5f, float maxAsteroidScale = 5.0f,
 	float minSpeed = 0.1f, float maxSpeed = 10.0f, int minAsteroidCount = 100, int maxAsteroidCount = 200);

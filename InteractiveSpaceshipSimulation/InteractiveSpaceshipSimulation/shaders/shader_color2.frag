@@ -4,8 +4,15 @@ layout (location = 1) out vec4 brightColor;
 
 in vec3 interpNormal;
 in vec3 fragPos;
+in vec2 interpTexCoord;
 
-uniform vec3 objectColor;
+uniform sampler2D textureSampler;
+uniform sampler2D normalSampler;
+
+in vec3 viewDirTS;
+
+in vec3 lightDirTS_ship;
+in vec3 lightDirsTS_star[3];
 
 uniform vec3 cameraPos;
 
@@ -82,27 +89,28 @@ void calculateBrightColor(vec3 color, vec3 threshold)
 // --- main --- ///
 void main()
 {
+    vec3 color = texture2D(textureSampler, interpTexCoord).rgb;
 	vec3 normal = normalize(interpNormal);
 	vec3 specularColor = vec3(0, 0, 0);
 	vec3 diffuseColor = vec3(0, 0, 0);
-	vec3 ambientColor = objectColor * ambientLightIntensity;
+	vec3 ambientColor = color * ambientLightIntensity;
 
 	// Light from ship
 	if(isPointInShipLightRange(fragPos, shipPos, shipDirection, shipLightConeHeight, shipLightConeRadius))
 	{
-        vec3 shipLightDir = normalize(fragPos-shipPos);
+        vec3 shipLightDir = normalize(-lightDirTS_ship);
 		float shipLightAttenuation = calculateAttenuation(shipPos, fragPos, shipLightStr);
-		diffuseColor += shipLightAttenuation * calculateDiffuseColor(calculateDiffuseIntensity(normal, shipLightDir), objectColor);
+		diffuseColor += shipLightAttenuation * calculateDiffuseColor(calculateDiffuseIntensity(normal, shipLightDir), color);
 		specularColor += shipLightAttenuation * calculateSpecularColor(calculateSpecularIntensity(cameraPos, fragPos, shipLightDir, normal, brilliancy), shipLightColor);
 	}
 
 	// Light from stars
     for(int i = 0; i < starsCount; i++ )
     {
-        vec3 starLightDir = normalize(fragPos-starsPos[i]);
+        vec3 starLightDir = normalize(-lightDirsTS_star[i]);
         float starLightAttenuation = calculateAttenuation(starsPos[i], fragPos, starsLightStr[i]);
         float starDiffuseIntensity = calculateDiffuseIntensity(normal, starLightDir);
-        diffuseColor += starLightAttenuation * calculateDiffuseColor(starDiffuseIntensity, objectColor);
+        diffuseColor += starLightAttenuation * calculateDiffuseColor(starDiffuseIntensity, color);
         if(starDiffuseIntensity > 0)
     	{
     		// Prevent specular light from appearing on the back sides without light.

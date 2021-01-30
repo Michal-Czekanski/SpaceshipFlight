@@ -4,12 +4,16 @@
 void Core::RenderContext::initFromOBJ(obj::Model& model)
 {
     vertexArray = 0;
-    vertexBuffer = 0;
+    vertexBuffer = 0;	
     vertexIndexBuffer = 0;
+	
 	instanceModelMatrixesBuffer = 0;
     unsigned int vertexDataBufferSize = sizeof(float) * model.vertex.size();
     unsigned int vertexNormalBufferSize = sizeof(float) * model.normal.size();
     unsigned int vertexTexBufferSize = sizeof(float) * model.texCoord.size();
+	unsigned int vertexTangentBufferSize = sizeof(float) * model.tangent.size();
+	unsigned int vertexBitangentBufferSize = sizeof(float) * model.bitangent.size();
+
 
     size = model.faces["default"].size();
     unsigned int vertexElementBufferSize = sizeof(unsigned short) * size;
@@ -30,7 +34,11 @@ void Core::RenderContext::initFromOBJ(obj::Model& model)
     glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
 
-    glBufferData(GL_ARRAY_BUFFER, vertexDataBufferSize + vertexNormalBufferSize + vertexTexBufferSize, NULL, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(7);
+	glEnableVertexAttribArray(8);
+
+    glBufferData(GL_ARRAY_BUFFER, vertexDataBufferSize + vertexNormalBufferSize + vertexTexBufferSize + vertexTangentBufferSize + vertexBitangentBufferSize, 
+		NULL, GL_STATIC_DRAW);
 
     glBufferSubData(GL_ARRAY_BUFFER, 0, vertexDataBufferSize, &model.vertex[0]);
 
@@ -38,9 +46,19 @@ void Core::RenderContext::initFromOBJ(obj::Model& model)
 
     glBufferSubData(GL_ARRAY_BUFFER, vertexDataBufferSize + vertexNormalBufferSize, vertexTexBufferSize, &model.texCoord[0]);
 
+	glBufferSubData(GL_ARRAY_BUFFER, vertexDataBufferSize + vertexNormalBufferSize + vertexTexBufferSize, vertexTangentBufferSize, &model.tangent[0]);
+
+	glBufferSubData(GL_ARRAY_BUFFER, vertexDataBufferSize + vertexNormalBufferSize + vertexTexBufferSize + vertexTangentBufferSize,
+		vertexBitangentBufferSize, &model.bitangent[0]);
+
+
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)(0));
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)(vertexDataBufferSize));
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)(vertexNormalBufferSize + vertexDataBufferSize));
+
+	glVertexAttribPointer(7, 3, GL_FLOAT, GL_FALSE, 0, (void*)(vertexDataBufferSize + vertexNormalBufferSize + vertexTexBufferSize));
+	glVertexAttribPointer(8, 3, GL_FLOAT, GL_FALSE, 0, (void*)(vertexDataBufferSize + vertexNormalBufferSize + vertexTexBufferSize + vertexTangentBufferSize));
+
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

@@ -2,7 +2,7 @@
 
 Asteroid::Asteroid(ModelData& modelData, glm::vec3 position, glm::vec3 moveDirection, float speed,
 	glm::vec3 scale, GLuint programDraw) :
-	RenderableObject(position, modelData, scale, programDraw)
+	RenderableObject(position, modelData, scale, programDraw, 0, 0)
 {
 	this->speed = speed;
 	this->moveDirection = moveDirection;
