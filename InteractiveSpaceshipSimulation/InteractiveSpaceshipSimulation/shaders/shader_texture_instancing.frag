@@ -7,6 +7,12 @@ in vec3 fragPos;
 in vec2 interpTexCoord;
 
 uniform sampler2D textureSampler;
+uniform sampler2D normalSampler;
+
+in vec3 viewDirTS;
+
+in vec3 lightDirTS_ship;
+in vec3 lightDirsTS_star[3];
 
 uniform vec3 cameraPos;
 
@@ -92,16 +98,16 @@ void main()
 	// Light from ship
 	if(isPointInShipLightRange(fragPos, shipPos, shipDirection, shipLightConeHeight, shipLightConeRadius))
 	{
-        vec3 shipLightDir = normalize(fragPos-shipPos);
+        //vec3 shipLightDir = normalize(fragPos-shipPos);
 		float shipLightAttenuation = calculateAttenuation(shipPos, fragPos, shipLightStr);
-		diffuseColor += shipLightAttenuation * calculateDiffuseColor(calculateDiffuseIntensity(normal, shipLightDir), color);
-		specularColor += shipLightAttenuation * calculateSpecularColor(calculateSpecularIntensity(cameraPos, fragPos, shipLightDir, normal, brilliancy), shipLightColor);
+		diffuseColor += shipLightAttenuation * calculateDiffuseColor(calculateDiffuseIntensity(normal, lightDirTS_ship), color);
+		specularColor += shipLightAttenuation * calculateSpecularColor(calculateSpecularIntensity(cameraPos, fragPos, lightDirTS_ship, normal, brilliancy), shipLightColor);
 	}
 
 	// Light from stars
     for(int i = 0; i < starsCount; i++ )
     {
-        vec3 starLightDir = normalize(fragPos-starsPos[i]);
+        vec3 starLightDir = lightDirsTS_star[i];
         float starLightAttenuation = calculateAttenuation(starsPos[i], fragPos, starsLightStr[i]);
         float starDiffuseIntensity = calculateDiffuseIntensity(normal, starLightDir);
         diffuseColor += starLightAttenuation * calculateDiffuseColor(starDiffuseIntensity, color);
