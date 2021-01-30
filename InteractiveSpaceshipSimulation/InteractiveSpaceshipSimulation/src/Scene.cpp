@@ -4,8 +4,8 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount,
 	std::vector<AsteroidField*>& asteroidFields,
 	std::vector<StarLight*> &starsLights,
-	GLuint programColor2, GLuint programStar, GLuint programInstanceColor,
-	GLuint programStarTexture, GLuint starTextures[])
+	GLuint programColor2, GLuint programStar, GLuint programInstanceTexture,
+	GLuint programStarTexture, GLuint starTextures[], std::vector<GLuint> asteroidTextures)
 {
 	ShipLight* shipLight = new ShipLight();
 	
@@ -55,11 +55,12 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 
 	std::vector<ModelData*> asteroidModelsData; asteroidModelsData.push_back(&asteroidModelData);
 	
-	AsteroidField* asteroidField1 = new AsteroidField(20, 30.0f, 1.0f, 1.0f, 7.0f, glm::vec3(4.0f, 3.0f, 25.0f), glm::vec3(0, 0.1f, 1.0f),
-		asteroidModelsData, programInstanceColor);
+	AsteroidField* asteroidField1 = 
+		new AsteroidField(20, 30.0f, 1.0f, 1.0f, 7.0f, glm::vec3(4.0f, 3.0f, 25.0f), glm::vec3(0, 0.1f, 1.0f),
+		asteroidModelsData, programInstanceTexture, asteroidTextures);
 	asteroidFields.push_back(asteroidField1);
 
-	generateRandomAsteroidFields(asteroidFields, 55, asteroidModelsData, programInstanceColor);
+	generateRandomAsteroidFields(asteroidFields, 55, asteroidModelsData, programInstanceTexture, asteroidTextures);
 }
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float minPlanetOrbitSpeed, float maxPlanetOrbitSpeed,
@@ -90,7 +91,7 @@ void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetS
 }
 
 void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count, std::vector<ModelData*> &asteroidModelsData,
-	GLuint programDraw,
+	GLuint programDraw, std::vector<GLuint> asteroidTextures,
 	float generationRadius, float minAsteroidFieldRadius, float maxAsteroidFieldRadius,
 	float minAsteroidScale, float maxAsteroidScale,
 	float minSpeed, float maxSpeed, int minAsteroidCount, int maxAsteroidCount)
@@ -105,7 +106,7 @@ void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count
 		glm::vec3 moveDirection = glm::ballRand(1.0f);
 
 		AsteroidField* field = new AsteroidField(asteroidCount, fieldRadius, speed, minAsteroidScale, maxAsteroidScale, 
-			fieldPos, moveDirection, asteroidModelsData, programDraw);
+			fieldPos, moveDirection, asteroidModelsData, programDraw, asteroidTextures);
 		fields.push_back(field);
 	}
 }

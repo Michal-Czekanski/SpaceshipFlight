@@ -25,6 +25,7 @@ GLuint programColor;
 GLuint programColor2;
 GLuint programStar;
 GLuint programInstanceColor;
+GLuint programInstanceTexture;
 GLuint programStarTexture;
 GLuint programSkybox;
 

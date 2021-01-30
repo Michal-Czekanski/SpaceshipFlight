@@ -259,6 +259,8 @@ void init()
 	programStar = shaderLoader.CreateProgram((char*)"shaders/shader_star.vert", (char*)"shaders/shader_star.frag");
 	programInstanceColor = shaderLoader.CreateProgram(
 		(char*)"shaders/shader_color_instancing.vert", (char*)"shaders/shader_color_instancing.frag");
+	programInstanceTexture = shaderLoader.CreateProgram(
+		(char*)"shaders/shader_texture_instancing.vert", (char*)"shaders/shader_texture_instancing.frag");
 	programStarTexture = shaderLoader.CreateProgram(
 		(char*)"shaders/shader_star_tex.vert", (char*)"shaders/shader_star_tex.frag");
 	
@@ -302,8 +304,8 @@ void init()
 
 	initScene(shipModelData, sphereModelData, asteroid1ModelData, ship, camera, renderableObjects,
 		renderableObjectsCount, asteroidFields,
-		starsLights, programColor2, programStar, programInstanceColor,
-		programStarTexture, starTextures);
+		starsLights, programColor2, programStar, programInstanceTexture,
+		programStarTexture, starTextures, asteroidTextures);
 
 	initDebugHelpers(sphereModelData);
 
