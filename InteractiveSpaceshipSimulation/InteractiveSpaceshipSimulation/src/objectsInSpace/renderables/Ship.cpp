@@ -1,4 +1,4 @@
-#include "../headers/Ship.h"
+#include "objectsInSpace/renderables/Ship.h"
 
 
 Ship::Ship(glm::vec3 position, ModelData& modelData, ShipLight shipLight, float shipSpeed, glm::vec3 scale, GLuint programDraw, 

@@ -1,4 +1,4 @@
-#include "../headers/Asteroid.h"
+#include "objectsInSpace/renderables/Asteroid.h"
 
 Asteroid::Asteroid(ModelData& modelData, glm::vec3 position, glm::vec3 moveDirection, float speed,
 	glm::vec3 scale, GLuint programDraw) :

@@ -92,6 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)/headers</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,6 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir)/headers</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,19 +155,19 @@
     <ClCompile Include="src\utils\PerformanceMeasure.cpp" />
     <ClCompile Include="src\graphics_techniques\DiscreteLOD.cpp" />
     <ClCompile Include="src\data\LevelOfDetail.cpp" />
-    <ClCompile Include="src\Mouse.cpp" />
+    <ClCompile Include="src\utils\Mouse.cpp" />
     <ClCompile Include="src\data\ModelData.cpp" />
     <ClCompile Include="src\data\ShipLight.cpp" />
-    <ClCompile Include="src\AsteroidField.cpp" />
-    <ClCompile Include="src\Asteroid.cpp" />
-    <ClCompile Include="src\Moon.cpp" />
-    <ClCompile Include="src\Orbitable.cpp" />
-    <ClCompile Include="src\Planet.cpp" />
-    <ClCompile Include="src\RenderableObject.cpp" />
-    <ClCompile Include="src\ObjectInSpace.cpp" />
+    <ClCompile Include="src\objectsInSpace\renderables\AsteroidField.cpp" />
+    <ClCompile Include="src\objectsInSpace\renderables\Asteroid.cpp" />
+    <ClCompile Include="src\objectsInSpace\renderables\orbitables\Moon.cpp" />
+    <ClCompile Include="src\objectsInSpace\renderables\orbitables\Orbitable.cpp" />
+    <ClCompile Include="src\objectsInSpace\renderables\orbitables\Planet.cpp" />
+    <ClCompile Include="src\objectsInSpace\renderables\RenderableObject.cpp" />
+    <ClCompile Include="src\objectsInSpace\ObjectInSpace.cpp" />
     <ClCompile Include="src\AttachableCamera.cpp" />
     <ClCompile Include="src\Scene.cpp" />
-    <ClCompile Include="src\Ship.cpp" />
+    <ClCompile Include="src\objectsInSpace\renderables\Ship.cpp" />
     <ClCompile Include="src\InteractiveSpaceshipSimulation.cpp" />
     <ClCompile Include="src\utils\Calculations.cpp" />
     <ClCompile Include="src\utils\Camera.cpp" />
@@ -173,8 +175,8 @@
     <ClCompile Include="src\utils\Render_Utils.cpp" />
     <ClCompile Include="src\utils\Shader_Loader.cpp" />
     <ClCompile Include="src\utils\Texture.cpp" />
-    <ClCompile Include="src\Star.cpp" />
-    <ClCompile Include="src\Time.cpp" />
+    <ClCompile Include="src\objectsInSpace\renderables\Star.cpp" />
+    <ClCompile Include="src\utils\Time.cpp" />
     <ClCompile Include="src\data\StarLight.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -183,8 +185,8 @@
     <ClInclude Include="headers\graphics_techniques\bloom\hdr\HDRFramebuffer.h" />
     <ClInclude Include="headers\graphics_techniques\bloom\blur\BlurFramebuffer.h" />
     <ClInclude Include="headers\graphics_techniques\DiscreteLOD.h" />
-    <ClInclude Include="headers\AsteroidField.h" />
-    <ClInclude Include="headers\Asteroid.h" />
+    <ClInclude Include="headers\objectsInSpace\renderables\AsteroidField.h" />
+    <ClInclude Include="headers\objectsInSpace\renderables\Asteroid.h" />
     <ClInclude Include="headers\AttachableCamera.h" />
     <ClInclude Include="headers\InteractiveSpaceshipSimulation.h" />
     <ClInclude Include="headers\Scene.h" />
@@ -195,18 +197,18 @@
     <ClInclude Include="headers\utils\Render_Utils.h" />
     <ClInclude Include="headers\utils\Shader_Loader.h" />
     <ClInclude Include="headers\utils\Texture.h" />
-    <ClInclude Include="headers\Ship.h" />
-    <ClInclude Include="headers\ObjectInSpace.h" />
-    <ClInclude Include="headers\RenderableObject.h" />
-    <ClInclude Include="headers\Planet.h" />
-    <ClInclude Include="headers\Star.h" />
-    <ClInclude Include="headers\Orbitable.h" />
-    <ClInclude Include="headers\Moon.h" />
-    <ClInclude Include="headers\Time.h" />
+    <ClInclude Include="headers\objectsInSpace\renderables\Ship.h" />
+    <ClInclude Include="headers\objectsInSpace\ObjectInSpace.h" />
+    <ClInclude Include="headers\objectsInSpace\renderables\RenderableObject.h" />
+    <ClInclude Include="headers\objectsInSpace\renderables\orbitables\Planet.h" />
+    <ClInclude Include="headers\objectsInSpace\renderables\Star.h" />
+    <ClInclude Include="headers\objectsInSpace\renderables\orbitables\Orbitable.h" />
+    <ClInclude Include="headers\objectsInSpace\renderables\orbitables\Moon.h" />
+    <ClInclude Include="headers\utils\Time.h" />
     <ClInclude Include="headers\data\ShipLight.h" />
     <ClInclude Include="headers\data\ModelData.h" />
     <ClInclude Include="headers\data\StarLight.h" />
-    <ClInclude Include="headers\Mouse.h" />
+    <ClInclude Include="headers\utils\Mouse.h" />
     <ClInclude Include="headers\data\LevelOfDetail.h" />
     <ClInclude Include="headers\utils\PerformanceMeasure.h" />
     <ClInclude Include="headers\graphics_techniques\bloom\ScreenQuad.h" />

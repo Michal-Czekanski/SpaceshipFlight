@@ -1,7 +1,7 @@
 #pragma once
 
-#include "RenderableObject.h"
-#include "utils/Calculations.h"
+#include "../RenderableObject.h"
+#include "../../../utils/Calculations.h"
 
 class Orbitable: public RenderableObject
 {

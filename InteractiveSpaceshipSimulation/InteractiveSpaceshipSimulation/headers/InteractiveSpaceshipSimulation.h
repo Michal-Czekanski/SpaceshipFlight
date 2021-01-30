@@ -10,7 +10,7 @@
 #include "utils/Texture.h"
 #include "utils/Shader_Loader.h"
 #include "utils/Render_Utils.h"
-#include "Mouse.h"
+#include "utils/Mouse.h"
 #include "graphics_techniques/bloom/Bloom.h"
 
 

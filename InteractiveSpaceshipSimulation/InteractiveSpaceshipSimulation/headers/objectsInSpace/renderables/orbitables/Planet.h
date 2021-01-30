@@ -1,7 +1,7 @@
 #pragma once
 
-#include "RenderableObject.h"
-#include "Star.h"
+#include "objectsInSpace/renderables/RenderableObject.h"
+#include "objectsInSpace/renderables/Star.h"
 #include "utils/Calculations.h"
 #include "Orbitable.h"
 

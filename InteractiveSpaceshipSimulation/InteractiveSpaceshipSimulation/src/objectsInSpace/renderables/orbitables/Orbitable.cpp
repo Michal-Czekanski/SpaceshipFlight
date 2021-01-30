@@ -1,4 +1,4 @@
-#include "../headers/Orbitable.h"
+#include "objectsInSpace/renderables/orbitables/Orbitable.h"
 
 
 Orbitable::Orbitable(glm::vec3 position, ModelData& modelData, glm::vec3 scale,

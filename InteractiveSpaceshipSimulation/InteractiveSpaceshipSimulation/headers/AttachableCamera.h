@@ -2,7 +2,7 @@
 
 #include "glm.hpp"
 #include "ext.hpp"
-#include "ObjectInSpace.h"
+#include "objectsInSpace/ObjectInSpace.h"
 #include "utils/Camera.h"
 #include "utils/Calculations.h"
 

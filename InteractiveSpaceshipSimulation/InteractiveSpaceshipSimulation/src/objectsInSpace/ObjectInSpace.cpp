@@ -1,4 +1,4 @@
-#include "../headers/ObjectInSpace.h"
+#include "objectsInSpace/ObjectInSpace.h"
 
 void ObjectInSpace::updateDirections(glm::quat rotation)
 {

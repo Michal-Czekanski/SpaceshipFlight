@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ObjectInSpace.h"
+#include "objectsInSpace/ObjectInSpace.h"
 #include "Asteroid.h"
 #include <vector>
 #include "utils/Calculations.h"

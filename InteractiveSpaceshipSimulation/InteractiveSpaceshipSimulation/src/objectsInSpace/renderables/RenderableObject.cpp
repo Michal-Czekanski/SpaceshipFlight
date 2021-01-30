@@ -1,4 +1,4 @@
-#include "../headers/RenderableObject.h"
+#include "objectsInSpace/renderables/RenderableObject.h"
 
 RenderableObject::RenderableObject(glm::vec3 position, ModelData &modelData, glm::vec3 scale, GLuint programDraw):
 	ObjectInSpace(position, modelData.getForward(), modelData.getTop()), texture(0), textureMap(1)

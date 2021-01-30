@@ -1,4 +1,4 @@
-#include "../headers/Planet.h"
+#include "objectsInSpace/renderables/orbitables/Planet.h"
 
 Planet::Planet(glm::vec3 position, ModelData& modelData, glm::vec3 scale, GLuint programDraw):
 	Orbitable(position, modelData, scale, NULL, glm::vec3(), 0.0f, programDraw)

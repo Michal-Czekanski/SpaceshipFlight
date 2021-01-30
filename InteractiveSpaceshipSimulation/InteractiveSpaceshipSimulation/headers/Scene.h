@@ -6,15 +6,15 @@
 #include <vector>
 
 #include "utils/Camera.h"
-#include "Ship.h"
+#include "objectsInSpace/renderables/Ship.h"
 #include "utils/Calculations.h"
 #include "AttachableCamera.h"
-#include "Planet.h"
-#include "Star.h"
-#include "RenderableObject.h"
-#include "Moon.h"
-#include "Asteroid.h"
-#include "AsteroidField.h"
+#include "objectsInSpace/renderables/orbitables/Planet.h"
+#include "objectsInSpace/renderables/Star.h"
+#include "objectsInSpace/renderables/RenderableObject.h"
+#include "objectsInSpace/renderables/orbitables/Moon.h"
+#include "objectsInSpace/renderables/Asteroid.h"
+#include "objectsInSpace/renderables/AsteroidField.h"
 #include "data/ModelData.h"
 
 const glm::vec3 testLightDir = glm::vec3(0, 1, 1);

@@ -1,4 +1,4 @@
-#include "../headers/Star.h"
+#include "objectsInSpace/renderables/Star.h"
 
 
 
