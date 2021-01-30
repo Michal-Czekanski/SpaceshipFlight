@@ -63,6 +63,17 @@ void keyboard(unsigned char key, int x, int y)
 		case 'a': // left
 			ship->rotateShip(0.0f, -1.0f, 0.0f);
 			break;
+
+
+		// Input test
+		case 'e':
+			bloom->setExposure(bloom->getExposure() + 0.01f);
+			std::cout << "Exposure: " << bloom->getExposure() << std::endl;
+			break;
+		case 'r':
+			bloom->setExposure(bloom->getExposure() - 0.01f);
+			std::cout << "Exposure: " << bloom->getExposure() << std::endl;
+			break;
 	}
 }
 
@@ -190,6 +201,8 @@ void renderScene()
 	//	0, 1, 0);
 
 
+	bloom->beforeRendering();
+
 	// Render ship
 	rotateShip();
 	ship->update();
@@ -222,6 +235,7 @@ void renderScene()
 		renderDebugHelpers(perspectiveMatrix, cameraMatrix);
 	}
 
+	bloom->afterRendering();
 
 	glutSwapBuffers();
 }
@@ -247,6 +261,11 @@ void init()
 		(char*)"shaders/shader_color_instancing.vert", (char*)"shaders/shader_color_instancing.frag");
 	programStarTexture = shaderLoader.CreateProgram(
 		(char*)"shaders/shader_star_tex.vert", (char*)"shaders/shader_star_tex.frag");
+	
+	GLuint programBlur = shaderLoader.CreateProgram(
+		(char*)"shaders/bloom/shader_gaussian_blur.vert", (char*)"shaders/bloom/shader_gaussian_blur.frag");
+	GLuint programBloomFinalBlend = shaderLoader.CreateProgram(
+		(char*)"shaders/bloom/shader_bloom_final_blend.vert", (char*)"shaders/bloom/shader_bloom_final_blend.frag");
 
 	obj::Model shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
 	ModelData shipModelData = ModelData(shipModel, glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
@@ -261,9 +280,10 @@ void init()
 	ModelData asteroid1ModelData = ModelData(asteroid1Model, asteroid1ModelSimplified,
 		glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 
-
-	starTextures[0] = Core::LoadTexture("textures/2k_sun.png");
+	starTextures[0] = Core::LoadTexture("textures/star1.png");
 	starTextures[1] = Core::LoadTexture("textures/star2.png");
+	starTextures[2] = Core::LoadTexture("textures/star3.png");
+
 
 	_skybox[0] = Core::LoadTexture("textures/kosmos3.png");
 	_skybox[1] = Core::LoadTexture("textures/kosmos3.png");
@@ -284,6 +304,9 @@ void init()
 		programStarTexture, starTextures);
 
 	initDebugHelpers(sphereModelData);
+
+
+	bloom = new Bloom(WINDOW_WIDTH, WINDOW_HEIGHT, programBlur, programBloomFinalBlend);
 
 	Time::start();
 	PerformanceMeasure::addMeasuresTakenListener(printPerformanceMeasures);

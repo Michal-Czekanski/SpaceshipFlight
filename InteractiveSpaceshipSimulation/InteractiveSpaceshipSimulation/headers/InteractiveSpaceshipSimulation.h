@@ -11,6 +11,7 @@
 #include "utils/Shader_Loader.h"
 #include "utils/Render_Utils.h"
 #include "Mouse.h"
+#include "graphics_techniques/bloom/Bloom.h"
 
 
 #define WINDOW_WIDTH 720
@@ -40,6 +41,7 @@ std::vector<AsteroidField*> asteroidFields;
 
 bool debugHelpersOn = false;
 
+Bloom* bloom;
 
 /// <summary>
 /// Renders object without lighting model.
