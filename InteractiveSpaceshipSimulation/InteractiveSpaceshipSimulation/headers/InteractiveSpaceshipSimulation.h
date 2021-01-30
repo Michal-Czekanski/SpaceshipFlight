@@ -29,6 +29,7 @@ GLuint programStarTexture;
 GLuint programSkybox;
 
 GLuint starTextures[3]{0,0,0};
+std::vector<GLuint> asteroidTextures;
 GLuint skyboksik;
 GLuint _skybox[6];
 
