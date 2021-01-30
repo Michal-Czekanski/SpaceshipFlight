@@ -145,12 +145,12 @@ unsigned int loadCubemap(vector<std::string> faces)
 
 vector<std::string> faces
 {
-		"textures/kosmos2.png",
-		"textures/kosmos2.png",
-		"textures/kosmos2.png",
-		"textures/kosmos2.png",
-		"textures/kosmos2.png",
-		"textures/kosmos2.png"
+		"textures/skybox/right.png",
+		"textures/skybox/left.png",
+		"textures/skybox/top.png",
+		"textures/skybox/bottom.png",
+		"textures/skybox/front.png",
+		"textures/skybox/back.png"
 };
 
 
