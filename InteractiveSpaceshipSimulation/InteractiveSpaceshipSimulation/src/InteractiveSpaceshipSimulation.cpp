@@ -269,8 +269,8 @@ void init()
 	GLuint programBloomFinalBlend = shaderLoader.CreateProgram(
 		(char*)"shaders/bloom/shader_bloom_final_blend.vert", (char*)"shaders/bloom/shader_bloom_final_blend.frag");
 
-	obj::Model shipModel = obj::loadModelFromFile("models/mock_spaceship.obj");
-	ModelData shipModelData = ModelData(shipModel, glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
+	obj::Model shipModel = obj::loadModelFromFile("models/spaceship_model.obj");
+	ModelData shipModelData = ModelData(shipModel, glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
 
 	obj::Model sphereModel = obj::loadModelFromFile("models/sphere.obj");
 	obj::Model sphereModelSimplified = obj::loadModelFromFile("models/sphere-simpl.obj");
@@ -281,6 +281,10 @@ void init()
 	obj::Model asteroid1ModelSimplified = obj::loadModelFromFile("models/asteroid1-simpl.obj");
 	ModelData asteroid1ModelData = ModelData(asteroid1Model, asteroid1ModelSimplified,
 		glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
+
+
+	shipTexture = Core::LoadTexture("textures/spaceship/spaceship_model_texture.png");
+	shipNormalTexture = Core::LoadTexture("textures/spaceship/spaceship_model_normal.png");
 
 	starTextures[0] = Core::LoadTexture("textures/star1.png");
 	starTextures[1] = Core::LoadTexture("textures/star2.png");
@@ -308,7 +312,8 @@ void init()
 		renderableObjectsCount, asteroidFields,
 		starsLights, programColor2, programStar, programInstanceTexture,
 		programStarTexture, starTextures, asteroidTextures, asteroidNormalTextures,
-		planetTextures, planetNormals);
+		planetTextures, planetNormals,
+		shipTexture, shipNormalTexture);
 
 	initDebugHelpers(sphereModelData);
 

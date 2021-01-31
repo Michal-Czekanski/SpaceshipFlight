@@ -29,6 +29,9 @@ GLuint programInstanceTexture;
 GLuint programStarTexture;
 GLuint programSkybox;
 
+
+GLuint shipTexture;
+GLuint shipNormalTexture;
 GLuint starTextures[3]{0,0,0};
 std::vector<GLuint> asteroidTextures;
 std::vector<GLuint> asteroidNormalTextures;

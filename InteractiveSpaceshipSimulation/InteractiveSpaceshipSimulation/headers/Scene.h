@@ -29,10 +29,10 @@ const float shipSpeed = 100.0f;
 
 const glm::vec3 initCameraLookDir = glm::vec3(0, 0, -1);
 
-const float camOffsetMultiplier = 2.0f;
-const float camUpOffsetMultiplier = 0.5f;
+const float camOffsetMultiplier = 0.8f;
+const float camUpOffsetMultiplier = 0.35f;
 
-const glm::vec3 shipScale = glm::vec3(0.6f);
+const glm::vec3 shipScale = glm::vec3(0.1f);
 
 const glm::vec3 shipColor = glm::vec3(0.0f, 0.9f, 0.8f);
 
@@ -58,7 +58,7 @@ void initScene(ModelData &shipModelData, ModelData &sphereModelData, ModelData& 
 	GLuint programColor2, GLuint programStar, GLuint programInstanceTexture,
 	GLuint programStarTexture, GLuint starTextures[], std::vector<GLuint> asteroidTextures,
 	std::vector<GLuint> asteroidNormalTextures,
-	std::vector<GLuint> planetTextures, std::vector<GLuint> planetNormalTextures);
+	std::vector<GLuint> planetTextures, std::vector<GLuint> planetNormalTextures, GLuint shipTexture, GLuint shipNormalTexture);
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
 	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, ModelData& planetModelData, GLuint programDraw,

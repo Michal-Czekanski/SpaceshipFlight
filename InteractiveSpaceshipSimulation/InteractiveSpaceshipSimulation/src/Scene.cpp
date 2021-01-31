@@ -7,12 +7,14 @@ void initScene(ModelData& shipModelData, ModelData& sphereModelData, ModelData& 
 	GLuint programColor2, GLuint programStar, GLuint programInstanceTexture,
 	GLuint programStarTexture, GLuint starTextures[], std::vector<GLuint> asteroidTextures,
 	std::vector<GLuint> asteroidNormalTextures,
-	std::vector<GLuint> planetTextures, std::vector<GLuint> planetNormalTextures)
+	std::vector<GLuint> planetTextures, std::vector<GLuint> planetNormalTextures, 
+	GLuint shipTexture, GLuint shipNormalTexture)
 {
 	ShipLight* shipLight = new ShipLight();
 	
-	ship = new Ship(initShipPos, shipModelData, *shipLight, shipSpeed, shipScale, programColor2);
+	ship = new Ship(initShipPos, shipModelData, *shipLight, shipSpeed, shipScale, programColor2, shipTexture, shipNormalTexture);
 	ship->setColor(shipColor);
+	//ship->rotate(calculateRotationQuatWorldAxises(glm::quat(), 0, glm::radians(90.0f), 0));
 
 	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (ObjectInSpace*)ship);
 
