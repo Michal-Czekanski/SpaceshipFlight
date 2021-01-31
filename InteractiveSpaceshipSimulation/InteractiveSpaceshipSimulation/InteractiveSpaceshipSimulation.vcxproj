@@ -180,6 +180,7 @@
     <ClCompile Include="src\objectsInSpace\renderables\Star.cpp" />
     <ClCompile Include="src\utils\Time.cpp" />
     <ClCompile Include="src\data\StarLight.cpp" />
+    <ClCompile Include="src\data\Textures.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\graphics_techniques\bloom\Bloom.h" />
@@ -216,6 +217,7 @@
     <ClInclude Include="headers\graphics_techniques\bloom\ScreenQuad.h" />
     <ClInclude Include="headers\data\RenderData.h" />
     <ClInclude Include="headers\data\RenderDataInstancing.h" />
+    <ClInclude Include="headers\data\Textures.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
