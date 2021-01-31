@@ -8,17 +8,17 @@ RenderData::RenderData(ModelData& modelData): renderContext(), simplifiedRenderC
 	simplifiedRenderContext.initFromOBJ(simplifiedModel);
 }
 
-Core::RenderContext& RenderData::getRenderContext()
+Core::RenderContext RenderData::getRenderContext() const
 {
 	return renderContext;
 }
 
-Core::RenderContext& RenderData::getSimplifiedRenderContext()
+Core::RenderContext RenderData::getSimplifiedRenderContext() const
 {
 	return simplifiedRenderContext;
 }
 
-const ModelData& RenderData::getModelData()
+const ModelData& RenderData::getModelData() const
 {
 	return modelData;
 }

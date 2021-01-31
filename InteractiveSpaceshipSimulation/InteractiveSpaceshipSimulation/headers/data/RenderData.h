@@ -7,10 +7,10 @@ class RenderData
 {
 public:
 	RenderData(ModelData& modelData);
-	Core::RenderContext& getRenderContext();
-	Core::RenderContext& getSimplifiedRenderContext();
-	const ModelData& getModelData();
-private:
+	Core::RenderContext getRenderContext() const;
+	Core::RenderContext getSimplifiedRenderContext() const;
+	const ModelData& getModelData() const;
+protected:
 	Core::RenderContext renderContext;
 	Core::RenderContext simplifiedRenderContext;
 	const ModelData modelData;
