@@ -65,7 +65,6 @@ void keyboard(unsigned char key, int x, int y)
 			break;
 
 
-		// Input test
 		case 'e':
 			bloom->setExposure(bloom->getExposure() + 0.01f);
 			std::cout << "Exposure: " << bloom->getExposure() << std::endl;
@@ -74,6 +73,14 @@ void keyboard(unsigned char key, int x, int y)
 			bloom->setExposure(bloom->getExposure() - 0.01f);
 			std::cout << "Exposure: " << bloom->getExposure() << std::endl;
 			break;
+
+		case 'y':
+			DiscreteLOD::enabled = !DiscreteLOD::enabled;
+			std::cout << "Discrete Level Of Detail: " << DiscreteLOD::enabled << std::endl;
+			break;
+
+
+
 	}
 }
 

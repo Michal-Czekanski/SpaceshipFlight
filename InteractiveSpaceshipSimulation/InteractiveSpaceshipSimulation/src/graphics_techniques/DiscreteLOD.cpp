@@ -1,5 +1,7 @@
 #include "../../headers/graphics_techniques/DiscreteLOD.h"
 
+bool DiscreteLOD::enabled = true;
+
 obj::Model& DiscreteLOD::whichModelUse(float distanceFromCamera, obj::Model& simplifiedModel, obj::Model& detailedModel)
 {
 	LevelOfDetail levelOfDetail = LevelOfDetail(distanceFromCamera);
@@ -15,6 +17,10 @@ obj::Model& DiscreteLOD::whichModelUse(float distanceFromCamera, obj::Model& sim
 
 Core::RenderContext DiscreteLOD::whichContextUse(float distanceFromCamera, Core::RenderContext& simplifiedContext, Core::RenderContext& detailedContext)
 {
+	if (!enabled)
+	{
+		return detailedContext;
+	}
 	LevelOfDetail levelOfDetail = LevelOfDetail(distanceFromCamera);
 	if (levelOfDetail.getDetailLevel() == LevelOfDetailEnum::High)
 	{

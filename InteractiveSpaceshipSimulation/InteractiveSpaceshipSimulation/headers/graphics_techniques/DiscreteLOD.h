@@ -30,5 +30,7 @@ public:
 	/// <returns></returns>
 	Core::RenderContext whichContextUse(float distanceFromCamera, Core::RenderContext& simplifiedContext, 
 		Core::RenderContext& detailedContext);
+
+	static bool enabled;
 };
 
