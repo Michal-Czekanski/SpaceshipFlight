@@ -17,6 +17,8 @@ void initScene(const RenderData& shipRenderData, const RenderData& sphereRenderD
 
 	camera = new AttachableCamera(camOffsetMultiplier, camUpOffsetMultiplier, (ObjectInSpace*)ship);
 
+	ship->rotate(calculateRotationQuatWorldAxises(glm::quat(), 0, glm::radians(180.0f), 0));
+
 	Planet* startingPlanet = new Planet(startPlanetPos, sphereRenderData, startPlanetScale, programTexture, planetTextures[0], planetNormalTextures[0]);
 	startingPlanet->setColor(glm::vec3(0.7, 0.1, 0.1f));
 
