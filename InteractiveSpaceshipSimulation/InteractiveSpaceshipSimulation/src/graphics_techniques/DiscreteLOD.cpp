@@ -31,3 +31,10 @@ Core::RenderContext DiscreteLOD::whichContextUse(float distanceFromCamera, Core:
 		return simplifiedContext;
 	}
 }
+
+Core::RenderContext DiscreteLOD::whichContextUse(float distanceFromCamera, const RenderData* renderData)
+{
+	Core::RenderContext detailed = renderData->getRenderContext();
+	Core::RenderContext simplified = renderData->getSimplifiedRenderContext();
+	return whichContextUse(distanceFromCamera, simplified, detailed);
+}
