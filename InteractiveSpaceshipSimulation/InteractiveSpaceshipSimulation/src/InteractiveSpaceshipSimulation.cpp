@@ -301,8 +301,8 @@ void init()
 	asteroidTextures.push_back(Core::LoadTexture("textures/asteroid_texture.png"));
 	asteroidNormalTextures.push_back(Core::LoadTexture("textures/asteroid_texture_normal.png"));
 
-	planetTextures.push_back(Core::LoadTexture("textures/earth2.png"));
-	planetNormals.push_back(Core::LoadTexture("textures/earth_normal.png"));
+	planetTextures.push_back(Core::LoadTexture("textures/planet10_texture.png"));
+	planetNormals.push_back(Core::LoadTexture("textures/planet10_texture_normal.png"));
 
 
 	_skybox[0] = Core::LoadTexture("textures/kosmos3.png");
