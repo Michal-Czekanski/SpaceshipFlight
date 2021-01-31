@@ -74,8 +74,10 @@ void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetS
 {
 	float randomPlanetGenerationRadius = star->getScale().x * 2;
 	float pushPlanetsFromStarCenter = star->getScale().x;
+	int v;
 	for (int i = 0; i < 20; i++)
 	{
+		v = rand() % 10;
 		glm::vec3 planetPosRelativeToStar = glm::ballRand(randomPlanetGenerationRadius) + star->getPosition();
 		// push planet pos from star center
 		glm::vec3 directionFromStarToPlanet = glm::normalize(planetPosRelativeToStar - star->getPosition());
@@ -85,8 +87,8 @@ void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetS
 		glm::vec3 orbitPlaneVec2 = glm::ballRand(1.0f);
 		float planetOrbitSpeed = randomFloat(minPlanetOrbitSpeed, maxPlanetOrbitSpeed);
 
-		GLuint planetTexture = planetTextures[0];
-		GLuint planetTextureNormal = planetTexturesNormals[0];
+		GLuint planetTexture = planetTextures[v];
+		GLuint planetTextureNormal = planetTexturesNormals[v];
 		Planet* planet = new Planet(planetPosRelativeToStar, planetModelData, planetScale, star, orbitPlaneVec2, planetOrbitSpeed,
 			programDraw, planetTexture, planetTextureNormal);
 		renderableObjects.push_back(planet); renderableObjectsCount++;

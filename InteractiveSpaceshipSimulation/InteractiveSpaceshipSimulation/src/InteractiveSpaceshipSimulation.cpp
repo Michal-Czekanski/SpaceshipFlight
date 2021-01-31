@@ -301,6 +301,24 @@ void init()
 	asteroidTextures.push_back(Core::LoadTexture("textures/asteroid_texture.png"));
 	asteroidNormalTextures.push_back(Core::LoadTexture("textures/asteroid_texture_normal.png"));
 
+	planetTextures.push_back(Core::LoadTexture("textures/planet1_texture.png"));
+	planetNormals.push_back(Core::LoadTexture("textures/planet1_texture_normal.png"));
+	planetTextures.push_back(Core::LoadTexture("textures/planet2_texture.png"));
+	planetNormals.push_back(Core::LoadTexture("textures/planet2_texture_normal.png"));
+	planetTextures.push_back(Core::LoadTexture("textures/planet3_texture.png"));
+	planetNormals.push_back(Core::LoadTexture("textures/planet3_texture_normal.png"));
+	planetTextures.push_back(Core::LoadTexture("textures/planet4_texture.png"));
+	planetNormals.push_back(Core::LoadTexture("textures/planet4_texture_normal.png"));
+	planetTextures.push_back(Core::LoadTexture("textures/planet5_texture.png"));
+	planetNormals.push_back(Core::LoadTexture("textures/planet5_texture_normal.png"));
+	planetTextures.push_back(Core::LoadTexture("textures/planet6_texture.png"));
+	planetNormals.push_back(Core::LoadTexture("textures/planet6_texture_normal.png"));
+	planetTextures.push_back(Core::LoadTexture("textures/planet7_texture.png"));
+	planetNormals.push_back(Core::LoadTexture("textures/planet7_texture_normal.png"));
+	planetTextures.push_back(Core::LoadTexture("textures/planet8_texture.png"));
+	planetNormals.push_back(Core::LoadTexture("textures/planet8_texture_normal.png"));
+	planetTextures.push_back(Core::LoadTexture("textures/planet9_texture.png"));
+	planetNormals.push_back(Core::LoadTexture("textures/planet9_texture_normal.png"));
 	planetTextures.push_back(Core::LoadTexture("textures/planet10_texture.png"));
 	planetNormals.push_back(Core::LoadTexture("textures/planet10_texture_normal.png"));
 
