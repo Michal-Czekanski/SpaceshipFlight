@@ -7,7 +7,7 @@
 #include "utils/objload.h"
 #include "objectsInSpace/ObjectInSpace.h"
 #include "utils/Time.h"
-#include  "data/ModelData.h"
+#include  "data/RenderData.h"
 #include "data/ShipLight.h"
 #include "data/StarLight.h"
 #include "utils/Render_Utils.h"
@@ -31,9 +31,6 @@ protected:
 
 	glm::mat4 modelMatrix;
 
-	obj::Model model;
-	Core::RenderContext renderContext;
-
 	glm::vec3 color = glm::vec3();
 
 	/// <summary>
@@ -41,19 +38,16 @@ protected:
 	/// </summary>
 	GLuint programDraw;
 
-	obj::Model simplifiedModel;
-	Core::RenderContext simplifiedRenderContext;
 	GLuint texture;
 	GLuint textureNormals;
 
+	const RenderData renderData;
 public:
 
-	RenderableObject(glm::vec3 position, ModelData& modelData, glm::vec3 scale, GLuint programDraw,
+	RenderableObject(glm::vec3 position, const RenderData& renderData, glm::vec3 scale, GLuint programDraw,
 		GLuint texture, GLuint textureNormals=0);
 
 	glm::mat4 getModelMatrix();
-
-	obj::Model getModel();
 
 	/// <summary>
 	/// Update is called on every frame.
@@ -69,9 +63,6 @@ public:
 
 	glm::vec3 getColor();
 	void setColor(glm::vec3 color);
-
-	Core::RenderContext getRenderContext();
-	Core::RenderContext getSimplifiedRenderContext();
 
 };
 

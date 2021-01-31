@@ -1,8 +1,9 @@
 #include "objectsInSpace/renderables/RenderableObject.h"
 
-RenderableObject::RenderableObject(glm::vec3 position, ModelData &modelData, glm::vec3 scale, GLuint programDraw, 
+RenderableObject::RenderableObject(glm::vec3 position, const RenderData& renderData, glm::vec3 scale, GLuint programDraw,
 	GLuint texture, GLuint textureNormals):
-	ObjectInSpace(position, modelData.getForward(), modelData.getTop()), texture(texture), textureNormals(textureNormals)
+	renderData(renderData), texture(texture), textureNormals(textureNormals),
+	ObjectInSpace(position, renderData.getModelData().getForward(), renderData.getModelData().getTop())
 {
 	this->positionMat = glm::translate(position);
 
@@ -13,23 +14,12 @@ RenderableObject::RenderableObject(glm::vec3 position, ModelData &modelData, glm
 
 	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
 
-	this->model = modelData.getModel();
-	this->renderContext.initFromOBJ(this->model);
-
 	this->programDraw = programDraw;
-
-	this->simplifiedModel = modelData.getSimplifiedModel();
-	this->simplifiedRenderContext.initFromOBJ(this->simplifiedModel);
 }
 
 glm::mat4 RenderableObject::getModelMatrix()
 {
 	return this->modelMatrix;
-}
-
-obj::Model RenderableObject::getModel()
-{
-	return this->model;
 }
 
 void RenderableObject::update()
@@ -57,16 +47,6 @@ glm::vec3 RenderableObject::getColor()
 void RenderableObject::setColor(glm::vec3 color)
 {
 	this->color = color;
-}
-
-Core::RenderContext RenderableObject::getRenderContext()
-{
-	return this->renderContext;
-}
-
-Core::RenderContext RenderableObject::getSimplifiedRenderContext()
-{
-	return simplifiedRenderContext;
 }
 
 void RenderableObject::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight shipLight, glm::vec3 camPos,
@@ -115,7 +95,7 @@ void RenderableObject::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix,
 
 	DiscreteLOD dlod = DiscreteLOD();
 	float distFromCam = glm::distance(position, camPos);
-	Core::RenderContext chosenContext = dlod.whichContextUse(distFromCam, simplifiedRenderContext, renderContext);
+	Core::RenderContext chosenContext = dlod.whichContextUse(distFromCam, &renderData);
 
 	if (texture != 0)
 		Core::SetActiveTexture(texture, "textureSampler", programDraw, 0);
