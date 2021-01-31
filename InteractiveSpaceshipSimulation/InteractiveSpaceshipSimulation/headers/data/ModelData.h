@@ -18,10 +18,10 @@ public:
 	ModelData(obj::Model& model, obj::Model& simplifiedModel, glm::vec3 modelForward, glm::vec3 modelTop);
 
 
-	const obj::Model& getModel();
-	const obj::Model& getSimplifiedModel();
+	const obj::Model& getModel() const;
+	const obj::Model& getSimplifiedModel() const;
 
-	const glm::vec3& getForward();
-	const glm::vec3& getTop();
+	const glm::vec3& getForward() const;
+	const glm::vec3& getTop() const;
 };
 

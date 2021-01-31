@@ -10,22 +10,22 @@ ModelData::ModelData(obj::Model& model, obj::Model& simplifiedModel, glm::vec3 m
 {
 }
 
-const obj::Model& ModelData::getModel()
+const obj::Model& ModelData::getModel() const
 {
 	return model;
 }
 
-const obj::Model& ModelData::getSimplifiedModel()
+const obj::Model& ModelData::getSimplifiedModel() const
 {
 	return simplifiedModel;
 }
 
-const glm::vec3& ModelData::getForward()
+const glm::vec3& ModelData::getForward() const
 {
 	return forward;
 }
 
-const glm::vec3& ModelData::getTop()
+const glm::vec3& ModelData::getTop() const
 {
 	return top;
 }
