@@ -181,6 +181,7 @@
     <ClCompile Include="src\utils\Time.cpp" />
     <ClCompile Include="src\data\StarLight.cpp" />
     <ClCompile Include="src\data\Textures.cpp" />
+    <ClCompile Include="src\data\TextureData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\graphics_techniques\bloom\Bloom.h" />
@@ -218,6 +219,7 @@
     <ClInclude Include="headers\data\RenderData.h" />
     <ClInclude Include="headers\data\RenderDataInstancing.h" />
     <ClInclude Include="headers\data\Textures.h" />
+    <ClInclude Include="headers\data\TextureData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
