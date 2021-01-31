@@ -285,9 +285,10 @@ void init()
 	starTextures[0] = Core::LoadTexture("textures/star1.png");
 	starTextures[1] = Core::LoadTexture("textures/star2.png");
 	starTextures[2] = Core::LoadTexture("textures/star3.png");
+	asteroidTextures.push_back(Core::LoadTexture("textures/asteroid.png"));
+	asteroidNormalTextures.push_back(Core::LoadTexture("textures/asteroid_normal.png"));
 	asteroidTextures.push_back(Core::LoadTexture("textures/asteroid_texture.png"));
 	asteroidNormalTextures.push_back(Core::LoadTexture("textures/asteroid_texture_normal.png"));
-	asteroidTextures.push_back(Core::LoadTexture("textures/asteroid.png"));
 
 	planetTextures.push_back(Core::LoadTexture("textures/earth2.png"));
 	planetNormals.push_back(Core::LoadTexture("textures/earth_normal.png"));

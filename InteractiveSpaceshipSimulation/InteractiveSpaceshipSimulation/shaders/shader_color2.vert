@@ -11,7 +11,6 @@ uniform mat4 modelMatrix;
 
 uniform mat4 modelViewProjectionMatrix;
 
-out vec3 interpNormal;
 out vec3 fragPos;
 out vec3 fragShipPos;
 out vec2 interpTexCoord;
@@ -28,19 +27,18 @@ uniform vec3 cameraPos;
 
 void main()
 {
-    vec3 lightDir_ship = normalize(vertexPosition - shipPos);
-    vec3 lightDir_stars[starsCount];
-    for(int i = 0; i < starsCount; i++ )
-    {
-        lightDir_stars[i] = normalize(vertexPosition - starsPos[i]);
-    }
-
 	gl_Position = modelViewProjectionMatrix * vec4(vertexPosition, 1.0);
-	interpNormal = (modelMatrix * vec4(vertexNormal, 0.0)).xyz;
 	fragPos = (modelMatrix*vec4(vertexPosition,1)).xyz;
     interpTexCoord = vertexTexCoord;
 
-    vec3 vertPos = (modelMatrix * vec4(vertexPosition, 1.0)).xyz;
+    vec3 vertPos = fragPos;
+
+    vec3 lightDir_ship = normalize(shipPos - vertPos);
+    vec3 lightDir_stars[starsCount];
+    for(int i = 0; i < starsCount; i++ )
+    {
+        lightDir_stars[i] = normalize(starsPos[i] - vertPos);
+    }
 
     vec3 worldNormal = (modelMatrix * vec4(vertexNormal, 0)).xyz;
     vec3 worldTangent = (modelMatrix * vec4(vertexTangent, 0)).xyz;
@@ -49,9 +47,9 @@ void main()
     mat3 TBN = transpose(mat3(worldTangent, worldBitangent, worldNormal));
     vec3 viewDir = normalize(cameraPos - vertPos);
 
-    viewDirTS = viewDir * TBN;
-    lightDirTS_ship = lightDir_ship * TBN;
-    lightDirsTS_star[0] = lightDir_stars[0] * TBN;
-    lightDirsTS_star[1] = lightDir_stars[1] * TBN;
-    lightDirsTS_star[2] = lightDir_stars[2] * TBN;
+    viewDirTS = TBN * viewDir;
+    lightDirTS_ship = TBN * lightDir_ship;
+    lightDirsTS_star[0] = TBN * lightDir_stars[0];
+    lightDirsTS_star[1] = TBN * lightDir_stars[1];
+    lightDirsTS_star[2] = TBN * lightDir_stars[2];
 }

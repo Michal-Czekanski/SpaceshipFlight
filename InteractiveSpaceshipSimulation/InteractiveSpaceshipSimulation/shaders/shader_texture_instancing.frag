@@ -2,8 +2,6 @@
 layout (location = 0) out vec4 fragColor;
 layout (location = 1) out vec4 brightColor;
 
-in vec3 interpNormal;
-in vec3 fragPos;
 in vec2 interpTexCoord;
 
 uniform sampler2D textureSampler;
@@ -13,6 +11,8 @@ in vec3 viewDirTS;
 
 in vec3 lightDirTS_ship;
 in vec3 lightDirsTS_star[3];
+
+in vec3 fragPos;
 
 uniform vec3 cameraPos;
 
@@ -56,7 +56,7 @@ float calculateAttenuation(vec3 lightPos, vec3 fragPos, float maxAttenuationDist
 
 float calculateDiffuseIntensity(vec3 normal, vec3 lightDir)
 {
-	return max(dot(normal, -lightDir), 0);
+	return max(dot(normal, lightDir), 0);
 }
 
 vec3 calculateDiffuseColor(float intensity, vec3 objectColor)
@@ -64,12 +64,11 @@ vec3 calculateDiffuseColor(float intensity, vec3 objectColor)
 	return intensity * objectColor;
 }
 
-float calculateSpecularIntensity(vec3 cameraPos, vec3 fragPos, vec3 lightDir, vec3 normal, int brilliancy)
+float calculateSpecularIntensity(vec3 viewDirection, vec3 lightDir, vec3 normal, int brilliancy)
 {
-	vec3 viewDirection = normalize(cameraPos - fragPos);
-	vec3 reflectedLightDir = reflect(-lightDir, normal);
+	vec3 reflectedLightDir = reflect(-normalize(lightDir), normal);
 
-	return pow(max(0, dot(reflectedLightDir, viewDirection)), brilliancy);
+	return 0.3 * pow(max(0, dot(reflectedLightDir, viewDirection)), brilliancy); // 0.1 for TEST
 }
 
 vec3 calculateSpecularColor(float intensity, vec3 color)
@@ -90,7 +89,10 @@ void calculateBrightColor(vec3 color, vec3 threshold)
 void main()
 {
     vec3 color = texture2D(textureSampler, interpTexCoord).rgb;
-	vec3 normal = normalize(interpNormal);
+	vec3 normal = texture2D(normalSampler, interpTexCoord).rgb; // Wczytanie wektorow normalnych z tekstury
+    normal = normalize(normal * 2 - 1); // Przeksztalcenie z [0, 1] do [-1, 1]
+    vec3 viewDir = normalize(viewDirTS);
+
 	vec3 specularColor = vec3(0, 0, 0);
 	vec3 diffuseColor = vec3(0, 0, 0);
 	vec3 ambientColor = color * ambientLightIntensity;
@@ -98,16 +100,16 @@ void main()
 	// Light from ship
 	if(isPointInShipLightRange(fragPos, shipPos, shipDirection, shipLightConeHeight, shipLightConeRadius))
 	{
-        vec3 shipLightDir = normalize(-lightDirTS_ship);
+        vec3 shipLightDir = normalize(lightDirTS_ship);
 		float shipLightAttenuation = calculateAttenuation(shipPos, fragPos, shipLightStr);
 		diffuseColor += shipLightAttenuation * calculateDiffuseColor(calculateDiffuseIntensity(normal, shipLightDir), color);
-		specularColor += shipLightAttenuation * calculateSpecularColor(calculateSpecularIntensity(cameraPos, fragPos, shipLightDir, normal, brilliancy), shipLightColor);
+		specularColor += shipLightAttenuation * calculateSpecularColor(calculateSpecularIntensity(viewDir, shipLightDir, normal, brilliancy), shipLightColor);
 	}
 
 	// Light from stars
     for(int i = 0; i < starsCount; i++ )
     {
-        vec3 starLightDir = normalize(-lightDirsTS_star[i]);
+        vec3 starLightDir = normalize(lightDirsTS_star[i]);
         float starLightAttenuation = calculateAttenuation(starsPos[i], fragPos, starsLightStr[i]);
         float starDiffuseIntensity = calculateDiffuseIntensity(normal, starLightDir);
         diffuseColor += starLightAttenuation * calculateDiffuseColor(starDiffuseIntensity, color);
@@ -115,7 +117,7 @@ void main()
     	{
     		// Prevent specular light from appearing on the back sides without light.
     		specularColor += starLightAttenuation *
-            calculateSpecularColor(calculateSpecularIntensity(cameraPos, fragPos, starLightDir, normal, brilliancy), starsLightCol[i]);
+            calculateSpecularColor(calculateSpecularIntensity(viewDir, starLightDir, normal, brilliancy), starsLightCol[i]);
     	}
     }
 
