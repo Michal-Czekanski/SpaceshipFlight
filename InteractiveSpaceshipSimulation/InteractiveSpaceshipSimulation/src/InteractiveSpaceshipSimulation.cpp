@@ -260,7 +260,7 @@ void init()
 	glEnable(GL_DEPTH_TEST);
 	programSkybox = shaderLoader.CreateProgram((char*)"shaders/skybox.vert", (char*)"shaders/skybox.frag");
 	programColor = shaderLoader.CreateProgram((char*)"shaders/shader_color.vert", (char*)"shaders/shader_color.frag");
-	programColor2 = shaderLoader.CreateProgram((char*)"shaders/shader_color2.vert", (char*)"shaders/shader_color2.frag");
+	programTexture = shaderLoader.CreateProgram((char*)"shaders/shader_texture.vert", (char*)"shaders/shader_texture.frag");
 	programStar = shaderLoader.CreateProgram((char*)"shaders/shader_star.vert", (char*)"shaders/shader_star.frag");
 	programInstanceColor = shaderLoader.CreateProgram(
 		(char*)"shaders/shader_color_instancing.vert", (char*)"shaders/shader_color_instancing.frag");
@@ -339,7 +339,7 @@ void init()
 
 	initScene(shipRenderData, sphereRenderData, asteroid1RenderData, ship, camera, renderableObjects,
 		renderableObjectsCount, asteroidFields,
-		starsLights, programColor2, programStar, programInstanceTexture,
+		starsLights, programTexture, programStar, programInstanceTexture,
 		programStarTexture, starTextures, asteroidTextures, asteroidNormalTextures,
 		planetTextures, planetNormals,
 		shipTexture, shipNormalTexture);

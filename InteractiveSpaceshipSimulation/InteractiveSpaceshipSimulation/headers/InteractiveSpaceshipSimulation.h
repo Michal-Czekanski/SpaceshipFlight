@@ -22,7 +22,7 @@ GLuint programColor;
 /// <summary>
 /// Used to draw planets, asteroids, moons.
 /// </summary>
-GLuint programColor2;
+GLuint programTexture;
 GLuint programStar;
 GLuint programInstanceColor;
 GLuint programInstanceTexture;

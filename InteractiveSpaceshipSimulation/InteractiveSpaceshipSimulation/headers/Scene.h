@@ -56,7 +56,7 @@ void initScene(const RenderData &shipRenderData, const RenderData& sphereRenderD
 	std::vector<RenderableObject*> &renderableObjects, int& renderableObjectsCount, 
 	std::vector<AsteroidField*> &asteroidFields,
 	std::vector<StarLight*> &starsLights,
-	GLuint programColor2, GLuint programStar, GLuint programInstanceTexture,
+	GLuint programTexture, GLuint programStar, GLuint programInstanceTexture,
 	GLuint programStarTexture, GLuint starTextures[], std::vector<GLuint> asteroidTextures,
 	std::vector<GLuint> asteroidNormalTextures,
 	std::vector<GLuint> planetTextures, std::vector<GLuint> planetNormalTextures, GLuint shipTexture, GLuint shipNormalTexture);
