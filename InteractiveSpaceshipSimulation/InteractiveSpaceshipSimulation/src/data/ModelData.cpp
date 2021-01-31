@@ -1,37 +1,31 @@
 #include "../../headers/data/ModelData.h"
 
-ModelData::ModelData(obj::Model& model, glm::vec3 modelForward, glm::vec3 modelTop)
+ModelData::ModelData(obj::Model& model, glm::vec3 modelForward, glm::vec3 modelTop):
+	model(model), forward(modelForward), top(modelTop), simplifiedModel(model)
 {
-	this->model = model;
-	this->forward = modelForward;
-	this->top = modelTop;
-	this->simplifiedModel = model;
 }
 
-ModelData::ModelData(obj::Model& model, obj::Model& simplifiedModel, glm::vec3 modelForward, glm::vec3 modelTop)
+ModelData::ModelData(obj::Model& model, obj::Model& simplifiedModel, glm::vec3 modelForward, glm::vec3 modelTop):
+	model(model), forward(modelForward), top(modelTop), simplifiedModel(simplifiedModel)
 {
-	this->model = model;
-	this->forward = modelForward;
-	this->top = modelTop;
-	this->simplifiedModel = simplifiedModel;
 }
 
-obj::Model ModelData::getModel()
+const obj::Model& ModelData::getModel()
 {
-	return this->model;
+	return model;
 }
 
-obj::Model ModelData::getSimplifiedModel()
+const obj::Model& ModelData::getSimplifiedModel()
 {
 	return simplifiedModel;
 }
 
-glm::vec3 ModelData::getForward()
+const glm::vec3& ModelData::getForward()
 {
-	return this->forward;
+	return forward;
 }
 
-glm::vec3 ModelData::getTop()
+const glm::vec3& ModelData::getTop()
 {
-	return this->top;
+	return top;
 }

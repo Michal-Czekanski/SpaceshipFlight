@@ -7,10 +7,10 @@
 class ModelData
 {
 private:
-	obj::Model model;
-	obj::Model simplifiedModel;
-	glm::vec3 forward;
-	glm::vec3 top;
+	const obj::Model model;
+	const obj::Model simplifiedModel;
+	const glm::vec3 forward;
+	const glm::vec3 top;
 
 public:
 	ModelData(obj::Model &model, glm::vec3 modelForward, glm::vec3 modelTop);
@@ -18,10 +18,10 @@ public:
 	ModelData(obj::Model& model, obj::Model& simplifiedModel, glm::vec3 modelForward, glm::vec3 modelTop);
 
 
-	obj::Model getModel();
-	obj::Model getSimplifiedModel();
+	const obj::Model& getModel();
+	const obj::Model& getSimplifiedModel();
 
-	glm::vec3 getForward();
-	glm::vec3 getTop();
+	const glm::vec3& getForward();
+	const glm::vec3& getTop();
 };
 
