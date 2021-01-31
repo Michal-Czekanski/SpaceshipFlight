@@ -43,7 +43,7 @@ public:
 	/// </summary>
 	/// <param name="orbitAround">Object to orbit around.</param>
 	/// <param name="orbitPlaneVec2">Second of the two vectors defining rotation plane. First one is calculated as vector pointing from orbitAround object to this object.</param>
-	Orbitable(glm::vec3 position, RenderData& renderData, glm::vec3 scale,
+	Orbitable(glm::vec3 position, const RenderData& renderData, glm::vec3 scale,
 		ObjectInSpace* orbitAround, glm::vec3 orbitPlaneVec2, float orbitSpeed, GLuint programDraw, GLuint texture, GLuint textureNormals);
 
 	/// <summary>

@@ -1,7 +1,7 @@
 #include "objectsInSpace/renderables/orbitables/Orbitable.h"
 
 
-Orbitable::Orbitable(glm::vec3 position, RenderData& renderData, glm::vec3 scale,
+Orbitable::Orbitable(glm::vec3 position, const RenderData& renderData, glm::vec3 scale,
 	ObjectInSpace* orbitAround, glm::vec3 orbitPlaneVec2, float orbitSpeed, GLuint programDraw, GLuint texture, GLuint textureNormals) :
 	RenderableObject(position, renderData, scale, programDraw, texture, textureNormals)
 	

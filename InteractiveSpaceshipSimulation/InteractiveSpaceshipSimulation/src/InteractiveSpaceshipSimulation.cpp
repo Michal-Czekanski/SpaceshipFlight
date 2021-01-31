@@ -213,7 +213,6 @@ void renderScene()
 	// Render ship
 	rotateShip();
 	ship->update();
-	obj::Model shipModel = ship->getModel();
 	ship->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(), starsLights);
 
 
@@ -230,7 +229,6 @@ void renderScene()
 	{
 		RenderableObject* renderableObject = renderableObjects[i];
 		renderableObject->update();
-		obj::Model model = renderableObject->getModel();
 		renderableObject->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(),
 			starsLights);
 	}
@@ -278,16 +276,22 @@ void init()
 
 	obj::Model shipModel = obj::loadModelFromFile("models/spaceship_model.obj");
 	ModelData shipModelData = ModelData(shipModel, glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
+	const RenderData shipRenderData = RenderData(shipModelData);
 
 	obj::Model sphereModel = obj::loadModelFromFile("models/sphere.obj");
 	obj::Model sphereModelSimplified = obj::loadModelFromFile("models/sphere-simpl.obj");
 	ModelData sphereModelData = ModelData(sphereModel, sphereModelSimplified,
 		glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
+	const RenderData sphereRenderData = RenderData(sphereModelData);
+
+
 
 	obj::Model asteroid1Model = obj::loadModelFromFile("models/asteroid1.obj");
 	obj::Model asteroid1ModelSimplified = obj::loadModelFromFile("models/asteroid1-simpl.obj");
 	ModelData asteroid1ModelData = ModelData(asteroid1Model, asteroid1ModelSimplified,
 		glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
+	const RenderDataInstancing asteroid1RenderData = RenderDataInstancing(asteroid1ModelData);
+
 
 
 	shipTexture = Core::LoadTexture("textures/spaceship/spaceship_model_texture.png");
@@ -333,7 +337,7 @@ void init()
 	cubemapTexture = loadCubemap(faces);
 	
 
-	initScene(shipModelData, sphereModelData, asteroid1ModelData, ship, camera, renderableObjects,
+	initScene(shipRenderData, sphereRenderData, asteroid1RenderData, ship, camera, renderableObjects,
 		renderableObjectsCount, asteroidFields,
 		starsLights, programColor2, programStar, programInstanceTexture,
 		programStarTexture, starTextures, asteroidTextures, asteroidNormalTextures,
@@ -404,18 +408,17 @@ void renderDebugHelpers(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix)
 	helperShipDirectionLine->setPosition(ship->getPosition());
 	helperShipDirectionLine->rotate(ship->getRotationQuat());
 	helperShipDirectionLine->update();
-	obj::Model model = helperShipDirectionLine->getModel();
-	drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipDirectionLine->getModelMatrix(), glm::vec3(0, 1, 0));
+	//drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipDirectionLine->getModelMatrix(), glm::vec3(0, 1, 0));
 
 	helperShipLightConeEndPoint->setPosition(ship->getPosition() + ship->getVectorForward() * helperShipDirectionLineLength);
 	helperShipLightConeEndPoint->rotate(ship->getRotationQuat());
 	helperShipLightConeEndPoint->update();
-	drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeEndPoint->getModelMatrix(), glm::vec3(0, 1, 0));
+	//drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeEndPoint->getModelMatrix(), glm::vec3(0, 1, 0));
 
 	helperShipLightConeRadius->setPosition(helperShipLightConeEndPoint->getPosition()
 		+ ship->getShipLight().getLightConeBaseRadius() * ship->getVectorTop());
 	helperShipLightConeRadius->update();
-	drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeRadius->getModelMatrix(), glm::vec3(1, 1, 0));
+	//drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeRadius->getModelMatrix(), glm::vec3(1, 1, 0));
 }
 
 void drawObjectColor(GLuint program, obj::Model* model, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::mat4 modelMatrix, glm::vec3 color)

@@ -2,7 +2,7 @@
 
 
 
-Star::Star(glm::vec3 position, RenderData& renderData, glm::vec3 scale, StarLight* light, GLuint programDraw, GLuint texture):
+Star::Star(glm::vec3 position, const RenderData& renderData, glm::vec3 scale, StarLight* light, GLuint programDraw, GLuint texture):
 	RenderableObject(position, renderData, scale, programDraw, texture, 0)
 {
 	this->light = light;

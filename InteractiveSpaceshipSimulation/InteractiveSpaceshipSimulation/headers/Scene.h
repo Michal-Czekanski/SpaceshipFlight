@@ -51,7 +51,8 @@ const glm::vec3 star3Scale = glm::vec3(600.0f);
 const glm::vec3 star4Pos = glm::vec3(0.0f, 0.0f, 0.0f);
 const glm::vec3 star4Scale = glm::vec3(7000.0f);
 
-void initScene(ModelData &shipModelData, ModelData &sphereModelData, ModelData& asteroidModelData, Ship* &ship, AttachableCamera* &camera, 
+void initScene(const RenderData &shipRenderData, const RenderData& sphereRenderData, const RenderDataInstancing& asteroidRenderDataInstancing, 
+	Ship* &ship, AttachableCamera* &camera,
 	std::vector<RenderableObject*> &renderableObjects, int& renderableObjectsCount, 
 	std::vector<AsteroidField*> &asteroidFields,
 	std::vector<StarLight*> &starsLights,
@@ -61,7 +62,7 @@ void initScene(ModelData &shipModelData, ModelData &sphereModelData, ModelData& 
 	std::vector<GLuint> planetTextures, std::vector<GLuint> planetNormalTextures, GLuint shipTexture, GLuint shipNormalTexture);
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
-	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, ModelData& planetModelData, GLuint programDraw,
+	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, const RenderData& planetRenderData, GLuint programDraw,
 	std::vector<GLuint> planetTextures, std::vector<GLuint> planetTexturesNormals);
 /// <summary>
 /// Generates asteroid fields randomly across world space.
@@ -78,7 +79,7 @@ void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetS
 /// <param name="maxSpeed">Maximum asteroid field speed.</param>
 /// <param name="minAsteroidCount">Minimal asteroid count of one asteroid field.</param>
 /// <param name="maxAsteroidCount">Maximal asteroid count of one asteroid field.</param>
-void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count, std::vector<ModelData*>& asteroidModelsData,
+void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count, std::vector<RenderDataInstancing>& asteroidRenderDatas,
 	GLuint programDraw, std::vector<GLuint> asteroidTextures, std::vector<GLuint> asteroidNormalTextures,
 	float generationRadius = 3000.0f, float minAsteroidFieldRadius = 100.0f, float maxAsteroidFieldRadius = 400.0f,
 	float minAsteroidScale = 0.5f, float maxAsteroidScale = 5.0f,
