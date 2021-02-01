@@ -11,7 +11,7 @@ public:
 	/// </summary>
 	/// <param name="orbitAround">Planet to orbit around.</param>
 	/// <param name="orbitPlaneVec2">Second of the two vectors defining rotation plane. First one is calculated as vector pointing from Planet to Moon.</param>
-	Moon(glm::vec3 position, RenderData& renderData,
+	Moon(glm::vec3 position, const RenderData& renderData,
 		glm::vec3 scale, Planet* orbitAround, glm::vec3 orbitPlaneVec2, float orbitSpeed, GLuint programDraw, TextureData textureData);
 };
 

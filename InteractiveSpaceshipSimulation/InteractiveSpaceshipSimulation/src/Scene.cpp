@@ -26,9 +26,8 @@ void initScene(const RenderData& shipRenderData, const RenderData& sphereRenderD
 
 	Star* star1 = new Star(star1Pos, sphereRenderData, star1Scale, star1Light, programStarTexture, textures.getStarsTexturesDatas()[0]);
 
-	//Moon* moon = new Moon(glm::vec3(0, 0, -15.0f), glm::quat(), glm::vec3(0, 0, 1), glm::vec3(0, 1, 0), sphereModel, glm::vec3(0, 1, 0), glm::vec3(0, 0, 1), glm::vec3(5.0f), startingPlanet, 
-	//	glm::vec3(1, 1, 12), 1.0f);
-
+	Moon* moon = new Moon(glm::vec3(0, 0, -15.0f), sphereRenderData, glm::vec3(8.0f), startingPlanet, glm::vec3(0, 0.5f, 1.0f), 0.01f, programTexture,
+		textures.getMoonsTexturesDatas()[0]);
 	Star* star2 = new Star(star2Pos, sphereRenderData, star2Scale, star2Light, programStarTexture, textures.getStarsTexturesDatas()[1]);
 
 	Star* star3 = new Star(star3Pos, sphereRenderData, star3Scale, star3Light, programStarTexture, textures.getStarsTexturesDatas()[2]);
@@ -37,8 +36,7 @@ void initScene(const RenderData& shipRenderData, const RenderData& sphereRenderD
 	renderableObjects.push_back((RenderableObject*)ship); renderableObjectsCount++;
 	renderableObjects.push_back(startingPlanet); renderableObjectsCount++;
 	renderableObjects.push_back(star1); renderableObjectsCount++;
-	//renderableObjects.push_back((RenderableObject*)moon); renderableObjectsCount++;
-	//moons.push_back(moon); moonsCount++;
+	renderableObjects.push_back((RenderableObject*)moon); renderableObjectsCount++;
 	renderableObjects.push_back(star2); renderableObjectsCount++;
 	renderableObjects.push_back(star3); renderableObjectsCount++;
 
