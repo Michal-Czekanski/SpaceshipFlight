@@ -1,12 +1,15 @@
 #include "data/Textures.h"
 
-Textures::Textures() : shipTextureData(0, 0)
+Textures::Textures(unsigned int starsTexturesNum, unsigned int asteroidsTexturesNum,
+	unsigned int planetsTexturesNum, unsigned int moonsTexturesNum) : shipTextureData(0, 0),
+	starsTexturesNum(starsTexturesNum), asteroidsTexturesNum(asteroidsTexturesNum),
+	planetsTexturesNum(planetsTexturesNum), moonsTexturesNum(moonsTexturesNum)
 {
 	loadShipTextures();
-	loadStarsTextures("textures/stars", 3);
-	loadPlanetsTextures("textures/planets", 10);
-	loadAsteroidsTextures("textures/asteroids", 2);
-	loadMoonsTextures("textures/moons", 4);
+	loadStarsTextures("textures/stars", starsTexturesNum);
+	loadPlanetsTextures("textures/planets", planetsTexturesNum);
+	loadAsteroidsTextures("textures/asteroids", asteroidsTexturesNum);
+	loadMoonsTextures("textures/moons", moonsTexturesNum);
 }
 
 TextureData& Textures::getShipTextureData()
@@ -32,6 +35,26 @@ std::vector<TextureData>& Textures::getPlanetsTexturesDatas()
 std::vector<TextureData>& Textures::getMoonsTexturesDatas()
 {
 	return moonsTexturesDatas;
+}
+
+unsigned int Textures::getStarsTexturesNum()
+{
+	return starsTexturesNum;
+}
+
+unsigned int Textures::getPlanetsTexturesNum()
+{
+	return planetsTexturesNum;
+}
+
+unsigned int Textures::getAsteroidsTexturesNum()
+{
+	return asteroidsTexturesNum;
+}
+
+unsigned int Textures::getMoonsTexturesNum()
+{
+	return moonsTexturesNum;
 }
 
 void Textures::loadPlanetsTextures(std::string dirName, unsigned int texturesNum)

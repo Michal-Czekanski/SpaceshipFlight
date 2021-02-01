@@ -14,7 +14,8 @@ public:
 	/// <summary>
 	/// Textures container - when created loads all textures.
 	/// </summary>
-	Textures();
+	Textures(unsigned int starsTexturesNum, unsigned int asteroidsTexturesNum, 
+		unsigned int planetsTexturesNum, unsigned int moonsTexturesNum);
 
 	TextureData& getShipTextureData();
 	std::vector<TextureData>& getAsteroidTexturesDatas();
@@ -22,11 +23,24 @@ public:
 	std::vector<TextureData>& getPlanetsTexturesDatas();
 	std::vector<TextureData>& getMoonsTexturesDatas();
 
+	unsigned int getStarsTexturesNum();
+	unsigned int getPlanetsTexturesNum();
+	unsigned int getAsteroidsTexturesNum();
+	unsigned int getMoonsTexturesNum();
+
 private:
 	TextureData shipTextureData;
+
+	unsigned int starsTexturesNum;
 	std::vector<TextureData> starsTexturesDatas;
+	
+	unsigned int asteroidsTexturesNum;
 	std::vector<TextureData> asteroidsTexturesDatas;
+	
+	unsigned int planetsTexturesNum;
 	std::vector<TextureData> planetsTexturesDatas;
+	
+	unsigned int moonsTexturesNum;
 	std::vector<TextureData> moonsTexturesDatas;
 
 	void loadPlanetsTextures(std::string dirName, unsigned int texturesNum);
