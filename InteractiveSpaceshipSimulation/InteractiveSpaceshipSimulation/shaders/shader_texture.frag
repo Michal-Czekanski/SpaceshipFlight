@@ -122,6 +122,6 @@ void main()
 
 	fragColor = vec4(ambientColor + diffuseColor + specularColor , 1.0f);
 
-    vec3 brightColorThreshold = vec3(0.00, 0.00, 0.00);
+    vec3 brightColorThreshold = vec3(0.5, 0.5, 0.5);
     calculateBrightColor(fragColor.rgb, brightColorThreshold);
 }
