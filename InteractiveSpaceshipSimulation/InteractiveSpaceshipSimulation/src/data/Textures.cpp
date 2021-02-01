@@ -6,10 +6,10 @@ Textures::Textures(unsigned int starsTexturesNum, unsigned int asteroidsTextures
 	planetsTexturesNum(planetsTexturesNum), moonsTexturesNum(moonsTexturesNum)
 {
 	loadShipTextures();
-	loadStarsTextures("textures/stars", starsTexturesNum);
-	loadPlanetsTextures("textures/planets", planetsTexturesNum);
-	loadAsteroidsTextures("textures/asteroids", asteroidsTexturesNum);
-	loadMoonsTextures("textures/moons", moonsTexturesNum);
+	loadStarsTextures("textures/stars/", starsTexturesNum);
+	loadPlanetsTextures("textures/planets/", planetsTexturesNum);
+	loadAsteroidsTextures("textures/asteroids/", asteroidsTexturesNum);
+	loadMoonsTextures("textures/moons/", moonsTexturesNum);
 }
 
 TextureData& Textures::getShipTextureData()
