@@ -292,40 +292,7 @@ void init()
 		glm::vec3(0, 0, 1), glm::vec3(0, 1, 0));
 	const RenderDataInstancing asteroid1RenderData = RenderDataInstancing(asteroid1ModelData);
 
-
-
-	shipTexture = Core::LoadTexture("textures/spaceship/spaceship_model_texture.png");
-	shipNormalTexture = Core::LoadTexture("textures/spaceship/spaceship_model_normal.png");
-
-	starTextures[0] = Core::LoadTexture("textures/star1.png");
-	starTextures[1] = Core::LoadTexture("textures/star2.png");
-	starTextures[2] = Core::LoadTexture("textures/star3.png");
-	asteroidTextures.push_back(Core::LoadTexture("textures/asteroid.png"));
-	asteroidNormalTextures.push_back(Core::LoadTexture("textures/asteroid_normal.png"));
-	asteroidTextures.push_back(Core::LoadTexture("textures/asteroid_texture.png"));
-	asteroidNormalTextures.push_back(Core::LoadTexture("textures/asteroid_texture_normal.png"));
-
-	planetTextures.push_back(Core::LoadTexture("textures/planet1_texture.png"));
-	planetNormals.push_back(Core::LoadTexture("textures/planet1_texture_normal.png"));
-	planetTextures.push_back(Core::LoadTexture("textures/planet2_texture.png"));
-	planetNormals.push_back(Core::LoadTexture("textures/planet2_texture_normal.png"));
-	planetTextures.push_back(Core::LoadTexture("textures/planet3_texture.png"));
-	planetNormals.push_back(Core::LoadTexture("textures/planet3_texture_normal.png"));
-	planetTextures.push_back(Core::LoadTexture("textures/planet4_texture.png"));
-	planetNormals.push_back(Core::LoadTexture("textures/planet4_texture_normal.png"));
-	planetTextures.push_back(Core::LoadTexture("textures/planet5_texture.png"));
-	planetNormals.push_back(Core::LoadTexture("textures/planet5_texture_normal.png"));
-	planetTextures.push_back(Core::LoadTexture("textures/planet6_texture.png"));
-	planetNormals.push_back(Core::LoadTexture("textures/planet6_texture_normal.png"));
-	planetTextures.push_back(Core::LoadTexture("textures/planet7_texture.png"));
-	planetNormals.push_back(Core::LoadTexture("textures/planet7_texture_normal.png"));
-	planetTextures.push_back(Core::LoadTexture("textures/planet8_texture.png"));
-	planetNormals.push_back(Core::LoadTexture("textures/planet8_texture_normal.png"));
-	planetTextures.push_back(Core::LoadTexture("textures/planet9_texture.png"));
-	planetNormals.push_back(Core::LoadTexture("textures/planet9_texture_normal.png"));
-	planetTextures.push_back(Core::LoadTexture("textures/planet10_texture.png"));
-	planetNormals.push_back(Core::LoadTexture("textures/planet10_texture_normal.png"));
-
+	Textures textures = Textures(3, 2, 10, 4);
 
 	_skybox[0] = Core::LoadTexture("textures/kosmos3.png");
 	_skybox[1] = Core::LoadTexture("textures/kosmos3.png");
@@ -336,13 +303,10 @@ void init()
 
 	cubemapTexture = loadCubemap(faces);
 	
-
 	initScene(shipRenderData, sphereRenderData, asteroid1RenderData, ship, camera, renderableObjects,
 		renderableObjectsCount, asteroidFields,
 		starsLights, programTexture, programStar, programInstanceTexture,
-		programStarTexture, starTextures, asteroidTextures, asteroidNormalTextures,
-		planetTextures, planetNormals,
-		shipTexture, shipNormalTexture);
+		programStarTexture, textures);
 
 	initDebugHelpers(sphereModelData);
 
@@ -387,7 +351,8 @@ int main(int argc, char** argv)
 
 void initDebugHelpers(ModelData &sphereModelData)
 {
-	ShipLight shipLight = ship->getShipLight();
+	/*
+	* ShipLight shipLight = ship->getShipLight();
 	helperShipDirectionLineLength = shipLight.getLightConeHeight();
 	glm::vec3 lineScale = glm::vec3(0.1f, 0.1f, helperShipDirectionLineLength * 2);
 
@@ -401,11 +366,13 @@ void initDebugHelpers(ModelData &sphereModelData)
 	glm::vec3 helper3Pos = helper2Pos + shipLight.getLightConeBaseRadius() * ship->getVectorTop();
 	helperShipLightConeRadius = new Planet(helper3Pos, sphereModelData, glm::vec3(1, 1, 1), programColor, 0, 0);
 	helperShipLightConeRadius->rotate(ship->getRotationQuat());
+	*/
+	
 }
 
 void renderDebugHelpers(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix)
 {
-	helperShipDirectionLine->setPosition(ship->getPosition());
+	/*helperShipDirectionLine->setPosition(ship->getPosition());
 	helperShipDirectionLine->rotate(ship->getRotationQuat());
 	helperShipDirectionLine->update();
 	//drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipDirectionLine->getModelMatrix(), glm::vec3(0, 1, 0));
@@ -419,6 +386,8 @@ void renderDebugHelpers(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix)
 		+ ship->getShipLight().getLightConeBaseRadius() * ship->getVectorTop());
 	helperShipLightConeRadius->update();
 	//drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeRadius->getModelMatrix(), glm::vec3(1, 1, 0));
+	*/
+	
 }
 
 void drawObjectColor(GLuint program, obj::Model* model, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::mat4 modelMatrix, glm::vec3 color)

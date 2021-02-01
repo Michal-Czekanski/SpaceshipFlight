@@ -1,9 +1,9 @@
 #include "objectsInSpace/renderables/Ship.h"
 
 
-Ship::Ship(glm::vec3 position, const RenderData& renderData, ShipLight shipLight, float shipSpeed, glm::vec3 scale, GLuint programDraw, GLuint shipTexture, GLuint shipNormalTexture,
+Ship::Ship(glm::vec3 position, const RenderData& renderData, ShipLight shipLight, float shipSpeed, glm::vec3 scale, GLuint programDraw, TextureData textureData,
 	float pitchSpeed, float yawSpeed, float rollSpeed):
-	RenderableObject(position, renderData, scale, programDraw, shipTexture, shipNormalTexture)
+	RenderableObject(position, renderData, scale, programDraw, textureData)
 {
 	this->speed = shipSpeed;
 	this->pitchSpeed = pitchSpeed;

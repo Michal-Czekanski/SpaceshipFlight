@@ -8,7 +8,7 @@ private:
 	StarLight *light;
 
 public:
-	Star(glm::vec3 position, const RenderData& renderData, glm::vec3 scale, StarLight *light, GLuint programDraw, GLuint texture);
+	Star(glm::vec3 position, const RenderData& renderData, glm::vec3 scale, StarLight *light, GLuint programDraw, TextureData textureData);
 
 	StarLight* getLight();
 

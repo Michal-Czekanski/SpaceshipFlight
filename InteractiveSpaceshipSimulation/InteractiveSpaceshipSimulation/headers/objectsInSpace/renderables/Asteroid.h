@@ -9,7 +9,7 @@ private:
 
 public:
 	Asteroid(const RenderData& renderData, glm::vec3 position, glm::vec3 moveDirection, float speed,
-		glm::vec3 scale, GLuint programDraw);
+		glm::vec3 scale, GLuint programDraw, TextureData textureData);
 
 	void update();
 };

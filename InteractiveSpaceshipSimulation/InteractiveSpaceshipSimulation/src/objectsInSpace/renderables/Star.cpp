@@ -2,8 +2,8 @@
 
 
 
-Star::Star(glm::vec3 position, const RenderData& renderData, glm::vec3 scale, StarLight* light, GLuint programDraw, GLuint texture):
-	RenderableObject(position, renderData, scale, programDraw, texture, 0)
+Star::Star(glm::vec3 position, const RenderData& renderData, glm::vec3 scale, StarLight* light, GLuint programDraw, TextureData textureData):
+	RenderableObject(position, renderData, scale, programDraw, textureData)
 {
 	this->light = light;
 	this->light->update(position);
@@ -26,9 +26,9 @@ void Star::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, ShipLight s
 	glUniformMatrix4fv(glGetUniformLocation(programDraw, "modelMatrix"), 1, GL_FALSE, (float*)&modelMatrix);
 
 
-	if (texture != 0)
+	if (textureData.getTexture() != 0)
 	{
-		Core::SetActiveTexture(texture, "textureSampler", programDraw, 0);
+		Core::SetActiveTexture(textureData.getTexture(), "textureSampler", programDraw, 0);
 
 	}
 	Core::RenderContext renderContext = renderData.getRenderContext();

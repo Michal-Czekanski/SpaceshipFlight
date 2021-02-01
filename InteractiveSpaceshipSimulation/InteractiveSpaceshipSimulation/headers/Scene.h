@@ -16,6 +16,7 @@
 #include "objectsInSpace/renderables/Asteroid.h"
 #include "objectsInSpace/renderables/AsteroidField.h"
 #include "data/ModelData.h"
+#include "data/Textures.h"
 
 const glm::vec3 testLightDir = glm::vec3(0, 1, 1);
 
@@ -57,13 +58,11 @@ void initScene(const RenderData &shipRenderData, const RenderData& sphereRenderD
 	std::vector<AsteroidField*> &asteroidFields,
 	std::vector<StarLight*> &starsLights,
 	GLuint programTexture, GLuint programStar, GLuint programInstanceTexture,
-	GLuint programStarTexture, GLuint starTextures[], std::vector<GLuint> asteroidTextures,
-	std::vector<GLuint> asteroidNormalTextures,
-	std::vector<GLuint> planetTextures, std::vector<GLuint> planetNormalTextures, GLuint shipTexture, GLuint shipNormalTexture);
+	GLuint programStarTexture, Textures& textures);
 
 void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetScale, float maxPlanetScale, float maxPlanetOrbitSpeed, float minPlanetOrbitSpeed,
 	std::vector<RenderableObject*>& renderableObjects, int& renderableObjectsCount, const RenderData& planetRenderData, GLuint programDraw,
-	std::vector<GLuint> planetTextures, std::vector<GLuint> planetTexturesNormals);
+	std::vector<TextureData>& planetsTexturesDatas);
 /// <summary>
 /// Generates asteroid fields randomly across world space.
 /// </summary>
@@ -80,7 +79,7 @@ void generateRandomPlanetsForStar(Star* star, int planetsCount, float minPlanetS
 /// <param name="minAsteroidCount">Minimal asteroid count of one asteroid field.</param>
 /// <param name="maxAsteroidCount">Maximal asteroid count of one asteroid field.</param>
 void generateRandomAsteroidFields(std::vector<AsteroidField*>& fields, int count, std::vector<RenderDataInstancing>& asteroidRenderDatas,
-	GLuint programDraw, std::vector<GLuint> asteroidTextures, std::vector<GLuint> asteroidNormalTextures,
+	GLuint programDraw, std::vector<TextureData>& asteroidsTexturesDatas,
 	float generationRadius = 3000.0f, float minAsteroidFieldRadius = 100.0f, float maxAsteroidFieldRadius = 400.0f,
 	float minAsteroidScale = 0.5f, float maxAsteroidScale = 5.0f,
 	float minSpeed = 0.1f, float maxSpeed = 10.0f, int minAsteroidCount = 100, int maxAsteroidCount = 200);

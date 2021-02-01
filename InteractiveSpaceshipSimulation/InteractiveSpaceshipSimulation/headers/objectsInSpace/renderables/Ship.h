@@ -26,7 +26,7 @@ public:
 	/// <param name="position">Where to position ship.</param>
 	/// <param name="rotationQuat">How to rotate ship on start.</param>
 	Ship(glm::vec3 position, const RenderData& renderData, ShipLight shipLight,
-		float shipSpeed, glm::vec3 scale, GLuint programDraw, GLuint shipTexture, GLuint shipNormalTexture,
+		float shipSpeed, glm::vec3 scale, GLuint programDraw, TextureData textureData,
 		float pitchSpeed = 1.0f, float yawSpeed = 1.0f, float rollSpeed = 1.0f);
 
 	/// <summary>

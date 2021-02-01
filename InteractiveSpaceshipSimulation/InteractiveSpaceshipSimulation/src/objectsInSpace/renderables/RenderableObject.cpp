@@ -1,8 +1,8 @@
 #include "objectsInSpace/renderables/RenderableObject.h"
 
 RenderableObject::RenderableObject(glm::vec3 position, const RenderData& renderData, glm::vec3 scale, GLuint programDraw,
-	GLuint texture, GLuint textureNormals):
-	renderData(renderData), texture(texture), textureNormals(textureNormals),
+	TextureData textureData):
+	renderData(renderData), textureData(textureData),
 	ObjectInSpace(position, renderData.getModelData().getForward(), renderData.getModelData().getTop())
 {
 	this->positionMat = glm::translate(position);
@@ -97,10 +97,10 @@ void RenderableObject::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix,
 	float distFromCam = glm::distance(position, camPos);
 	Core::RenderContext chosenContext = dlod.whichContextUse(distFromCam, &renderData);
 
-	if (texture != 0)
-		Core::SetActiveTexture(texture, "textureSampler", programDraw, 0);
-	if (textureNormals != 0)
-		Core::SetActiveTexture(textureNormals, "normalSampler", programDraw, 1);
+	if (textureData.getTexture() != 0)
+		Core::SetActiveTexture(textureData.getTexture(), "textureSampler", programDraw, 0);
+	if (textureData.getTextureNormal() != 0)
+		Core::SetActiveTexture(textureData.getTextureNormal(), "normalSampler", programDraw, 1);
 
 	Core::DrawContext(chosenContext);
 	glUseProgram(0);

@@ -13,6 +13,7 @@
 #include "utils/Render_Utils.h"
 #include "graphics_techniques/DiscreteLOD.h"
 #include "utils/Texture.h"
+#include "data/TextureData.h"
 
 
 
@@ -38,14 +39,13 @@ protected:
 	/// </summary>
 	GLuint programDraw;
 
-	GLuint texture;
-	GLuint textureNormals;
+	TextureData textureData;
 
 	const RenderData renderData;
 public:
 
 	RenderableObject(glm::vec3 position, const RenderData& renderData, glm::vec3 scale, GLuint programDraw,
-		GLuint texture, GLuint textureNormals=0);
+		TextureData textureData);
 
 	glm::mat4 getModelMatrix();
 

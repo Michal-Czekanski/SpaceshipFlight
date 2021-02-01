@@ -5,11 +5,11 @@
 AsteroidField::AsteroidField(int asteroidCount, float asteroidFieldRadius, float asteroidSpeed, 
 	float minAsteroidScale, float maxAsteroidScale,
 	glm::vec3 position, glm::vec3 moveDirection, std::vector<RenderDataInstancing>& renderDatas, GLuint programDraw,
-	std::vector<GLuint>& asteroidTextures, std::vector<GLuint>& asteroidNormalTextures,
+	std::vector<TextureData>& asteroidsTexturesDatas,
 	glm::vec3 vectorTop, glm::vec3 asteroidColor):
 
-	ObjectInSpace(position, moveDirection, vectorTop), asteroidTextures(asteroidTextures),
-	asteroidNormalTextures(asteroidNormalTextures), renderDatas(renderDatas)
+	ObjectInSpace(position, moveDirection, vectorTop), 
+	texturesDatas(asteroidsTexturesDatas), renderDatas(renderDatas)
 {
 	this->asteroidsCount = asteroidCount;
 	this->initialPosition = position;
@@ -17,12 +17,12 @@ AsteroidField::AsteroidField(int asteroidCount, float asteroidFieldRadius, float
 	this->asteroidColor = asteroidColor;
 
 	generateRandomAsteroids(position, moveDirection, asteroidCount, asteroidFieldRadius, asteroidSpeed, minAsteroidScale, maxAsteroidScale,
-		renderDatas, programDraw, asteroidColor, asteroidTextures);
+		renderDatas, programDraw, asteroidColor, asteroidsTexturesDatas);
 }
 
 void AsteroidField::generateRandomAsteroids(glm::vec3 generationCenter, glm::vec3 moveDirection, int asteroidsCount, 
 	float asteroidFieldRadius, float asteroidSpeed, float minAsteroidScale, float maxAsteroidScale, std::vector<RenderDataInstancing>& renderDatas,
-	GLuint programDraw, glm::vec3 asteroidColor, std::vector<GLuint>& asteroidTextures)
+	GLuint programDraw, glm::vec3 asteroidColor, std::vector<TextureData>& asteroidsTexturesDatas)
 {
 	for (int i = 0; i < asteroidsCount; i++)
 	{
@@ -30,8 +30,9 @@ void AsteroidField::generateRandomAsteroids(glm::vec3 generationCenter, glm::vec
 		glm::vec3 scale = glm::vec3(randomFloat(minAsteroidScale, maxAsteroidScale));
 		glm::quat rotationQuat = randomRotationQuat();
 
+		TextureData textureData = asteroidsTexturesDatas[rand() % asteroidsTexturesDatas.size()];
 		Asteroid* asteroid = new Asteroid(renderDatas[randomInt(0, renderDatas.size() - 1)], asteroidPos, moveDirection, asteroidSpeed, scale,
-			programDraw);
+			programDraw, textureData);
 		asteroid->setColor(asteroidColor);
 		asteroid->rotate(rotationQuat);
 		this->asteroids.push_back(asteroid);
@@ -47,7 +48,7 @@ void AsteroidField::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, Sh
 {
 	glUseProgram(programDraw);
 
-	GLuint asteroidTexture = asteroidTextures[0];
+	TextureData textureData = texturesDatas[0];
 	const RenderData renderData = renderDatas[0];
 
 	std::vector<glm::mat4> modelMatrixes;
@@ -98,8 +99,8 @@ void AsteroidField::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, Sh
 	float distFromCam = glm::distance(position, camPos);
 	Core::RenderContext chosenContext = dlod.whichContextUse(distFromCam, &renderData);
 
-	Core::SetActiveTexture(asteroidTexture, "textureSampler", programDraw, 0);
-	Core::SetActiveTexture(asteroidTexture, "normalSampler", programDraw, 1);
+	Core::SetActiveTexture(textureData.getTexture(), "textureSampler", programDraw, 0);
+	Core::SetActiveTexture(textureData.getTextureNormal(), "normalSampler", programDraw, 1);
 
 	Core::DrawContextInstanced(chosenContext, asteroids.size(), modelMatrixes);
 	glUseProgram(0);
