@@ -14,8 +14,8 @@
 #include "graphics_techniques/bloom/Bloom.h"
 
 
-#define WINDOW_WIDTH 720
-#define WINDOW_HEIGHT 720
+#define WINDOW_WIDTH 1000
+#define WINDOW_HEIGHT 1000
 
 
 GLuint programColor;
