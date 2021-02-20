@@ -129,7 +129,7 @@
     <ClCompile Include="src\physics\data\PhysicsOptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SimulationEventCallback.cpp">
+    <ClCompile Include="src\physics\data\SimulationEventCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -254,10 +254,10 @@
     <ClInclude Include="headers\physics\data\PhysicsOptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SimulationEventCallback.h">
+    <ClInclude Include="headers\physics\data\SimulationEventCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="simulationFilterShader.h">
+    <ClInclude Include="headers\physics\data\simulationFilterShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
