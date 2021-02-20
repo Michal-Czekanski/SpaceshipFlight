@@ -222,6 +222,7 @@
     <ClInclude Include="headers\data\Textures.h" />
     <ClInclude Include="headers\data\TextureData.h" />
     <ClInclude Include="headers\utils\PhysxGLMConverter.h" />
+    <ClInclude Include="headers\physics\IDynamicRigidbody.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

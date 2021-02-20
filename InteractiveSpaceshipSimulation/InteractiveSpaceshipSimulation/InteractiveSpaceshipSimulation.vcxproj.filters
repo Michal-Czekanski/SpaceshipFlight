@@ -236,5 +236,8 @@
     <ClInclude Include="headers\utils\PhysxGLMConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="headers\physics\IDynamicRigidbody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
