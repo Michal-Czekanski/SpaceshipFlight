@@ -6,8 +6,9 @@
 #include "utils/Calculations.h"
 #include "RenderableObject.h"
 #include "data/ShipLight.h"
+#include "physics/IDynamicRigidbody.h"
 
-class Ship: public RenderableObject
+class Ship: public RenderableObject, public IDynamicRigidbody
 {
 private:
 	float speed = 0.0f;
@@ -50,5 +51,9 @@ public:
 	void update();
 
 	ShipLight getShipLight();
+
+	// Inherited via IDynamicRigidbody
+	virtual void addForce(PxVec3 force, PxForceMode::Enum mode = PxForceMode::eFORCE, bool autowake = true) override;
+
 };
 

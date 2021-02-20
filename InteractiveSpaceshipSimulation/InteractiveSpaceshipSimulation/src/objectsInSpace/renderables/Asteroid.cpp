@@ -14,3 +14,11 @@ void Asteroid::update()
 	this->positionMat = glm::translate(this->position);
 	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
 }
+
+void Asteroid::addForce(PxVec3 force, PxForceMode::Enum mode, bool autowake)
+{
+	if (rigidActor)
+	{
+		((PxRigidDynamic*)rigidActor)->addForce(force, mode, autowake);
+	}
+}

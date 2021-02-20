@@ -1,7 +1,8 @@
 #pragma once
 #include "RenderableObject.h"
+#include "physics/IDynamicRigidbody.h"
 
-class Asteroid: public RenderableObject
+class Asteroid: public RenderableObject, public IDynamicRigidbody
 {
 private:
 	float speed;
@@ -12,5 +13,8 @@ public:
 		glm::vec3 scale, GLuint programDraw, TextureData textureData);
 
 	void update();
+
+	// Inherited via IDynamicRigidbody
+	virtual void addForce(PxVec3 force, PxForceMode::Enum mode = PxForceMode::eFORCE, bool autowake = true) override;
 };
 

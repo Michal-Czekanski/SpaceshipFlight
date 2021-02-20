@@ -58,6 +58,14 @@ ShipLight Ship::getShipLight()
 	return this->shipLight;
 }
 
+void Ship::addForce(PxVec3 force, PxForceMode::Enum mode, bool autowake)
+{
+	if (rigidActor)
+	{
+		((PxRigidDynamic*)rigidActor)->addForce(force, mode, autowake);
+	}
+}
+
 void Ship::updateModelMatrix()
 {
 	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
