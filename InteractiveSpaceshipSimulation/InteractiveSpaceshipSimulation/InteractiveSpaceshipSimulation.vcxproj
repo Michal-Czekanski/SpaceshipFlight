@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SimulationEventCallback.cpp" />
     <ClCompile Include="src\physics\data\PhysicsOptions.cpp" />
     <ClCompile Include="src\data\RenderableUpdateData.cpp" />
     <ClCompile Include="src\utils\PhysxGLMConverter.cpp" />
@@ -227,6 +228,7 @@
     <ClInclude Include="headers\physics\IDynamicRigidbody.h" />
     <ClInclude Include="headers\data\RenderableUpdateData.h" />
     <ClInclude Include="headers\physics\data\PhysicsOptions.h" />
+    <ClInclude Include="SimulationEventCallback.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
