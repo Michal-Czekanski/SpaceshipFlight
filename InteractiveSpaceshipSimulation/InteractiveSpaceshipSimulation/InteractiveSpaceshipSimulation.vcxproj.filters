@@ -123,6 +123,9 @@
     <ClCompile Include="src\utils\PhysxGLMConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\data\RenderableUpdateData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\InteractiveSpaceshipSimulation.h">
@@ -237,6 +240,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\physics\IDynamicRigidbody.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\data\RenderableUpdateData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
