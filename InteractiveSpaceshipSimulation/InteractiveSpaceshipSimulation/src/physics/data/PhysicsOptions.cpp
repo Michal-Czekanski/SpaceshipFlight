@@ -2,6 +2,16 @@
 
 
 
+PhysicsOptions::PhysicsOptions(): scnDesc(PxTolerancesScale())
+{
+	scnDesc.gravity = PxVec3(0.0f, -gravity, 0.0f);
+    scnDesc.cpuDispatcher = PxDefaultCpuDispatcherCreate(2);
+    scnDesc.filterShader = simulationFilterShader;
+    scnDesc.kineKineFilteringMode = PxPairFilteringMode::eKEEP; // So kin-kin contacts with be reported
+    scnDesc.staticKineFilteringMode = PxPairFilteringMode::eKEEP; // So static-kin constacts will be reported
+    scnDesc.simulationEventCallback = new SimulationEventCallback();
+}
+
 const float PhysicsOptions::getGravity()
 {
 	return gravity;
