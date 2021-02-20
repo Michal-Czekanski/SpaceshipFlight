@@ -14,6 +14,7 @@
 #include "graphics_techniques/DiscreteLOD.h"
 #include "utils/Texture.h"
 #include "data/TextureData.h"
+#include "PxPhysicsAPI.h"
 
 
 
@@ -42,6 +43,8 @@ protected:
 	TextureData textureData;
 
 	const RenderData renderData;
+
+	physx::PxRigidActor* rigidActor = nullptr;
 public:
 
 	RenderableObject(glm::vec3 position, const RenderData& renderData, glm::vec3 scale, GLuint programDraw,
