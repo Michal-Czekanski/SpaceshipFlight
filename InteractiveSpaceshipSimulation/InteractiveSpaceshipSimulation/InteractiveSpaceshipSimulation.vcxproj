@@ -72,13 +72,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)dependencies\freeglut\include\GL;$(ProjectDir)dependencies\glew-2.0.0\include\GL;$(ProjectDir)dependencies\glm;$(IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>$(ProjectDir)dependencies\freeglut\lib;$(ProjectDir)dependencies\glew-2.0.0\lib\;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <IncludePath>$(ProjectDir)dependencies\physx-4.1\include;$(ProjectDir)dependencies\freeglut\include\GL;$(ProjectDir)dependencies\glew-2.0.0\include\GL;$(ProjectDir)dependencies\glm;$(IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(ProjectDir)dependencies\physx-4.1\lib\win.x86_32.vc141.mt\debug;$(ProjectDir)dependencies\freeglut\lib;$(ProjectDir)dependencies\glew-2.0.0\lib\;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)dependencies\freeglut\include\GL;$(ProjectDir)dependencies\glew-2.0.0\include\GL;$(ProjectDir)dependencies\glm;$(IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>$(ProjectDir)dependencies\freeglut\lib;$(ProjectDir)dependencies\glew-2.0.0\lib\;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
+    <IncludePath>$(ProjectDir)dependencies\physx-4.1\include;$(ProjectDir)dependencies\freeglut\include\GL;$(ProjectDir)dependencies\glew-2.0.0\include\GL;$(ProjectDir)dependencies\glm;$(IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(ProjectDir)dependencies\physx-4.1\lib\win.x86_32.vc141.mt\release;$(ProjectDir)dependencies\freeglut\lib;$(ProjectDir)dependencies\glew-2.0.0\lib\;$(LibraryPath);$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -97,7 +97,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;freeglut.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PhysXExtensions_static_32.lib;PhysX_32.lib;PhysXPvdSDK_static_32.lib;PhysXVehicle_static_32.lib;PhysXCharacterKinematic_static_32.lib;PhysXCooking_32.lib;PhysXCommon_32.lib;SnippetUtils_static_32.lib;SnippetRender_static_32.lib;PhysXFoundation_32.lib;opengl32.lib;freeglut.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -115,7 +115,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;freeglut.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>PhysXExtensions_static_32.lib;PhysX_32.lib;PhysXPvdSDK_static_32.lib;PhysXVehicle_static_32.lib;PhysXCharacterKinematic_static_32.lib;PhysXCooking_32.lib;PhysXCommon_32.lib;SnippetUtils_static_32.lib;SnippetRender_static_32.lib;PhysXFoundation_32.lib;opengl32.lib;freeglut.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
