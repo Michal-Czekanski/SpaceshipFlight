@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\physics\PhysicsOptions.cpp" />
     <ClCompile Include="src\data\RenderableUpdateData.cpp" />
     <ClCompile Include="src\utils\PhysxGLMConverter.cpp" />
     <ClCompile Include="src\data\RenderDataInstancing.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="headers\utils\PhysxGLMConverter.h" />
     <ClInclude Include="headers\physics\IDynamicRigidbody.h" />
     <ClInclude Include="headers\data\RenderableUpdateData.h" />
+    <ClInclude Include="headers\physics\PhysicsOptions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
