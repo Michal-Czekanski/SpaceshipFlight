@@ -229,6 +229,7 @@
     <ClInclude Include="headers\data\RenderableUpdateData.h" />
     <ClInclude Include="headers\physics\data\PhysicsOptions.h" />
     <ClInclude Include="SimulationEventCallback.h" />
+    <ClInclude Include="simulationFilterShader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
