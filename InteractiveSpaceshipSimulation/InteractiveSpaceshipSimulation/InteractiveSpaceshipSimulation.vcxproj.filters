@@ -126,7 +126,7 @@
     <ClCompile Include="src\data\RenderableUpdateData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics\PhysicsOptions.cpp">
+    <ClCompile Include="src\physics\data\PhysicsOptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -248,7 +248,7 @@
     <ClInclude Include="headers\data\RenderableUpdateData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="headers\physics\PhysicsOptions.h">
+    <ClInclude Include="headers\physics\data\PhysicsOptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
