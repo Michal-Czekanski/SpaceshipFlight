@@ -64,6 +64,10 @@ void keyboard(unsigned char key, int x, int y)
 			ship->rotateShip(0.0f, -1.0f, 0.0f);
 			break;
 
+		case 'f':
+			ship->slowDown();
+			break;
+
 
 		case 'e':
 			bloom->setExposure(bloom->getExposure() + 0.01f);
