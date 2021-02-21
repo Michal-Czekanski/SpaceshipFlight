@@ -23,6 +23,9 @@ private:
 
 	float slowDownSpeed;
 
+	int hp;
+	const int maxHp = 5;
+
 public:
 	/// <summary>
 	/// Creates ship.
@@ -65,6 +68,8 @@ public:
 	virtual void physicsUpdate(RenderableUpdateData& update) override;
 
 	void slowDown();
+
+	int getHp();
 
 };
 

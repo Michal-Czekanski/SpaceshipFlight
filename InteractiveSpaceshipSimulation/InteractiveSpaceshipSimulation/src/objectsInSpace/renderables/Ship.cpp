@@ -3,7 +3,8 @@
 
 Ship::Ship(glm::vec3 position, const RenderData& renderData, ShipLight shipLight, float shipSpeed, glm::vec3 scale, GLuint programDraw, TextureData textureData,
 	float pitchSpeed, float yawSpeed, float rollSpeed, float slowDownSpeed):
-	RenderableObject(position, renderData, scale, programDraw, textureData), slowDownSpeed(slowDownSpeed)
+	RenderableObject(position, renderData, scale, programDraw, textureData), slowDownSpeed(slowDownSpeed),
+	hp(maxHp)
 {
 	this->speed = shipSpeed;
 	this->pitchSpeed = pitchSpeed;
@@ -69,6 +70,11 @@ void Ship::physicsUpdate(RenderableUpdateData& update)
 void Ship::slowDown()
 {
 	getRigidDynamic()->setLinearVelocity(getRigidDynamic()->getLinearVelocity() / slowDownSpeed);
+}
+
+int Ship::getHp()
+{
+	return hp;
 }
 
 void Ship::updateModelMatrix()
