@@ -14,7 +14,7 @@
 #include "graphics_techniques/DiscreteLOD.h"
 #include "utils/Texture.h"
 #include "data/TextureData.h"
-#include "PxPhysicsAPI.h"
+#include "data/RenderableUpdateData.h"
 
 
 
@@ -51,6 +51,12 @@ public:
 		TextureData textureData);
 
 	glm::mat4 getModelMatrix();
+
+	/// <summary>
+	/// Updates Renderable after physics body simulation update
+	/// </summary>
+	/// <param name="update"></param>
+	virtual void physicsUpdate(RenderableUpdateData& update);
 
 	/// <summary>
 	/// Update is called on every frame.

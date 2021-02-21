@@ -22,6 +22,14 @@ glm::mat4 RenderableObject::getModelMatrix()
 	return this->modelMatrix;
 }
 
+void RenderableObject::physicsUpdate(RenderableUpdateData& update)
+{
+	rotate(update.getRotation());
+	position = update.getPosition();
+	positionMat = glm::translate(position);
+	modelMatrix = update.getModelMatrix();
+}
+
 void RenderableObject::update()
 {
 	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
