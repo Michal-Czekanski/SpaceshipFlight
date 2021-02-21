@@ -53,7 +53,7 @@ void initScene(const RenderData& shipRenderData, const RenderData& sphereRenderD
 	std::vector<RenderDataInstancing> asteroidRenderDatas; asteroidRenderDatas.push_back(asteroidRenderDataInstancing);
 	
 	AsteroidField* asteroidField1 = 
-		new AsteroidField(20, 30.0f, 1.0f, 1.0f, 7.0f, glm::vec3(4.0f, 3.0f, 25.0f), glm::vec3(0, 0.1f, 1.0f),
+		new AsteroidField(20, 30.0f, 5.0f, 1.0f, 7.0f, glm::vec3(4.0f, 3.0f, 25.0f), glm::vec3(0, 0.1f, 1.0f),
 			asteroidRenderDatas, programInstanceTexture, textures.getAsteroidTexturesDatas());
 	asteroidFields.push_back(asteroidField1);
 
