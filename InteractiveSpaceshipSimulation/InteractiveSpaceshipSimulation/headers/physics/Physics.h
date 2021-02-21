@@ -5,7 +5,7 @@
 class Physics
 {
 public:
-	Physics* getInstance();
+	static Physics* getInstance();
 	PxPhysics* getPxPhysics();
 	PxScene* getPxScene();
 
