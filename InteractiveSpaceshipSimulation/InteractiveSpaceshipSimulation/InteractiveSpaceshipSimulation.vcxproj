@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\physics\RigidbodyFactory.cpp" />
     <ClCompile Include="src\physics\Physics.cpp" />
     <ClCompile Include="src\physics\data\SimulationEventCallback.cpp" />
@@ -192,6 +193,7 @@
     <ClCompile Include="src\data\TextureData.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="headers\Game.h" />
     <ClInclude Include="headers\graphics_techniques\bloom\Bloom.h" />
     <ClInclude Include="headers\graphics_techniques\bloom\blur\Blur.h" />
     <ClInclude Include="headers\graphics_techniques\bloom\hdr\HDRFramebuffer.h" />
