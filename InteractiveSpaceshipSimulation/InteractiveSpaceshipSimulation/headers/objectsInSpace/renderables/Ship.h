@@ -29,7 +29,7 @@ public:
 	/// <param name="rotationQuat">How to rotate ship on start.</param>
 	Ship(glm::vec3 position, const RenderData& renderData, ShipLight shipLight,
 		float shipSpeed, glm::vec3 scale, GLuint programDraw, TextureData textureData,
-		float pitchSpeed = 1.0f, float yawSpeed = 1.0f, float rollSpeed = 1.0f);
+		float pitchSpeed = 100.0f, float yawSpeed = 100.0f, float rollSpeed = 100.0f);
 
 	/// <summary>
 	/// Moves ship forward based on ship speed -> updates ship's model matrix.

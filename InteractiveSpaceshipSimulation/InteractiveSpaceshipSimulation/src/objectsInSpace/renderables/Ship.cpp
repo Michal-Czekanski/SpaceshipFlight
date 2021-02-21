@@ -18,16 +18,18 @@ Ship::Ship(glm::vec3 position, const RenderData& renderData, ShipLight shipLight
 
 void Ship::moveForward()
 {
-	this->position += vectorForward * speed * Time::getDeltaTimeSec();
-	this->positionMat = glm::translate(position);
-	this->updateModelMatrix();
+	if (rigidActor)
+	{
+		getRigidDynamic()->addForce(PhysxGLMConverter::vec3ToPxVec3(vectorForward * speed * Time::getDeltaTimeSec()));
+	}
 }
 
 void Ship::moveBackwards()
 {
-	this->position -= vectorForward * speed * Time::getDeltaTimeSec();
-	this->positionMat = glm::translate(position);
-	this->updateModelMatrix();
+	if (rigidActor)
+	{
+		getRigidDynamic()->addForce(PhysxGLMConverter::vec3ToPxVec3(-vectorForward * speed * Time::getDeltaTimeSec()));
+	}
 }
 
 void Ship::rotateShip(float pitch, float yaw, float roll)
@@ -40,12 +42,12 @@ void Ship::rotateShip(float pitch, float yaw, float roll)
 	float rotationAngleY = yawSpeed * (-yaw) * Time::getDeltaTimeSec();
 	float rotationAngleZ = rollSpeed * roll * Time::getDeltaTimeSec();
 
-	this->rotationQuat = calculateRotationQuatLocalAxises(this->rotationQuat, this->vectorRight, this->vectorTop, this->vectorForward, rotationAngleX, rotationAngleY, rotationAngleZ);
-	this->rotationMat = glm::mat4_cast(this->rotationQuat);
-
-	this->updateDirections(this->rotationQuat);
-
-	this->updateModelMatrix();
+	if (rigidActor)
+	{
+		getRigidDynamic()->setAngularVelocity(PhysxGLMConverter::vec3ToPxVec3(
+			vectorForward * rotationAngleZ + vectorRight * rotationAngleX + vectorTop * rotationAngleY));
+	}
+	
 }
 
 
