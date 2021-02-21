@@ -1,6 +1,7 @@
 #pragma once
 #include "RenderableObject.h"
 #include "physics/IDynamicRigidbody.h"
+#include "physics/RigidbodyFactory.h"
 
 class Asteroid: public RenderableObject, public IDynamicRigidbody
 {

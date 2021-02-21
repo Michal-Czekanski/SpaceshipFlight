@@ -6,6 +6,7 @@ Asteroid::Asteroid(const RenderData& renderData, glm::vec3 position, glm::vec3 m
 {
 	this->speed = speed;
 	this->moveDirection = moveDirection;
+	rigidActor = RigidbodyFactory::createAsteroidRigidbody(position, rotationQuat, this);
 }
 
 void Asteroid::update()
