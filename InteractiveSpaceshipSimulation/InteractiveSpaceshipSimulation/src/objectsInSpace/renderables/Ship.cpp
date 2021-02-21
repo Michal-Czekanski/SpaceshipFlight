@@ -12,6 +12,8 @@ Ship::Ship(glm::vec3 position, const RenderData& renderData, ShipLight shipLight
 
 	this->shipLight = shipLight;
 	this->shipLight.update(this->position, this->getVectorForward());
+
+	rigidActor = RigidbodyFactory::createShipRigidbody(position, rotationQuat, this);
 }
 
 void Ship::moveForward()

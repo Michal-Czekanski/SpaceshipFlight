@@ -7,6 +7,7 @@
 #include "RenderableObject.h"
 #include "data/ShipLight.h"
 #include "physics/IDynamicRigidbody.h"
+#include "physics/RigidbodyFactory.h"
 
 class Ship: public RenderableObject, public IDynamicRigidbody
 {
