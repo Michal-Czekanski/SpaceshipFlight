@@ -7,6 +7,8 @@ using namespace physx;
 class Physics
 {
 public:
+	PxPhysics* getPxPhysics();
+	PxScene* getPxScene();
 private:
 	static Physics instance;
 	const float stepTime;
