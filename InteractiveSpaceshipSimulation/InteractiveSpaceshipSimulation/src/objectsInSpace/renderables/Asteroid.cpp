@@ -16,10 +16,7 @@ void Asteroid::update()
 	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
 }
 
-void Asteroid::addForce(PxVec3 force, PxForceMode::Enum mode, bool autowake)
+PxRigidDynamic* Asteroid::getRigidDynamic()
 {
-	if (rigidActor)
-	{
-		((PxRigidDynamic*)rigidActor)->addForce(force, mode, autowake);
-	}
+	return (PxRigidDynamic*)rigidActor;
 }

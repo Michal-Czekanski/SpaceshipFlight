@@ -16,6 +16,6 @@ public:
 	void update();
 
 	// Inherited via IDynamicRigidbody
-	virtual void addForce(PxVec3 force, PxForceMode::Enum mode = PxForceMode::eFORCE, bool autowake = true) override;
+	virtual PxRigidDynamic* getRigidDynamic() override;
 };
 
