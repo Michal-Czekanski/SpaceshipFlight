@@ -14,6 +14,13 @@ PxRigidDynamic* RigidbodyFactory::createAsteroidRigidbody(glm::vec3 position, gl
 	return createDynamicRigidbody(position, rotation, asteroidPointer, material, geometry);
 }
 
+PxRigidDynamic* RigidbodyFactory::createPlanetMoonStarRigidbody(glm::vec3 position, glm::quat rotation, void* planetPointer)
+{
+	PxMaterial* material = Physics::getInstance()->getPxPhysics()->createMaterial(0.5, 0.5, 0.6);
+	PxGeometry geometry = PxSphereGeometry(1); // TODO
+	return createKinematicRigidbody(position, rotation, planetPointer, material, geometry);
+}
+
 PxRigidDynamic* RigidbodyFactory::createDynamicRigidbody(glm::vec3 position, glm::quat rotation, void* userData, PxMaterial* mat, PxGeometry& geometry)
 {
 	PxPhysics* pxPhysics = Physics::getInstance()->getPxPhysics();
@@ -27,5 +34,12 @@ PxRigidDynamic* RigidbodyFactory::createDynamicRigidbody(glm::vec3 position, glm
 	shape->release();
 	body->userData = userData;
 	pxScene->addActor(*body);
+	return body;
+}
+
+PxRigidDynamic* RigidbodyFactory::createKinematicRigidbody(glm::vec3 position, glm::quat rotation, void* userData, PxMaterial* mat, PxGeometry& geometry)
+{
+	PxRigidDynamic* body = createDynamicRigidbody(position, rotation, userData, mat, geometry);
+	body->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, true);
 	return body;
 }
