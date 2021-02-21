@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\physics\Physics.cpp" />
     <ClCompile Include="src\physics\data\SimulationEventCallback.cpp" />
     <ClCompile Include="src\physics\data\PhysicsOptions.cpp" />
     <ClCompile Include="src\data\RenderableUpdateData.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="headers\physics\data\PhysicsOptions.h" />
     <ClInclude Include="headers\physics\data\SimulationEventCallback.h" />
     <ClInclude Include="headers\physics\data\simulationFilterShader.h" />
+    <ClInclude Include="headers\physics\Physics.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
