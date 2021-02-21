@@ -6,7 +6,7 @@ Physics* Physics::getInstance()
 {
 	if (!instance) 
 	{
-		PhysicsOptions options;
+		PhysicsOptions options = PhysicsOptions();
 		instance = new Physics(options);
 	}
 	return instance;
@@ -37,9 +37,13 @@ void Physics::update(float deltaTime)
 
 Physics::Physics(PhysicsOptions& options): stepTime(options.getStepTime())
 {
-	dispatcher = (PxDefaultCpuDispatcher*)options.getSceneDesc().cpuDispatcher;
 	foundation = PxCreateFoundation(PX_PHYSICS_VERSION, allocator, errorCallback);
+
 	pxPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *foundation, options.getSceneDesc().getTolerancesScale(), true);
+	
+	dispatcher = PxDefaultCpuDispatcherCreate(2);
+	
+	options.getSceneDesc().cpuDispatcher = dispatcher;
 	pxScene = pxPhysics->createScene(options.getSceneDesc());
 }
 
