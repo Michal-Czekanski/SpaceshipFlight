@@ -7,6 +7,7 @@ Star::Star(glm::vec3 position, const RenderData& renderData, glm::vec3 scale, St
 {
 	this->light = light;
 	this->light->update(position);
+	rigidActor = RigidbodyFactory::createPlanetMoonStarRigidbody(position, rotationQuat, this);
 }
 
 StarLight* Star::getLight()

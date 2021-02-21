@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RenderableObject.h"
+#include "physics/RigidbodyFactory.h"
 
 class Star : public RenderableObject
 {

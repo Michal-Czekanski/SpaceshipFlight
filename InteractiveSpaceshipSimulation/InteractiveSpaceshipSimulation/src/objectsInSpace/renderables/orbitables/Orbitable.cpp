@@ -24,6 +24,7 @@ Orbitable::Orbitable(glm::vec3 position, const RenderData& renderData, glm::vec3
 		this->orbitSpeed = 0.0f;
 	}
 	
+	rigidActor = RigidbodyFactory::createPlanetMoonStarRigidbody(position, rotationQuat, this);
 }
 
 void Orbitable::update()
