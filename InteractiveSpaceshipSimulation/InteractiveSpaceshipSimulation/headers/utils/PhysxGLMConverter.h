@@ -16,6 +16,7 @@ public:
 	static PxVec3 vec3ToPxVec3(glm::vec3 vec3);
 	static PxVec2 vec2ToPxVec2(glm::vec2 vec2);
 	static glm::quat PxQuatToQuat(PxQuat pxQ);
+	static PxQuat quatToPxQuat(glm::quat q);
 	static glm::mat4 PxMat44ToMat4(PxMat44 pxM);
 };
 

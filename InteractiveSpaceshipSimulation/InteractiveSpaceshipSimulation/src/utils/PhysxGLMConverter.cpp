@@ -20,6 +20,11 @@ glm::quat PhysxGLMConverter::PxQuatToQuat(PxQuat pxQ)
 	return glm::quat(pxQ.w, pxQ.x, pxQ.y, pxQ.z);
 }
 
+PxQuat PhysxGLMConverter::quatToPxQuat(glm::quat q)
+{
+    return PxQuat(q.x, q.y, q.z, q.w);
+}
+
 glm::mat4 PhysxGLMConverter::PxMat44ToMat4(PxMat44 pxM)
 {
     auto& c0 = pxM.column0;
