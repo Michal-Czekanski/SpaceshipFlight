@@ -22,10 +22,29 @@ PxScene* Physics::getPxScene()
 	return pxScene;
 }
 
+void Physics::update(float deltaTime)
+{
+	if (deltaTime <= maxDeltaTime)
+	{
+		timeToProcess += deltaTime;
+		while (timeToProcess > 0)
+		{
+			updateStep(stepTime);
+			timeToProcess -= stepTime;
+		}
+	}
+}
+
 Physics::Physics(PhysicsOptions& options): stepTime(options.getStepTime())
 {
 	dispatcher = (PxDefaultCpuDispatcher*)options.getSceneDesc().cpuDispatcher;
 	foundation = PxCreateFoundation(PX_PHYSICS_VERSION, allocator, errorCallback);
 	pxPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *foundation, options.getSceneDesc().getTolerancesScale(), true);
 	pxScene = pxPhysics->createScene(options.getSceneDesc());
+}
+
+void Physics::updateStep(float stepTime)
+{
+	pxScene->simulate(stepTime);
+	pxScene->fetchResults(true);
 }
