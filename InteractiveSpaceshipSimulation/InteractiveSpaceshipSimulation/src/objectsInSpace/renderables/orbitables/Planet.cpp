@@ -12,15 +12,6 @@ Planet::Planet(glm::vec3 position, const RenderData& renderData, glm::vec3 scale
 	this->orbitAround = orbitAround;
 }
 
-void Planet::update()
-{
-	if (this->orbitAround)
-	{
-		orbit();
-	}
-	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
-}
-
 Star* Planet::getOrbitCenter()
 {
 	return this->orbitAround;

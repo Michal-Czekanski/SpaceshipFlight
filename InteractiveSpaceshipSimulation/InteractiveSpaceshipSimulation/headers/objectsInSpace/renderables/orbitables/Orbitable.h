@@ -3,8 +3,9 @@
 #include "../RenderableObject.h"
 #include "utils/Calculations.h"
 #include "physics/RigidbodyFactory.h"
+#include "physics/IDynamicRigidbody.h"
 
-class Orbitable: public RenderableObject
+class Orbitable: public RenderableObject, public IDynamicRigidbody
 {
 protected:
 	/// <summary>
@@ -64,6 +65,13 @@ public:
 	/// <returns></returns>
 	ObjectInSpace* getOrbitCenter();
 
-	void update();
+	/// <summary>
+	/// Updates Renderable after physics body simulation update
+	/// </summary>
+	/// <param name="update"></param>
+	virtual void physicsUpdate(RenderableUpdateData& update) override;
+
+	// Inherited via IDynamicRigidbody
+	virtual PxRigidDynamic* getRigidDynamic() override;
 };
 

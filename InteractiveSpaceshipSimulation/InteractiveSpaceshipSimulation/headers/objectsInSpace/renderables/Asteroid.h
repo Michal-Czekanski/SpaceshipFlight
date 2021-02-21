@@ -13,8 +13,6 @@ public:
 	Asteroid(const RenderData& renderData, glm::vec3 position, glm::vec3 moveDirection, float speed,
 		glm::vec3 scale, GLuint programDraw, TextureData textureData);
 
-	void update();
-
 	// Inherited via IDynamicRigidbody
 	virtual PxRigidDynamic* getRigidDynamic() override;
 };

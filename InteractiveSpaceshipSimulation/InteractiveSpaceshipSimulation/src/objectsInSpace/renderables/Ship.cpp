@@ -50,13 +50,6 @@ void Ship::rotateShip(float pitch, float yaw, float roll)
 	
 }
 
-
-void Ship::update()
-{
-	updateModelMatrix();
-	this->shipLight.update(this->position, this->getVectorForward());
-}
-
 ShipLight Ship::getShipLight()
 {
 	return this->shipLight;
@@ -65,6 +58,12 @@ ShipLight Ship::getShipLight()
 PxRigidDynamic* Ship::getRigidDynamic()
 {
 	return (PxRigidDynamic*)rigidActor;
+}
+
+void Ship::physicsUpdate(RenderableUpdateData& update)
+{
+	RenderableObject::physicsUpdate(update);
+	shipLight.update(position, vectorForward);
 }
 
 void Ship::updateModelMatrix()

@@ -105,11 +105,3 @@ void AsteroidField::draw(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, Sh
 	Core::DrawContextInstanced(chosenContext, asteroids.size(), modelMatrixes);
 	glUseProgram(0);
 }
-
-void AsteroidField::update()
-{
-	for (Asteroid* asteroid : asteroids)
-	{
-		asteroid->update();
-	}
-}

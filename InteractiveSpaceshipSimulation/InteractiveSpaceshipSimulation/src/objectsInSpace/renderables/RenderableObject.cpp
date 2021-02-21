@@ -24,15 +24,12 @@ glm::mat4 RenderableObject::getModelMatrix()
 
 void RenderableObject::physicsUpdate(RenderableUpdateData& update)
 {
-	rotate(update.getRotation());
+	this->rotationQuat = update.getRotation();
+	updateDirections(rotationQuat);
+
 	position = update.getPosition();
 	positionMat = glm::translate(position);
-	modelMatrix = update.getModelMatrix();
-}
-
-void RenderableObject::update()
-{
-	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
+	modelMatrix = update.getModelMatrix() * scaleMat;
 }
 
 glm::vec3 RenderableObject::getScale()
@@ -42,9 +39,10 @@ glm::vec3 RenderableObject::getScale()
 
 void RenderableObject::rotate(glm::quat rotation)
 {
-	this->rotationQuat = rotation;
-	this->rotationMat = glm::mat4_cast(this->rotationQuat);
-	updateDirections(rotation);
+	if (rigidActor)
+	{
+		rigidActor->setGlobalPose(PxTransform(rigidActor->getGlobalPose().p, PhysxGLMConverter::quatToPxQuat(rotation)));
+	}
 }
 
 glm::vec3 RenderableObject::getColor()

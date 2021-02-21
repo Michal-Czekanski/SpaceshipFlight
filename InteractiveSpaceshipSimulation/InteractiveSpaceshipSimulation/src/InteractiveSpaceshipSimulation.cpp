@@ -192,27 +192,19 @@ void skybox(glm::mat4 view, glm::mat4 projection, unsigned int id) {
 void renderScene() 
 {
 	Time::update();
+
+	Physics::getInstance()->update(Time::getDeltaTimeSec());
+	Game::updateNormalScene();
 	glm::mat4 cameraMatrix = camera->updateCameraMatrix();
 	glm::mat4 perspectiveMatrix = Core::createPerspectiveMatrix(0.1, 7000.0f);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
-	//glm::vec3 campos = camera->getCamPos();
-	//glm::vec3 cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
-	//glm::vec3 cameraDirection = (campos - cameraTarget);
-	//glLoadIdentity();
-	//gluLookAt(
-	//	0, 0, 0,
-	//	cameraDirection.x, 0, 0,
-	//	0, 1, 0);
-
-
 	bloom->beforeRendering();
 
 	// Render ship
 	rotateShip();
-	ship->update();
 	ship->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(), starsLights);
 
 
@@ -220,7 +212,6 @@ void renderScene()
 	for (int i = 0; i < asteroidFields.size(); i++)
 	{
 		AsteroidField* asteroidField = asteroidFields[i];
-		asteroidField->update();
 		asteroidField->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(), starsLights);
 	}
 
@@ -228,7 +219,6 @@ void renderScene()
 	for (int i = 0; i < renderableObjectsCount; i++)
 	{
 		RenderableObject* renderableObject = renderableObjects[i];
-		renderableObject->update();
 		renderableObject->draw(perspectiveMatrix, cameraMatrix, ship->getShipLight(), camera->getCamPos(),
 			starsLights);
 	}

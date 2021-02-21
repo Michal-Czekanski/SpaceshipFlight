@@ -12,6 +12,7 @@
 #include "utils/Render_Utils.h"
 #include "utils/Mouse.h"
 #include "graphics_techniques/bloom/Bloom.h"
+#include "Game.h"
 
 
 #define WINDOW_WIDTH 1000

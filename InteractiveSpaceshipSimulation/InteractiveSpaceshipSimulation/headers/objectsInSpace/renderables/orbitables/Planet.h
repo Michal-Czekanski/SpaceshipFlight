@@ -24,8 +24,6 @@ public:
 	Planet(glm::vec3 position, const RenderData& renderData,
 		glm::vec3 scale, Star* orbitAround, glm::vec3 orbitPlaneVec2, float orbitSpeed, GLuint programDraw, TextureData textureData);
 
-	void update();
-
 	Star* getOrbitCenter();
 };
 

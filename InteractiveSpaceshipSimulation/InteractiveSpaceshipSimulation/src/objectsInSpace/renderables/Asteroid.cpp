@@ -7,13 +7,7 @@ Asteroid::Asteroid(const RenderData& renderData, glm::vec3 position, glm::vec3 m
 	this->speed = speed;
 	this->moveDirection = moveDirection;
 	rigidActor = RigidbodyFactory::createAsteroidRigidbody(position, rotationQuat, this);
-}
-
-void Asteroid::update()
-{
-	this->position += moveDirection * speed * Time::getDeltaTimeSec();
-	this->positionMat = glm::translate(this->position);
-	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
+	getRigidDynamic()->addForce(PhysxGLMConverter::vec3ToPxVec3(moveDirection * speed));
 }
 
 PxRigidDynamic* Asteroid::getRigidDynamic()

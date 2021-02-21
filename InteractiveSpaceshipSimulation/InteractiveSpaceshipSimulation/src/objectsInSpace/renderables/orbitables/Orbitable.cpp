@@ -27,13 +27,15 @@ Orbitable::Orbitable(glm::vec3 position, const RenderData& renderData, glm::vec3
 	rigidActor = RigidbodyFactory::createPlanetMoonStarRigidbody(position, rotationQuat, this);
 }
 
-void Orbitable::update()
+void Orbitable::physicsUpdate(RenderableUpdateData& update)
 {
-	if (this->orbitAround)
-	{
-		orbit();
-	}
-	this->modelMatrix = this->positionMat * this->rotationMat * this->scaleMat;
+	RenderableObject::physicsUpdate(update);
+	orbit();
+}
+
+PxRigidDynamic* Orbitable::getRigidDynamic()
+{
+	return (PxRigidDynamic*)rigidActor;
 }
 
 void Orbitable::orbit()
@@ -44,6 +46,10 @@ void Orbitable::orbit()
 		this->posRelativeToOrbitCenter = this->orbitQuat * this->initPosRelativeToOrbitCenter;
 		this->position = this->posRelativeToOrbitCenter + this->orbitAround->getPosition();
 		this->positionMat = glm::translate(this->position);
+		if (rigidActor)
+		{
+			getRigidDynamic()->setKinematicTarget(PxTransform(PhysxGLMConverter::vec3ToPxVec3(position)));
+		}
 	}
 }
 

@@ -58,11 +58,6 @@ public:
 	/// <param name="update"></param>
 	virtual void physicsUpdate(RenderableUpdateData& update);
 
-	/// <summary>
-	/// Update is called on every frame.
-	/// </summary>
-	virtual void update();
-
 	glm::vec3 getScale();
 
 	void rotate(glm::quat rotation);

@@ -49,13 +49,17 @@ public:
 	/// <param name="roll">Value [-1, 1] specyfing in what direction and how much ship will roll.(1 max right, -1 max left)</param>
 	void rotateShip(float pitch, float yaw, float roll);
 
-	void update();
-
 	ShipLight getShipLight();
 
 
 	// Inherited via IDynamicRigidbody
 	virtual PxRigidDynamic* getRigidDynamic() override;
+
+	/// <summary>
+	/// Updates Ship after physics body simulation update
+	/// </summary>
+	/// <param name="update"></param>
+	virtual void physicsUpdate(RenderableUpdateData& update) override;
 
 };
 

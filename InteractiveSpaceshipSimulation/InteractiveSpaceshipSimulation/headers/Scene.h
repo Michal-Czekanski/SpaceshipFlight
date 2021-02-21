@@ -26,7 +26,7 @@ const glm::quat initialShipRotation =
 	calculateRotationQuatWorldAxises(glm::quat(), 0, glm::radians(180.0f), 0);
 
 
-const float shipSpeed = 100.0f;
+const float shipSpeed = 1000.0f;
 
 const glm::vec3 initCameraLookDir = glm::vec3(0, 0, -1);
 
