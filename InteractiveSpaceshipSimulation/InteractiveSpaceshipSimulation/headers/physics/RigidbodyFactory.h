@@ -2,6 +2,7 @@
 
 #include "utils/PhysxGLMConverter.h"
 #include "physics/Physics.h"
+#include "objectsInSpace/renderables/RenderableObject.h"
 
 class RigidbodyFactory
 {

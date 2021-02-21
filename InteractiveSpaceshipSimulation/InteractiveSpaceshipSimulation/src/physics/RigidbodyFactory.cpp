@@ -3,21 +3,29 @@
 PxRigidDynamic* RigidbodyFactory::createShipRigidbody(glm::vec3 position, glm::quat rotation, void* shipPointer)
 {
 	PxMaterial* material = Physics::getInstance()->getPxPhysics()->createMaterial(0.5, 0.5, 0.6);
-	PxGeometry geometry = PxBoxGeometry(1, 1, 1); // TODO
+	float scale = ((RenderableObject*)shipPointer)->getScale().x;
+	PxBoxGeometry geometry = PxBoxGeometry(1.9f / 2.0f * scale, 1.75f / 2.0f * scale, 6.0f / 2.0f * scale);
 	return createDynamicRigidbody(position, rotation, shipPointer, material, geometry);
 }
 
 PxRigidDynamic* RigidbodyFactory::createAsteroidRigidbody(glm::vec3 position, glm::quat rotation, void* asteroidPointer)
 {
 	PxMaterial* material = Physics::getInstance()->getPxPhysics()->createMaterial(0.5, 0.5, 0.6);
-	PxGeometry geometry = PxSphereGeometry(1); // TODO
+
+	float scaleX = ((RenderableObject*)asteroidPointer)->getScale().x;
+	float scaleY = ((RenderableObject*)asteroidPointer)->getScale().y;
+	float scaleZ = ((RenderableObject*)asteroidPointer)->getScale().z;
+
+	float scale = glm::max(scaleX, scaleY, scaleZ);
+
+	PxSphereGeometry geometry = PxSphereGeometry(1.67f / 2.0f * scale);
 	return createDynamicRigidbody(position, rotation, asteroidPointer, material, geometry);
 }
 
 PxRigidDynamic* RigidbodyFactory::createPlanetMoonStarRigidbody(glm::vec3 position, glm::quat rotation, void* planetPointer)
 {
 	PxMaterial* material = Physics::getInstance()->getPxPhysics()->createMaterial(0.5, 0.5, 0.6);
-	PxGeometry geometry = PxSphereGeometry(1); // TODO
+	PxSphereGeometry geometry = PxSphereGeometry(((RenderableObject*)planetPointer)->getScale().x);
 	return createKinematicRigidbody(position, rotation, planetPointer, material, geometry);
 }
 
