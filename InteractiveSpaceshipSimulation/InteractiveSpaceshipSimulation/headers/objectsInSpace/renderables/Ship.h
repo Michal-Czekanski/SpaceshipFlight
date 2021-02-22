@@ -9,6 +9,7 @@
 #include "physics/IDynamicRigidbody.h"
 #include "physics/RigidbodyFactory.h"
 #include "utils/ShipPointer.h"
+#include "Game.h"
 
 class Ship: public RenderableObject, public IDynamicRigidbody
 {

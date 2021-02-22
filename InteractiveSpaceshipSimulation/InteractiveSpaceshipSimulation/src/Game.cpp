@@ -25,3 +25,11 @@ void Game::updateNormalScene()
         }
     }
 }
+
+void Game::gameover()
+{
+    std::cout << "###########################" << std::endl;
+    std::cout << "Game over" << std::endl;
+    std::cout << "###########################" << std::endl;
+    glutLeaveMainLoop();
+}

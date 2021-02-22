@@ -8,6 +8,7 @@ void Ship::destroyed()
 	std::cout << "-------------------------------------------------" << std::endl;
 	std::cout << "Ship destroyed" << std::endl;
 	std::cout << "-------------------------------------------------" << std::endl;
+	Game::gameover();
 }
 
 Ship::Ship(glm::vec3 position, const RenderData& renderData, ShipLight shipLight, float shipSpeed, glm::vec3 scale, GLuint programDraw, TextureData textureData,

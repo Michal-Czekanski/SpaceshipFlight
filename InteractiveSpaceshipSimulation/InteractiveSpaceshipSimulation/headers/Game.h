@@ -11,5 +11,7 @@ public:
 	/// Updates positions of renderable objects using positions of objects from physics scene. Should be called after physics scene update.
 	/// </summary>
 	static void updateNormalScene();
+
+	static void gameover();
 };
 
