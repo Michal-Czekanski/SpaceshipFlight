@@ -5,6 +5,8 @@
 #include <typeinfo>
 #include "utils/ShipPointer.h"
 
+class Ship;
+
 using namespace physx;
 
 /// <summary>

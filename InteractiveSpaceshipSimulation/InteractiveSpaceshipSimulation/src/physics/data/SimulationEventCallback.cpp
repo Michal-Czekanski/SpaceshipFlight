@@ -1,4 +1,5 @@
 #include "physics/data/SimulationEventCallback.h"
+#include "objectsInSpace/renderables/Ship.h"
 
 void SimulationEventCallback::onConstraintBreak(PxConstraintInfo* constraints, PxU32 count)
 {
@@ -19,7 +20,7 @@ void SimulationEventCallback::onContact(const PxContactPairHeader& pairHeader, c
 		pairHeader.actors[1]->userData == ShipPointer::shipPointer))
 		return;
 
-	std::cout << "Ship collision" << std::endl;
+	((Ship*)ShipPointer::shipPointer)->hit();
 }
 
 void SimulationEventCallback::onTrigger(PxTriggerPair* pairs, PxU32 count)

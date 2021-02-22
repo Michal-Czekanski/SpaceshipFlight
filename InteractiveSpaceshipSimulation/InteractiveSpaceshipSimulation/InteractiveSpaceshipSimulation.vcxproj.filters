@@ -144,9 +144,6 @@
     <ClCompile Include="src\utils\ShipPointer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\objectsInSpace\renderables\IShip.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\InteractiveSpaceshipSimulation.h">
@@ -285,9 +282,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\utils\ShipPointer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="headers\objectsInSpace\renderables\IShip.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

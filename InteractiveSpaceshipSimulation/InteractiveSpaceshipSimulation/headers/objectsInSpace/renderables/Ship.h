@@ -9,9 +9,8 @@
 #include "physics/IDynamicRigidbody.h"
 #include "physics/RigidbodyFactory.h"
 #include "utils/ShipPointer.h"
-#include "objectsInSpace/renderables/IShip.h"
 
-class Ship: public RenderableObject, public IDynamicRigidbody, public IShip
+class Ship: public RenderableObject, public IDynamicRigidbody
 {
 private:
 	float speed = 0.0f;
@@ -24,9 +23,9 @@ private:
 	ShipLight shipLight = ShipLight();
 
 	float slowDownSpeed;
-
+	
+	int maxHp;
 	int hp;
-	const int maxHp = 5;
 
 	void destroyed();
 
@@ -77,6 +76,6 @@ public:
 
 	int getHp();
 
-	virtual void hit() override;
+	void hit();
 };
 

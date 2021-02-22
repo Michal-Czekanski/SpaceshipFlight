@@ -12,9 +12,10 @@ void Ship::destroyed()
 
 Ship::Ship(glm::vec3 position, const RenderData& renderData, ShipLight shipLight, float shipSpeed, glm::vec3 scale, GLuint programDraw, TextureData textureData,
 	float pitchSpeed, float yawSpeed, float rollSpeed, float slowDownSpeed):
-	RenderableObject(position, renderData, scale, programDraw, textureData), slowDownSpeed(slowDownSpeed),
-	hp(maxHp)
+	slowDownSpeed(slowDownSpeed), RenderableObject(position, renderData, scale, programDraw, textureData)
 {
+	maxHp = 5;
+	hp = maxHp;
 	this->speed = shipSpeed;
 	this->pitchSpeed = pitchSpeed;
 	this->yawSpeed = yawSpeed;
