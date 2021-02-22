@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\objectsInSpace\renderables\IShip.cpp" />
     <ClCompile Include="src\utils\ShipPointer.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\physics\RigidbodyFactory.cpp" />
@@ -240,6 +241,7 @@
     <ClInclude Include="headers\physics\Physics.h" />
     <ClInclude Include="headers\physics\RigidbodyFactory.h" />
     <ClInclude Include="headers\utils\ShipPointer.h" />
+    <ClInclude Include="headers\objectsInSpace\renderables\IShip.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
