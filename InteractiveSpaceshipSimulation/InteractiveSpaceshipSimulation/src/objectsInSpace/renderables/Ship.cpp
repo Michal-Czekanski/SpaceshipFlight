@@ -1,6 +1,15 @@
 #include "objectsInSpace/renderables/Ship.h"
 
 
+void Ship::destroyed()
+{
+	// TODO
+	isDestroyed = true;
+	std::cout << "-------------------------------------------------" << std::endl;
+	std::cout << "Ship destroyed" << std::endl;
+	std::cout << "-------------------------------------------------" << std::endl;
+}
+
 Ship::Ship(glm::vec3 position, const RenderData& renderData, ShipLight shipLight, float shipSpeed, glm::vec3 scale, GLuint programDraw, TextureData textureData,
 	float pitchSpeed, float yawSpeed, float rollSpeed, float slowDownSpeed):
 	RenderableObject(position, renderData, scale, programDraw, textureData), slowDownSpeed(slowDownSpeed),
@@ -72,6 +81,22 @@ void Ship::physicsUpdate(RenderableUpdateData& update)
 void Ship::slowDown()
 {
 	getRigidDynamic()->setLinearVelocity(getRigidDynamic()->getLinearVelocity() / slowDownSpeed);
+}
+
+void Ship::hit()
+{
+	if (hp > 0)
+	{
+		hp--;
+		if (hp == 0) {
+			destroyed();
+		}
+		else {
+			std::cout << "-------------------------------------------------" << std::endl;
+			std::cout << "Ship hit, HP = " << hp << std::endl;
+			std::cout << "-------------------------------------------------" << std::endl;
+		}
+	}
 }
 
 int Ship::getHp()
