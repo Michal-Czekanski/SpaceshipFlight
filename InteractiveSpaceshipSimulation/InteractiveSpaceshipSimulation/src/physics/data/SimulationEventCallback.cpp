@@ -14,6 +14,12 @@ void SimulationEventCallback::onSleep(PxActor** actors, PxU32 count)
 
 void SimulationEventCallback::onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs)
 {
+	// Detect only Ship collisions
+	if (!(pairHeader.actors[0]->userData == ShipPointer::shipPointer ||
+		pairHeader.actors[1]->userData == ShipPointer::shipPointer))
+		return;
+
+	std::cout << "Ship collision" << std::endl;
 }
 
 void SimulationEventCallback::onTrigger(PxTriggerPair* pairs, PxU32 count)

@@ -1,5 +1,9 @@
 #pragma once
+
 #include "PxPhysicsAPI.h"
+#include <iostream>
+#include <typeinfo>
+#include "utils/ShipPointer.h"
 
 using namespace physx;
 

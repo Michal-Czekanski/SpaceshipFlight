@@ -8,6 +8,7 @@
 #include "data/ShipLight.h"
 #include "physics/IDynamicRigidbody.h"
 #include "physics/RigidbodyFactory.h"
+#include "utils/ShipPointer.h"
 
 class Ship: public RenderableObject, public IDynamicRigidbody
 {
