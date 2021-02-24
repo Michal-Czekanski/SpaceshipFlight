@@ -7,6 +7,7 @@
 class Particle
 {
 public:
+	Particle();
 	Particle(glm::vec3 position, glm::vec4 color, glm::vec3 velocity);
 	bool isAlive();
 	void update();
