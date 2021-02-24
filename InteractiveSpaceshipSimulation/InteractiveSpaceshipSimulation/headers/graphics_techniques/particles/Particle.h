@@ -15,6 +15,5 @@ private:
 	const float maxLife = 1.0f;
 	const float minLife = 0.0f;
 	float life;
-	bool alive;
 };
 
