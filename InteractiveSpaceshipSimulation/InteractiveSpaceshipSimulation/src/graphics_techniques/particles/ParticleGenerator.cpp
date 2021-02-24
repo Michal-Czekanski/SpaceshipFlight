@@ -17,7 +17,7 @@ void ParticleGenerator::startGeneration()
 	isGenerating = true;
 	for (int i = 0; i < maxParticles; i++)
 	{
-		particles[i] = Particle();
+		particles.push_back(Particle());
 	}
 }
 
