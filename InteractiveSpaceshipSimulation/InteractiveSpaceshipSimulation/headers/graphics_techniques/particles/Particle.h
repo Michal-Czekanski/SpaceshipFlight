@@ -13,6 +13,11 @@ public:
 	Particle operator= (const Particle& p);
 	bool isAlive();
 	void update();
+
+	glm::vec3 getPosition();
+	glm::vec4 getColor();
+	glm::vec3 getVelocity();
+	float getLife();
 private:
 	glm::vec3 position;
 	glm::vec4 color;

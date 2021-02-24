@@ -44,3 +44,23 @@ void Particle::update()
 		position += velocity * deltaTime;
 	}
 }
+
+glm::vec3 Particle::getPosition()
+{
+	return position;
+}
+
+glm::vec4 Particle::getColor()
+{
+	return color;
+}
+
+glm::vec3 Particle::getVelocity()
+{
+	return velocity;
+}
+
+float Particle::getLife()
+{
+	return life;
+}
