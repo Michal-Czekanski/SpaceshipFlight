@@ -22,6 +22,7 @@ public:
 	std::vector<TextureData>& getStarsTexturesDatas();
 	std::vector<TextureData>& getPlanetsTexturesDatas();
 	std::vector<TextureData>& getMoonsTexturesDatas();
+	TextureData& getSmokeTextureData();
 
 	unsigned int getStarsTexturesNum();
 	unsigned int getPlanetsTexturesNum();
@@ -43,11 +44,14 @@ private:
 	unsigned int moonsTexturesNum;
 	std::vector<TextureData> moonsTexturesDatas;
 
+	TextureData smokeTextureData;
+
 	void loadPlanetsTextures(std::string dirName, unsigned int texturesNum);
 	void loadAsteroidsTextures(std::string dirName, unsigned int texturesNum);
 	void loadStarsTextures(std::string dirName, unsigned int texturesNum);
 	void loadShipTextures();
 	void loadMoonsTextures(std::string dirName, unsigned int texturesNum);
+	void loadSmokeTexture();
 
 };
 

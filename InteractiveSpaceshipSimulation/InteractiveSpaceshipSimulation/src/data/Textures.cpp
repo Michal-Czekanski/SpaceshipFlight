@@ -3,13 +3,14 @@
 Textures::Textures(unsigned int starsTexturesNum, unsigned int asteroidsTexturesNum,
 	unsigned int planetsTexturesNum, unsigned int moonsTexturesNum) : shipTextureData(0, 0),
 	starsTexturesNum(starsTexturesNum), asteroidsTexturesNum(asteroidsTexturesNum),
-	planetsTexturesNum(planetsTexturesNum), moonsTexturesNum(moonsTexturesNum)
+	planetsTexturesNum(planetsTexturesNum), moonsTexturesNum(moonsTexturesNum), smokeTextureData(0, 0)
 {
 	loadShipTextures();
 	loadStarsTextures("textures/stars/", starsTexturesNum);
 	loadPlanetsTextures("textures/planets/", planetsTexturesNum);
 	loadAsteroidsTextures("textures/asteroids/", asteroidsTexturesNum);
 	loadMoonsTextures("textures/moons/", moonsTexturesNum);
+	loadSmokeTexture();
 }
 
 TextureData& Textures::getShipTextureData()
@@ -35,6 +36,11 @@ std::vector<TextureData>& Textures::getPlanetsTexturesDatas()
 std::vector<TextureData>& Textures::getMoonsTexturesDatas()
 {
 	return moonsTexturesDatas;
+}
+
+TextureData& Textures::getSmokeTextureData()
+{
+	return smokeTextureData;
 }
 
 unsigned int Textures::getStarsTexturesNum()
@@ -101,4 +107,10 @@ void Textures::loadMoonsTextures(std::string dirName, unsigned int texturesNum)
 		const std::string textureNormalFilename = dirName + "moon" + std::to_string(i) + "_texture_normal.png";
 		moonsTexturesDatas.emplace_back(Core::LoadTexture(textureFilename.c_str()), Core::LoadTexture(textureNormalFilename.c_str()));
 	}
+}
+
+void Textures::loadSmokeTexture()
+{
+	GLuint smokeTexture = Core::LoadTexture("textures/particles/smoke_texture.png");
+	smokeTextureData = TextureData(smokeTexture, 0);
 }
