@@ -149,6 +149,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics_techniques\particles\ParticleGenerator.cpp" />
     <ClCompile Include="src\graphics_techniques\particles\Particle.cpp" />
     <ClCompile Include="src\utils\ShipPointer.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="headers\physics\RigidbodyFactory.h" />
     <ClInclude Include="headers\utils\ShipPointer.h" />
     <ClInclude Include="headers\graphics_techniques\particles\Particle.h" />
+    <ClInclude Include="headers\graphics_techniques\particles\ParticleGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

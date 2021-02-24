@@ -147,6 +147,9 @@
     <ClCompile Include="src\graphics_techniques\particles\Particle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\graphics_techniques\particles\ParticleGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="headers\InteractiveSpaceshipSimulation.h">
@@ -288,6 +291,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="headers\graphics_techniques\particles\Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="headers\graphics_techniques\particles\ParticleGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
