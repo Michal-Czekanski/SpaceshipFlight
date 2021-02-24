@@ -34,7 +34,8 @@ private:
 	bool isGenerating;
 
 	GLuint vao;
-	GLuint instanceModelMatrixesBuffer;
+	GLuint instanceParticleCenter;
+	GLuint instanceColorsVBO;
 
 	void initVAO();
 	void updateGenerationDir(glm::quat parentRotation);
