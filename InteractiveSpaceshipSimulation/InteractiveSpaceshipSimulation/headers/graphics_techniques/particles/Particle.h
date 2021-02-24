@@ -9,6 +9,8 @@ class Particle
 public:
 	Particle();
 	Particle(glm::vec3 position, glm::vec4 color, glm::vec3 velocity);
+	Particle(const Particle& p);
+	Particle operator= (const Particle& p);
 	bool isAlive();
 	void update();
 private:

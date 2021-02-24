@@ -11,6 +11,24 @@ Particle::Particle(glm::vec3 position, glm::vec4 color, glm::vec3 velocity):
 	life = maxLife;
 }
 
+Particle::Particle(const Particle& p) :
+	position(p.position), color(p.color), velocity(p.velocity), life(p.life)
+{
+	
+}
+
+Particle Particle::operator=(const Particle& p)
+{
+	if (this == &p) {
+		return *this;
+	}
+
+	position = p.position;
+	color = p.color;
+	velocity = p.velocity;
+	life = p.life;
+}
+
 bool Particle::isAlive()
 {
 	return life > minLife;
