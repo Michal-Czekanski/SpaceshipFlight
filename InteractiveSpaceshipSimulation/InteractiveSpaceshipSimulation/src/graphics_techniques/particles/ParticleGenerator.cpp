@@ -1,13 +1,91 @@
 #include "graphics_techniques/particles/ParticleGenerator.h"
 
-ParticleGenerator::ParticleGenerator(glm::vec3 posInParent, glm::vec3 parentPosition, glm::vec3 generationDir, 
-	glm::quat parentRotation, const int maxParticles, float generationAngle, 
-	unsigned int programId, unsigned int textureId):
-	posInParent(posInParent), worldPosition(parentPosition + posInParent), maxParticles(maxParticles),
+ParticleGenerator::ParticleGenerator(glm::vec3 posInParent, glm::vec3 generationDir, 
+	const int maxParticles, float generationAngle, 
+	unsigned int programId, unsigned int textureId,
+	unsigned int particlesPerMs):
+	posInParent(posInParent), worldPosition(posInParent), maxParticles(maxParticles),
 	generationAngle(generationAngle), programId(programId), textureId(textureId), generationDir(generationDir),
-	particles()
+	particles(), particlesPerMs(particlesPerMs), isGenerating(false)
 {
 	initVAO();
+}
+
+void ParticleGenerator::startGeneration()
+{
+	particles.clear();
+	isGenerating = true;
+	for (int i = 0; i < maxParticles; i++)
+	{
+		particles[i] = Particle();
+	}
+}
+
+void ParticleGenerator::stopGeneration()
+{
+	isGenerating = false;
+}
+
+void ParticleGenerator::update(glm::vec3 parentPos, glm::quat parentRotation)
+{
+	worldPosition = parentPos + posInParent;
+	updateGenerationDir(parentRotation);
+
+	if (isGenerating)
+	{
+		createNewParticles();
+	}
+
+	for (Particle& particle : particles)
+	{
+		particle.update();
+	}
+}
+
+
+void ParticleGenerator::updateGenerationDir(glm::quat parentRotation)
+{
+	generationDir = parentRotation * generationDir * glm::inverse(parentRotation);
+}
+
+unsigned int ParticleGenerator::findDeadParticle()
+{
+	for (int i = lastAliveParticle; i < maxParticles; i++)
+	{
+		if (!particles[i].isAlive())
+		{
+			return i;
+		}
+	}
+
+	for (int i = 0; i < lastAliveParticle; i++)
+	{
+		if (!particles[i].isAlive())
+		{
+			return i;
+		}
+	}
+
+	return 0;
+}
+
+void ParticleGenerator::createNewParticles()
+{
+	lastAliveParticle = findDeadParticle();
+	int newParticlesCount = Time::getDeltaTime() * particlesPerMs;
+
+	for (int i = 0; i < newParticlesCount; i++)
+	{
+		particles[(lastAliveParticle + i) % maxParticles] = Particle(worldPosition, glm::vec4(0, 0, 0, 1), 
+			calculateParticleVelocity());
+	}
+}
+
+
+glm::vec3 ParticleGenerator::calculateParticleVelocity()
+{
+	// TODO - use generation angle to calculate
+	return generationDir;
 }
 
 void ParticleGenerator::initVAO()
