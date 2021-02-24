@@ -4,6 +4,7 @@
 #include "freeglut.h"
 #include "graphics_techniques/particles/Particle.h"
 #include <vector>
+#include "utils/Texture.h"
 
 class ParticleGenerator
 {
@@ -14,6 +15,7 @@ public:
 	void startGeneration();
 	void stopGeneration();
 	void update(glm::vec3 parentPos, glm::quat parentRotation);
+	void draw(glm::mat4 cameraMatrix);
 
 private:
 	const int maxParticles;
@@ -31,10 +33,11 @@ private:
 	unsigned int lastAliveParticle;
 	glm::vec3 calculateParticleVelocity();
 
+	void loadInstanceDataToBuffers();
 	bool isGenerating;
 
 	GLuint vao;
-	GLuint instanceParticleCenter;
+	GLuint instanceParticleCenterVBO;
 	GLuint instanceColorsVBO;
 
 	void initVAO();
@@ -45,6 +48,8 @@ private:
 	unsigned int findDeadParticle();
 
 	void createNewParticles();
+
+	unsigned int particlesCount;
 
 
 	const float billboard_vertexes[3 * 4] = {
