@@ -10,3 +10,14 @@ bool Particle::isAlive()
 {
 	return life > minLife;
 }
+
+void Particle::update()
+{
+	float deltaTime = Time::getDeltaTimeSec();
+	if (isAlive())
+	{
+		life -= deltaTime;
+		color.a -= deltaTime;
+		position += velocity * deltaTime;
+	}
+}
