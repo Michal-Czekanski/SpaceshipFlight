@@ -27,24 +27,24 @@ void ParticleGenerator::stopGeneration()
 	isGenerating = false;
 }
 
-void ParticleGenerator::update(glm::vec3 parentPos, glm::quat parentRotation, glm::quat cameraRotaion)
+void ParticleGenerator::update(glm::vec3 parentPos, glm::quat parentRotation, ICamera& camera)
 {
 	particlesCount = 0;
 
 	worldPosition = parentPos + posInParent;
-	particleRotation = cameraRotaion;
+	particleRotation = camera.getRotation();
 	updateGenerationDir(parentRotation);
 
 	if (isGenerating)
 	{
-		createNewParticles();
+		createNewParticles(camera.getCamPos());
 	}
 
 	for (Particle& particle : particles)
 	{
 		if (particle.isAlive())
 		{
-			particle.update();
+			particle.update(camera.getCamPos());
 			if (particle.isAlive())
 			{
 				particlesCount++;
@@ -55,7 +55,8 @@ void ParticleGenerator::update(glm::vec3 parentPos, glm::quat parentRotation, gl
 
 void ParticleGenerator::draw(glm::vec3 parentPos, glm::quat parentRotation, ICamera& camera, glm::mat4 perspectiveMatrix)
 {
-	update(parentPos, parentRotation, camera.getRotation());
+	update(parentPos, parentRotation, camera);
+	sortParticles();
 	glUseProgram(programId);
 
 	glm::mat4 cameraMatrix = camera.getCameraMatrix();
@@ -99,7 +100,7 @@ unsigned int ParticleGenerator::findDeadParticle()
 	return 0;
 }
 
-void ParticleGenerator::createNewParticles()
+void ParticleGenerator::createNewParticles(glm::vec3 cameraPos)
 {
 	lastAliveParticle = findDeadParticle();
 	int newParticlesCount = Time::getDeltaTime() * particlesPerMs;
@@ -108,7 +109,7 @@ void ParticleGenerator::createNewParticles()
 	for (int i = 0; i < newParticlesCount; i++)
 	{
 		particles[(lastAliveParticle + i) % maxParticles] = Particle(worldPosition, glm::vec4(1), 
-			calculateParticleVelocity());
+			calculateParticleVelocity(), cameraPos);
 	}
 }
 
@@ -121,6 +122,11 @@ glm::vec3 ParticleGenerator::calculateParticleVelocity()
 	particleVel.y += randomFloat(-generationAngle, generationAngle);
 	particleVel.z += randomFloat(-generationAngle, generationAngle);
 	return particleVel;
+}
+
+void ParticleGenerator::sortParticles()
+{
+	std::sort(&particles[0], &particles[maxParticles]);
 }
 
 void ParticleGenerator::loadInstanceDataToBuffers()

@@ -16,7 +16,7 @@ public:
 		float particlesPerMs=0.5f);
 	void startGeneration();
 	void stopGeneration();
-	void update(glm::vec3 parentPos, glm::quat parentRotation, glm::quat cameraRotaion);
+	void update(glm::vec3 parentPos, glm::quat parentRotation, ICamera& camera);
 	void draw(glm::vec3 parentPos, glm::quat parentRotation, ICamera& camera, glm::mat4 perspectiveMatrix);
 
 private:
@@ -41,6 +41,7 @@ private:
 	unsigned int textureId;
 	unsigned int lastAliveParticle;
 	glm::vec3 calculateParticleVelocity();
+	void sortParticles();
 
 	void loadInstanceDataToBuffers();
 	bool isGenerating;
@@ -56,7 +57,7 @@ private:
 	/// </summary>
 	unsigned int findDeadParticle();
 
-	void createNewParticles();
+	void createNewParticles(glm::vec3 cameraPos);
 
 	unsigned int particlesCount;
 
