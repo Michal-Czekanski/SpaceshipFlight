@@ -49,7 +49,7 @@ void Particle::update(glm::vec3 cameraPos)
 	{
 		float deltaTime = Time::getDeltaTimeSec();
 		life -= deltaTime;
-		color.a -= deltaTime;
+		color.a = life / maxLife;
 		position += velocity * deltaTime;
 		distFromCamera = glm::fastDistance(position, cameraPos);
 	}

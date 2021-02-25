@@ -141,26 +141,31 @@ void ParticleGenerator::sortParticles()
 
 void ParticleGenerator::loadInstanceDataToBuffers()
 {
-	std::vector<glm::mat4> particlesModelMat;
-	std::vector<glm::vec4> particlesColors;
-	for (Particle& p : particles)
+	if (particlesCount > 0)
 	{
-		if (p.isAlive())
+		std::vector<glm::mat4> particlesModelMat;
+		std::vector<glm::vec4> particlesColors;
+		for (Particle& p : particles)
 		{
-			glm::mat4 modelMat = glm::translate(p.getPosition()) * glm::mat4_cast(particleRotation) 
-				* glm::scale(glm::vec3(p.getSize()));
-			particlesModelMat.push_back(modelMat);
-			particlesColors.push_back(p.getColor());
+			if (p.isAlive())
+			{
+				glm::mat4 modelMat = glm::translate(p.getPosition()) * glm::mat4_cast(particleRotation)
+					* glm::scale(glm::vec3(p.getSize()));
+				particlesModelMat.push_back(modelMat);
+				particlesColors.push_back(p.getColor());
+			}
 		}
-	}
 
-	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, instanceParticleModelMatrixVBO);
-	glBufferData(GL_ARRAY_BUFFER, particlesCount * sizeof(glm::mat4), particlesModelMat.data(), GL_STATIC_DRAW);
+		glBindVertexArray(vao);
 
-	glBindBuffer(GL_ARRAY_BUFFER, instanceColorsVBO);
-	glBufferData(GL_ARRAY_BUFFER, particlesCount * 4 * sizeof(glm::vec4), particlesColors.data(), GL_STATIC_DRAW);
-	glBindVertexArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, instanceColorsVBO);
+		glBufferData(GL_ARRAY_BUFFER, particlesCount * sizeof(glm::vec4), particlesColors.data(), GL_STATIC_DRAW);
+		
+		glBindBuffer(GL_ARRAY_BUFFER, instanceParticleModelMatrixVBO);
+		glBufferData(GL_ARRAY_BUFFER, particlesCount * sizeof(glm::mat4), particlesModelMat.data(), GL_STATIC_DRAW);
+		
+		glBindVertexArray(0);
+	}	
 }
 
 void ParticleGenerator::initVAO()
