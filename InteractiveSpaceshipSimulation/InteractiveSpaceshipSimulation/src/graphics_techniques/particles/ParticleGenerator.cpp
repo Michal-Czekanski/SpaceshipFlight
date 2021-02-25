@@ -63,8 +63,6 @@ void ParticleGenerator::draw(glm::vec3 parentPos, glm::quat parentRotation,
 	update(parentPos, parentRotation, cameraUp, cameraRight, cameraFront);
 
 	glUseProgram(programId);
-	glUniform3f(glGetUniformLocation(programId, "cameraUp"), cameraUp.x, cameraUp.x, cameraUp.z);
-	glUniform3f(glGetUniformLocation(programId, "cameraRight"), cameraRight.x, cameraRight.x, cameraRight.z);
 
 	glUniformMatrix4fv(glGetUniformLocation(programId, "cameraMatrix"), 1, GL_FALSE, (float*)&cameraMatrix);
 	glUniformMatrix4fv(glGetUniformLocation(programId, "perspectiveMatrix"), 1, GL_FALSE, (float*)&perspectiveMatrix);
@@ -136,20 +134,22 @@ void ParticleGenerator::updateParticleDirections(glm::vec3 cameraUp, glm::vec3 c
 
 void ParticleGenerator::loadInstanceDataToBuffers()
 {
-	std::vector<glm::vec3> particlesCenters;
+	std::vector<glm::mat4> particlesModelMat;
 	std::vector<glm::vec4> particlesColors;
 	for (Particle& p : particles)
 	{
 		if (p.isAlive())
 		{
-			particlesCenters.push_back(p.getPosition());
+			glm::mat4 modelMat = glm::translate(p.getPosition()) * glm::mat4_cast(particleRotation) 
+				* glm::scale(glm::vec3(p.getSize()));
+			particlesModelMat.push_back(modelMat);
 			particlesColors.push_back(p.getColor());
 		}
 	}
 
 	glBindVertexArray(vao);
-	glBindBuffer(GL_ARRAY_BUFFER, instanceParticleCenterVBO);
-	glBufferData(GL_ARRAY_BUFFER, particlesCount * sizeof(glm::vec3), particlesCenters.data(), GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, instanceParticleModelMatrixVBO);
+	glBufferData(GL_ARRAY_BUFFER, particlesCount * sizeof(glm::mat4), particlesModelMat.data(), GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ARRAY_BUFFER, instanceColorsVBO);
 	glBufferData(GL_ARRAY_BUFFER, particlesCount * sizeof(glm::vec4), particlesColors.data(), GL_STATIC_DRAW);
@@ -188,16 +188,24 @@ void ParticleGenerator::initVAO()
 
 	glVertexAttribDivisor(2, 1);
 
-	// instParticleCenterWrld
-	glGenBuffers(1, &instanceParticleCenterVBO);
-	glBindBuffer(GL_ARRAY_BUFFER, instanceParticleCenterVBO);
+	// instParticleModelMatrix
+	glGenBuffers(1, &instanceParticleModelMatrixVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, instanceParticleModelMatrixVBO);
 	glBufferData(GL_ARRAY_BUFFER, maxParticles * 3 * sizeof(float), NULL, GL_STATIC_DRAW);
 
 	glEnableVertexAttribArray(3);
-	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)0);
+	glEnableVertexAttribArray(4);
+	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(sizeof(glm::vec4)));
+	glEnableVertexAttribArray(5);
+	glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(2 * sizeof(glm::vec4)));
+	glEnableVertexAttribArray(6);
+	glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, sizeof(glm::mat4), (void*)(3 * sizeof(glm::vec4)));
 
 	glVertexAttribDivisor(3, 1);
+	glVertexAttribDivisor(4, 1);
+	glVertexAttribDivisor(5, 1);
+	glVertexAttribDivisor(6, 1);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }

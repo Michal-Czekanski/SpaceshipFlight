@@ -2,10 +2,8 @@
 
 layout(location = 0) in vec3 vertexPosition;
 layout(location = 1) in vec2 vertexTexCoord;
-layout(location = 3) in vec3 instParticleCenterWrld;
+layout(location = 3) in mat4 instParticleModelMatrix; // 3,4,5,6
 
-uniform vec3 cameraUp;
-uniform vec3 cameraRight;
 uniform mat4 cameraMatrix;
 uniform mat4 perspectiveMatrix;
 
@@ -15,9 +13,7 @@ out vec2 interpTexCoord;
 
 void main()
 {
-    vec3 vertexPositionWorld = instParticleCenterWrld
-    + cameraRight   * vertexPosition.x * particleSize
-    + cameraUp      * vertexPosition.y * particleSize;
-	gl_Position = perspectiveMatrix * cameraMatrix * vec4(vertexPositionWorld, 1.0f);
+	gl_Position = perspectiveMatrix * cameraMatrix * instParticleModelMatrix
+    * vec4(vertexPosition, 1.0f);
     interpTexCoord = vertexTexCoord;
 }

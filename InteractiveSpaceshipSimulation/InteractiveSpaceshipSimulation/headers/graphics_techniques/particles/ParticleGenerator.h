@@ -49,7 +49,7 @@ private:
 	bool isGenerating;
 
 	GLuint vao;
-	GLuint instanceParticleCenterVBO;
+	GLuint instanceParticleModelMatrixVBO;
 	GLuint instanceColorsVBO;
 
 	void initVAO();
