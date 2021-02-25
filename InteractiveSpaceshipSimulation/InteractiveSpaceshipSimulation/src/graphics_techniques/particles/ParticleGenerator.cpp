@@ -3,7 +3,7 @@
 ParticleGenerator::ParticleGenerator(glm::vec3 posInParent, glm::vec3 generationDir, 
 	const int maxParticles, float generationAngle, 
 	unsigned int programId, unsigned int textureId,
-	unsigned int particlesPerMs):
+	float particlesPerMs):
 	posInParent(posInParent), worldPosition(posInParent), maxParticles(maxParticles),
 	generationAngle(generationAngle), programId(programId), textureId(textureId), generationDir(generationDir),
 	particles(), particlesPerMs(particlesPerMs), isGenerating(false)

@@ -11,7 +11,7 @@ class ParticleGenerator
 public:
 	ParticleGenerator(glm::vec3 posInParent, glm::vec3 generationDir,
 		const int maxParticles,	float generationAngle, unsigned int programId, unsigned int textureId,
-		unsigned int particlesPerMs=1);
+		float particlesPerMs=0.5f);
 	void startGeneration();
 	void stopGeneration();
 	void update(glm::vec3 parentPos, glm::quat parentRotation);
@@ -22,7 +22,7 @@ private:
 	/// <summary>
 	/// How many particles per millisecond
 	/// </summary>
-	unsigned int particlesPerMs;
+	float particlesPerMs;
 	std::vector<Particle> particles;
 	glm::vec3 posInParent;
 	glm::vec3 generationDir;
