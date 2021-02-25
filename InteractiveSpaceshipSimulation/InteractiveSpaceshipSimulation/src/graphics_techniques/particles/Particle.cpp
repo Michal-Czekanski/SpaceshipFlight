@@ -82,3 +82,8 @@ float Particle::getSize()
 {
 	return size;
 }
+
+float Particle::getDistanceFromCamera()
+{
+	return distFromCamera;
+}

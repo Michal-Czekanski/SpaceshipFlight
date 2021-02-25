@@ -20,6 +20,7 @@ public:
 	glm::vec3 getVelocity();
 	float getLife();
 	float getSize();
+	float getDistanceFromCamera();
 private:
 	glm::vec3 position;
 	glm::vec4 color;
