@@ -8,7 +8,7 @@ class Particle
 {
 public:
 	Particle();
-	Particle(glm::vec3 position, glm::vec4 color, glm::vec3 velocity);
+	Particle(glm::vec3 position, glm::vec4 color, glm::vec3 velocity, float size = 1.0f);
 	Particle(const Particle& p);
 	Particle operator= (const Particle& p);
 	bool isAlive();
@@ -18,6 +18,7 @@ public:
 	glm::vec4 getColor();
 	glm::vec3 getVelocity();
 	float getLife();
+	float getSize();
 private:
 	glm::vec3 position;
 	glm::vec4 color;
@@ -25,5 +26,6 @@ private:
 	const float maxLife = 1.0f;
 	const float minLife = 0.0f;
 	float life;
+	float size;
 };
 
