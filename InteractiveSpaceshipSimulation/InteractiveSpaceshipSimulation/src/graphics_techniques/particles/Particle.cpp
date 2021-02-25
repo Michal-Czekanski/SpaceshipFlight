@@ -1,18 +1,19 @@
 #include "graphics_techniques/particles/Particle.h"
 
-Particle::Particle(): size(0.0f)
+Particle::Particle(): size(0.0f), distFromCamera(-1.0f)
 {
 	life = minLife;
 }
 
-Particle::Particle(glm::vec3 position, glm::vec4 color, glm::vec3 velocity, float size):
+Particle::Particle(glm::vec3 position, glm::vec4 color, glm::vec3 velocity, glm::vec3 cameraPos, float size):
 	position(position), color(color), velocity(velocity), size(size)
 {
 	life = maxLife;
+	distFromCamera = glm::fastDistance(position, cameraPos);
 }
 
 Particle::Particle(const Particle& p) :
-	position(p.position), color(p.color), velocity(p.velocity), life(p.life), size(p.size)
+	position(p.position), color(p.color), velocity(p.velocity), life(p.life), size(p.size), distFromCamera(p.distFromCamera)
 {
 	
 }
@@ -28,6 +29,13 @@ Particle Particle::operator=(const Particle& p)
 	velocity = p.velocity;
 	life = p.life;
 	size = p.size;
+	distFromCamera = p.distFromCamera;
+}
+
+bool Particle::operator<(const Particle& other) const
+{
+	// Sort in reverse -> far particles drawn first
+	return distFromCamera > other.distFromCamera;
 }
 
 bool Particle::isAlive()
@@ -35,14 +43,18 @@ bool Particle::isAlive()
 	return life > minLife;
 }
 
-void Particle::update()
+void Particle::update(glm::vec3 cameraPos)
 {
-	float deltaTime = Time::getDeltaTimeSec();
 	if (isAlive())
 	{
+		float deltaTime = Time::getDeltaTimeSec();
 		life -= deltaTime;
 		color.a -= deltaTime;
 		position += velocity * deltaTime;
+		distFromCamera = glm::fastDistance(position, cameraPos);
+	}
+	else {
+		distFromCamera = -1.0f;
 	}
 }
 
