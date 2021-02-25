@@ -9,5 +9,5 @@ uniform sampler2D textureSampler;
 // --- main --- ///
 void main()
 {
-	fragColor = vec4(texture2D(textureSampler, interpTexCoord) * instVertexColor);
+	fragColor = vec4(texture(textureSampler, interpTexCoord) * instVertexColor);
 }
