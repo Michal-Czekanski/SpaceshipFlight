@@ -111,6 +111,6 @@ void Textures::loadMoonsTextures(std::string dirName, unsigned int texturesNum)
 
 void Textures::loadSmokeTexture()
 {
-	GLuint smokeTexture = Core::LoadTexture("textures/particles/smoke_texture.png");
+	GLuint smokeTexture = Core::LoadTexture("textures/particles/smoke.png");
 	smokeTextureData = TextureData(smokeTexture, 0);
 }
