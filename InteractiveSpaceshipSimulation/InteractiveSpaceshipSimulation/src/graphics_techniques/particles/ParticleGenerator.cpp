@@ -7,7 +7,7 @@ ParticleGenerator::ParticleGenerator(glm::vec3 posInParent, glm::vec3 generation
 	posInParent(posInParent), worldPosition(posInParent), maxParticles(maxParticles),
 	generationAngle(generationAngle), programId(programId), textureId(textureId), generationDir(generationDir),
 	particles(), particlesPerMs(particlesPerMs), isGenerating(false), 
-	particleForward(0, 0, -1.0f), particleTop(0, 1.0f, 0), particleRight(-1.0f, 0, 0)
+	particleForward(0, 0, -1.0f), particleTop(0, 1.0f, 0), particleRight(-1.0f, 0, 0), timeSinceLastSpawn(0.0f)
 {
 	initVAO();
 }
@@ -103,14 +103,23 @@ unsigned int ParticleGenerator::findDeadParticle()
 void ParticleGenerator::createNewParticles(glm::vec3 cameraPos)
 {
 	lastAliveParticle = findDeadParticle();
-	int newParticlesCount = Time::getDeltaTime() * particlesPerMs;
+	int newParticlesCount = (Time::getDeltaTime() + timeSinceLastSpawn) * particlesPerMs;
 	newParticlesCount = newParticlesCount > maxParticles ? maxParticles : newParticlesCount;
 
-	for (int i = 0; i < newParticlesCount; i++)
+	if (newParticlesCount == 0)
 	{
-		particles[(lastAliveParticle + i) % maxParticles] = Particle(worldPosition, glm::vec4(1), 
-			calculateParticleVelocity(), cameraPos);
+		timeSinceLastSpawn += Time::getDeltaTime();
 	}
+	else
+	{
+		timeSinceLastSpawn = 0;
+		for (int i = 0; i < newParticlesCount; i++)
+		{
+			particles[(lastAliveParticle + i) % maxParticles] = Particle(worldPosition, glm::vec4(1),
+				calculateParticleVelocity(), cameraPos);
+		}
+	}
+	
 }
 
 

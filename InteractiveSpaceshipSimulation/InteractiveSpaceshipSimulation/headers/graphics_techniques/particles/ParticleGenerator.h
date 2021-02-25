@@ -25,6 +25,7 @@ private:
 	/// How many particles per millisecond
 	/// </summary>
 	float particlesPerMs;
+	float timeSinceLastSpawn;
 	std::vector<Particle> particles;
 	glm::vec3 posInParent;
 	glm::vec3 generationDir;
