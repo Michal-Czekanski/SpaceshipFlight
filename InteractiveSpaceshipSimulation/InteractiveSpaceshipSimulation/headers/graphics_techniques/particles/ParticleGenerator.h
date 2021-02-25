@@ -22,6 +22,9 @@ public:
 
 	float minParticleSize;
 	float maxParticleSize;
+
+	float minParticleSpeed = 1.0f;
+	float maxParticleSpeed = 1.0f;
 private:
 	const int maxParticles;
 	/// <summary>

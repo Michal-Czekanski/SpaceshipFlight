@@ -134,6 +134,7 @@ glm::vec3 ParticleGenerator::calculateParticleVelocity()
 	particleVel.x += randomFloat(-generationAngle, generationAngle);
 	particleVel.y += randomFloat(-generationAngle, generationAngle);
 	particleVel.z += randomFloat(-generationAngle, generationAngle);
+	particleVel = glm::normalize(particleVel) * randomFloat(minParticleSpeed, maxParticleSpeed);
 	return particleVel;
 }
 
