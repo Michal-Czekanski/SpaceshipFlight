@@ -54,6 +54,7 @@ void ParticleGenerator::draw(glm::vec3 parentPos, glm::quat parentRotation, ICam
 {
 	update(parentPos, parentRotation, camera);
 	sortParticles();
+	glDepthMask(GL_FALSE);
 	glUseProgram(programId);
 
 	glm::mat4 cameraMatrix = camera.getCameraMatrix();
@@ -68,6 +69,7 @@ void ParticleGenerator::draw(glm::vec3 parentPos, glm::quat parentRotation, ICam
 
 	glBindVertexArray(0);
 	glUseProgram(0);
+	glDepthMask(GL_TRUE);
 }
 
 
@@ -145,6 +147,15 @@ void ParticleGenerator::loadInstanceDataToBuffers()
 	{
 		std::vector<glm::mat4> particlesModelMat;
 		std::vector<glm::vec4> particlesColors;
+		for (int i = 0; i < particlesCount; i++)
+		{
+			Particle& p = particles[i];
+			glm::mat4 modelMat = glm::translate(p.getPosition()) * glm::mat4_cast(particleRotation)
+				* glm::scale(glm::vec3(p.getSize()));
+			particlesModelMat.push_back(modelMat);
+			particlesColors.push_back(p.getColor());
+		}
+		/*
 		for (Particle& p : particles)
 		{
 			if (p.isAlive())
@@ -155,6 +166,8 @@ void ParticleGenerator::loadInstanceDataToBuffers()
 				particlesColors.push_back(p.getColor());
 			}
 		}
+		*/
+		
 
 		glBindVertexArray(vao);
 
