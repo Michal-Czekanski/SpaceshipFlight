@@ -51,7 +51,7 @@ void ParticleGenerator::update(glm::vec3 parentPos, glm::quat parentRotation)
 	}
 }
 
-void ParticleGenerator::draw(glm::mat4 cameraMatrix)
+void ParticleGenerator::draw(glm::mat4 cameraMatrix, glm::mat4 perspectiveMatrix)
 {
 	glUseProgram(programId);
 	glm::vec3 cameraRight(cameraMatrix[0][0], cameraMatrix[0][1], cameraMatrix[0][2]);
@@ -59,6 +59,9 @@ void ParticleGenerator::draw(glm::mat4 cameraMatrix)
 
 	glUniform3f(glGetUniformLocation(programId, "cameraUp"), cameraUp.x, cameraUp.x, cameraUp.z);
 	glUniform3f(glGetUniformLocation(programId, "cameraRight"), cameraRight.x, cameraRight.x, cameraRight.z);
+
+	glUniformMatrix4fv(glGetUniformLocation(programId, "cameraMatrix"), 1, GL_FALSE, (float*)&cameraMatrix);
+	glUniformMatrix4fv(glGetUniformLocation(programId, "perspectiveMatrix"), 1, GL_FALSE, (float*)&perspectiveMatrix);
 
 	Core::SetActiveTexture(textureId, "textureSampler", programId, 0);
 

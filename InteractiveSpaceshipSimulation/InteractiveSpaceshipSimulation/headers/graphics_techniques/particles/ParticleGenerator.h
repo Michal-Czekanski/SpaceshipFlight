@@ -15,7 +15,7 @@ public:
 	void startGeneration();
 	void stopGeneration();
 	void update(glm::vec3 parentPos, glm::quat parentRotation);
-	void draw(glm::mat4 cameraMatrix);
+	void draw(glm::mat4 cameraMatrix, glm::mat4 perspectiveMatrix);
 
 private:
 	const int maxParticles;
