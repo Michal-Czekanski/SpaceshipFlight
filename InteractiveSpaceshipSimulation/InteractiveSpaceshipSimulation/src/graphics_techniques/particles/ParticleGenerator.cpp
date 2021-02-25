@@ -42,13 +42,10 @@ void ParticleGenerator::update(glm::vec3 parentPos, glm::quat parentRotation, IC
 
 	for (Particle& particle : particles)
 	{
+		particle.update(camera.getCamPos());
 		if (particle.isAlive())
 		{
-			particle.update(camera.getCamPos());
-			if (particle.isAlive())
-			{
-				particlesCount++;
-			}
+			particlesCount++;
 		}
 	}
 }
