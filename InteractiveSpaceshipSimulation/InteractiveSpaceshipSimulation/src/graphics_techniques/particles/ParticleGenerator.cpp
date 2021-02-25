@@ -6,7 +6,8 @@ ParticleGenerator::ParticleGenerator(glm::vec3 posInParent, glm::vec3 generation
 	float particlesPerMs):
 	posInParent(posInParent), worldPosition(posInParent), maxParticles(maxParticles),
 	generationAngle(generationAngle), programId(programId), textureId(textureId), generationDir(generationDir),
-	particles(), particlesPerMs(particlesPerMs), isGenerating(false)
+	particles(), particlesPerMs(particlesPerMs), isGenerating(false), 
+	forward(0, 0, -1.0f), top(0, 1.0f, 0), right(-1.0f, 0, 0)
 {
 	initVAO();
 }

@@ -27,6 +27,11 @@ private:
 	glm::vec3 posInParent;
 	glm::vec3 generationDir;
 	glm::vec3 worldPosition;
+
+	glm::vec3 right;
+	glm::vec3 top;
+	glm::vec3 forward;
+
 	float generationAngle;
 	unsigned int programId;
 	unsigned int textureId;
