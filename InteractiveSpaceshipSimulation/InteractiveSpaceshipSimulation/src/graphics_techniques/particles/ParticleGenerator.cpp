@@ -112,8 +112,12 @@ void ParticleGenerator::createNewParticles(glm::vec3 cameraPos)
 		timeSinceLastSpawn = 0;
 		for (int i = 0; i < newParticlesCount; i++)
 		{
-			particles[(lastAliveParticle + i) % maxParticles] = Particle(worldPosition, glm::vec4(1),
-				calculateParticleVelocity(), cameraPos);
+			int ind = (lastAliveParticle + i) % maxParticles;
+			if (!particles[ind].isAlive())
+			{
+				particles[(lastAliveParticle + i) % maxParticles] = Particle(worldPosition, glm::vec4(1),
+					calculateParticleVelocity(), cameraPos);
+			}
 		}
 	}
 	
@@ -155,7 +159,8 @@ void ParticleGenerator::loadInstanceDataToBuffers()
 	glBufferData(GL_ARRAY_BUFFER, particlesCount * sizeof(glm::mat4), particlesModelMat.data(), GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ARRAY_BUFFER, instanceColorsVBO);
-	glBufferData(GL_ARRAY_BUFFER, particlesCount * sizeof(glm::vec4), particlesColors.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, particlesCount * 4 * sizeof(glm::vec4), particlesColors.data(), GL_STATIC_DRAW);
+	glBindVertexArray(0);
 }
 
 void ParticleGenerator::initVAO()
