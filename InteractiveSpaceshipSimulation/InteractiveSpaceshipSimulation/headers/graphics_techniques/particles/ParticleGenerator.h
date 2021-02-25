@@ -5,6 +5,7 @@
 #include "graphics_techniques/particles/Particle.h"
 #include <vector>
 #include "utils/Texture.h"
+#include "utils/Calculations.h"
 
 class ParticleGenerator
 {
@@ -14,8 +15,10 @@ public:
 		float particlesPerMs=0.5f);
 	void startGeneration();
 	void stopGeneration();
-	void update(glm::vec3 parentPos, glm::quat parentRotation);
-	void draw(glm::mat4 cameraMatrix, glm::mat4 perspectiveMatrix);
+	void update(glm::vec3 parentPos, glm::quat parentRotation,
+		glm::vec3 cameraUp, glm::vec3 cameraRight, glm::vec3 cameraFront);
+	void draw(glm::vec3 parentPos, glm::quat parentRotation,
+		glm::mat4 cameraMatrix, glm::mat4 perspectiveMatrix);
 
 private:
 	const int maxParticles;
@@ -28,15 +31,19 @@ private:
 	glm::vec3 generationDir;
 	glm::vec3 worldPosition;
 
-	glm::vec3 right;
-	glm::vec3 top;
-	glm::vec3 forward;
+	glm::vec3 particleRight;
+	glm::vec3 particleTop;
+	glm::vec3 particleForward;
+
+	glm::quat particleRotation;
 
 	float generationAngle;
 	unsigned int programId;
 	unsigned int textureId;
 	unsigned int lastAliveParticle;
 	glm::vec3 calculateParticleVelocity();
+
+	void updateParticleDirections(glm::vec3 cameraUp, glm::vec3 cameraRight, glm::vec3 cameraFront);
 
 	void loadInstanceDataToBuffers();
 	bool isGenerating;

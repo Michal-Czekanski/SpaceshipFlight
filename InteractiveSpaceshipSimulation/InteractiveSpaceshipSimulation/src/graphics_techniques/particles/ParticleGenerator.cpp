@@ -7,7 +7,7 @@ ParticleGenerator::ParticleGenerator(glm::vec3 posInParent, glm::vec3 generation
 	posInParent(posInParent), worldPosition(posInParent), maxParticles(maxParticles),
 	generationAngle(generationAngle), programId(programId), textureId(textureId), generationDir(generationDir),
 	particles(), particlesPerMs(particlesPerMs), isGenerating(false), 
-	forward(0, 0, -1.0f), top(0, 1.0f, 0), right(-1.0f, 0, 0)
+	particleForward(0, 0, -1.0f), particleTop(0, 1.0f, 0), particleRight(-1.0f, 0, 0)
 {
 	initVAO();
 }
@@ -27,12 +27,14 @@ void ParticleGenerator::stopGeneration()
 	isGenerating = false;
 }
 
-void ParticleGenerator::update(glm::vec3 parentPos, glm::quat parentRotation)
+void ParticleGenerator::update(glm::vec3 parentPos, glm::quat parentRotation,
+	glm::vec3 cameraUp, glm::vec3 cameraRight, glm::vec3 cameraFront)
 {
 	particlesCount = 0;
 
 	worldPosition = parentPos + posInParent;
 	updateGenerationDir(parentRotation);
+	updateParticleDirections(cameraUp, cameraRight, cameraFront);
 
 	if (isGenerating)
 	{
@@ -52,12 +54,15 @@ void ParticleGenerator::update(glm::vec3 parentPos, glm::quat parentRotation)
 	}
 }
 
-void ParticleGenerator::draw(glm::mat4 cameraMatrix, glm::mat4 perspectiveMatrix)
+void ParticleGenerator::draw(glm::vec3 parentPos, glm::quat parentRotation, 
+	glm::mat4 cameraMatrix, glm::mat4 perspectiveMatrix)
 {
-	glUseProgram(programId);
 	glm::vec3 cameraRight(cameraMatrix[0][0], cameraMatrix[0][1], cameraMatrix[0][2]);
 	glm::vec3 cameraUp(cameraMatrix[1][0], cameraMatrix[1][1], cameraMatrix[1][2]);
+	glm::vec3 cameraFront(glm::cross(cameraUp, cameraRight));
+	update(parentPos, parentRotation, cameraUp, cameraRight, cameraFront);
 
+	glUseProgram(programId);
 	glUniform3f(glGetUniformLocation(programId, "cameraUp"), cameraUp.x, cameraUp.x, cameraUp.z);
 	glUniform3f(glGetUniformLocation(programId, "cameraRight"), cameraRight.x, cameraRight.x, cameraRight.z);
 
@@ -119,6 +124,14 @@ glm::vec3 ParticleGenerator::calculateParticleVelocity()
 {
 	// TODO - use generation angle to calculate
 	return generationDir;
+}
+
+void ParticleGenerator::updateParticleDirections(glm::vec3 cameraUp, glm::vec3 cameraRight, glm::vec3 cameraFront)
+{
+	particleRotation *= rotateV1ToV2(particleRight, cameraRight);
+	particleRight = cameraRight;
+	particleRotation *= rotateV1ToV2(particleForward, -cameraFront);
+	particleForward = -cameraFront;
 }
 
 void ParticleGenerator::loadInstanceDataToBuffers()
