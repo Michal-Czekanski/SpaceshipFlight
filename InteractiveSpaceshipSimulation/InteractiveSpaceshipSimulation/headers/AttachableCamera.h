@@ -5,8 +5,9 @@
 #include "objectsInSpace/ObjectInSpace.h"
 #include "utils/Camera.h"
 #include "utils/Calculations.h"
+#include "ICamera.h"
 
-class AttachableCamera
+class AttachableCamera: public ICamera
 {
 private:
 	/// <summary>
@@ -43,8 +44,11 @@ public:
 	/// <summary>
 	/// </summary>
 	/// <returns>Camera matrix.</returns>
-	glm::mat4 getCameraMatrix();
+	virtual glm::mat4 getCameraMatrix() override;
 
-	glm::vec3 getCamPos();
+	virtual glm::vec3 getCamPos() override;
+
+	// Inherited via ICamera
+	virtual glm::quat getRotation() override;
 };
 

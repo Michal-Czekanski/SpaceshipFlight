@@ -42,3 +42,8 @@ glm::vec3 AttachableCamera::getCamPos()
 	return this->camPos;
 }
 
+glm::quat AttachableCamera::getRotation()
+{
+	return attachedObject->getRotationQuat();
+}
+
