@@ -116,7 +116,11 @@ void ParticleGenerator::createNewParticles()
 glm::vec3 ParticleGenerator::calculateParticleVelocity()
 {
 	// TODO - use generation angle to calculate
-	return generationDir;
+	glm::vec3 particleVel(generationDir);
+	particleVel.x += randomFloat(-generationAngle, generationAngle);
+	particleVel.y += randomFloat(-generationAngle, generationAngle);
+	particleVel.z += randomFloat(-generationAngle, generationAngle);
+	return particleVel;
 }
 
 void ParticleGenerator::loadInstanceDataToBuffers()
