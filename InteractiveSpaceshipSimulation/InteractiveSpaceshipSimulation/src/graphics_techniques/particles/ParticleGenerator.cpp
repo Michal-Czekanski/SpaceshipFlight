@@ -169,20 +169,20 @@ void ParticleGenerator::initVAO()
 	glBindBuffer(GL_ARRAY_BUFFER, instanceColorsVBO);
 	glBufferData(GL_ARRAY_BUFFER, maxParticles * 4 * sizeof(float), NULL, GL_STATIC_DRAW);
 
-	glEnableVertexAttribArray(3);
-	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-	glVertexAttribDivisor(3, 1);
+	glVertexAttribDivisor(2, 1);
 
 	// instParticleCenterWrld
 	glGenBuffers(1, &instanceParticleCenterVBO);
 	glBindBuffer(GL_ARRAY_BUFFER, instanceParticleCenterVBO);
 	glBufferData(GL_ARRAY_BUFFER, maxParticles * 3 * sizeof(float), NULL, GL_STATIC_DRAW);
 
-	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-	glVertexAttribDivisor(2, 1);
+	glVertexAttribDivisor(3, 1);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);

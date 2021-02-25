@@ -1,5 +1,5 @@
 #version 430 core
-layout(location = 3) in vec4 instVertexColor;
+layout(location = 2) in vec4 instVertexColor;
 layout (location = 0) out vec4 fragColor;
 layout (location = 1) out vec4 brightColor;
 
