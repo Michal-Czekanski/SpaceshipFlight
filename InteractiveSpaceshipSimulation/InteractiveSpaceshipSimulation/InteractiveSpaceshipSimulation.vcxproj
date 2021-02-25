@@ -244,6 +244,7 @@
     <ClInclude Include="headers\utils\ShipPointer.h" />
     <ClInclude Include="headers\graphics_techniques\particles\Particle.h" />
     <ClInclude Include="headers\graphics_techniques\particles\ParticleGenerator.h" />
+    <ClInclude Include="headers\ICamera.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

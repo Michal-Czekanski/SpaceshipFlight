@@ -296,5 +296,8 @@
     <ClInclude Include="headers\graphics_techniques\particles\ParticleGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="headers\ICamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
