@@ -19,6 +19,9 @@ public:
 	void update(glm::vec3 parentPos, glm::quat parentRotation, ICamera& camera);
 	void draw(glm::vec3 parentPos, glm::quat parentRotation, ICamera& camera, glm::mat4 perspectiveMatrix);
 
+
+	float minParticleSize;
+	float maxParticleSize;
 private:
 	const int maxParticles;
 	/// <summary>

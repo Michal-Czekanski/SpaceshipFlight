@@ -1,13 +1,14 @@
 #include "graphics_techniques/particles/ParticleGenerator.h"
 
-ParticleGenerator::ParticleGenerator(glm::vec3 posInParent, glm::vec3 generationDir, 
-	const int maxParticles, float generationAngle, 
+ParticleGenerator::ParticleGenerator(glm::vec3 posInParent, glm::vec3 generationDir,
+	const int maxParticles, float generationAngle,
 	unsigned int programId, unsigned int textureId,
-	float particlesPerMs):
+	float particlesPerMs) :
 	posInParent(posInParent), worldPosition(posInParent), maxParticles(maxParticles),
 	generationAngle(generationAngle), programId(programId), textureId(textureId), generationDir(generationDir),
-	particles(), particlesPerMs(particlesPerMs), isGenerating(false), 
-	particleForward(0, 0, -1.0f), particleTop(0, 1.0f, 0), particleRight(-1.0f, 0, 0), timeSinceLastSpawn(0.0f)
+	particles(), particlesPerMs(particlesPerMs), isGenerating(false),
+	particleForward(0, 0, -1.0f), particleTop(0, 1.0f, 0), particleRight(-1.0f, 0, 0), timeSinceLastSpawn(0.0f),
+	minParticleSize(1.0f), maxParticleSize(1.0f)
 {
 	initVAO();
 }
@@ -118,7 +119,7 @@ void ParticleGenerator::createNewParticles(glm::vec3 cameraPos)
 			if (!particles[ind].isAlive())
 			{
 				particles[(lastAliveParticle + i) % maxParticles] = Particle(worldPosition, glm::vec4(1),
-					calculateParticleVelocity(), cameraPos);
+					calculateParticleVelocity(), cameraPos, randomFloat(minParticleSize, maxParticleSize));
 			}
 		}
 	}
