@@ -12,5 +12,5 @@ void main()
 {
 	//fragColor = (texture(textureSampler, interpTexCoord) * instVertexColor);
     fragColor = texture(textureSampler, interpTexCoord);
-    brightColor = vec4(0, 0, 0, 1);
+    brightColor = vec4(0, 0, 0, 0);
 }

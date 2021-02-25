@@ -126,7 +126,7 @@ glm::vec3 ParticleGenerator::calculateParticleVelocity()
 
 void ParticleGenerator::sortParticles()
 {
-	std::sort(&particles[0], &particles[maxParticles]);
+	std::sort(&particles[0], &particles[maxParticles-1]);
 }
 
 void ParticleGenerator::loadInstanceDataToBuffers()
