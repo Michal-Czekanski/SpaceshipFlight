@@ -52,17 +52,23 @@ private:
 	unsigned int particlesCount;
 
 
-	const float billboard_vertexes[3 * 4] = {
-	 -0.5f, -0.5f, 0.0f,
-	 0.5f, -0.5f, 0.0f,
-	 -0.5f, 0.5f, 0.0f,
-	 0.5f, 0.5f, 0.0f,
+	const float billboard_vertexes[3 * 6] = {
+		0.0f, 1.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 0.0f,
+
+		0.0f, 1.0f, 0.0f,
+		1.0f, 1.0f, 0.0f,
+		1.0f, 0.0f, 0.0f
 	};
 
-	const float texture_coords[2 * 4] = {
-		0.0f, 0.0f,
-		1.0f, 0.0f,
+	const float texture_coords[2 * 6] = {
 		0.0f, 1.0f,
-		1.0f, 1.0f
+		1.0f, 0.0f,
+		0.0f, 0.0f,
+
+		0.0f, 1.0f,
+		1.0f, 1.0f,
+		1.0f, 0.0f
 	};
 };

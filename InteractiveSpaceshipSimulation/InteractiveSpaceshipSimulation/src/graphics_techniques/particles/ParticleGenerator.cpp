@@ -64,7 +64,7 @@ void ParticleGenerator::draw(glm::mat4 cameraMatrix)
 
 	loadInstanceDataToBuffers();
 	glBindVertexArray(vao);
-	glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, particlesCount);
+	glDrawArraysInstanced(GL_TRIANGLES, 0, 6, particlesCount);
 
 	glBindVertexArray(0);
 	glUseProgram(0);
