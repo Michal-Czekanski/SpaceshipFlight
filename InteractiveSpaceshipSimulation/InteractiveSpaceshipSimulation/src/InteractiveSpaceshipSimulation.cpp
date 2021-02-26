@@ -57,9 +57,6 @@ void keyboard(unsigned char key, int x, int y)
 		case 's': 
 			ship->moveBackwards();
 			break;
-		case'b':
-			debugHelpersOn = !debugHelpersOn;
-			break;
 
 		case 'd': // right
 			ship->rotateShip(0.0f, 1.0f, 0.0f);
@@ -235,12 +232,6 @@ void renderScene()
 
 	smoke->draw(ship->getPosition() + ship->getVectorForward(), ship->getRotationQuat(), *camera, perspectiveMatrix);
 
-
-	if (debugHelpersOn)
-	{
-		renderDebugHelpers(perspectiveMatrix, cameraMatrix);
-	}
-
 	bloom->afterRendering();
 
 	glutSwapBuffers();
@@ -317,9 +308,6 @@ void init()
 		starsLights, programTexture, programStar, programInstanceTexture,
 		programStarTexture, textures);
 
-	initDebugHelpers(sphereModelData);
-
-
 	bloom = new Bloom(Game::windowWidth, Game::windowHeight, programBlur, programBloomFinalBlend);
 
 
@@ -392,46 +380,6 @@ int main(int argc, char** argv)
 	return 0;
 }
 
-void initDebugHelpers(ModelData &sphereModelData)
-{
-	/*
-	* ShipLight shipLight = ship->getShipLight();
-	helperShipDirectionLineLength = shipLight.getLightConeHeight();
-	glm::vec3 lineScale = glm::vec3(0.1f, 0.1f, helperShipDirectionLineLength * 2);
-
-	helperShipDirectionLine = new Planet(ship->getPosition(), sphereModelData, lineScale, programColor, 0, 0);
-	helperShipDirectionLine->rotate(ship->getRotationQuat());
-	
-	glm::vec3 helper2Pos = ship->getPosition() + ship->getVectorForward() * helperShipDirectionLineLength;
-	helperShipLightConeEndPoint = new Planet(helper2Pos, sphereModelData, glm::vec3(1, 1, 1), programColor, 0, 0);
-	helperShipLightConeEndPoint->rotate(ship->getRotationQuat());
-
-	glm::vec3 helper3Pos = helper2Pos + shipLight.getLightConeBaseRadius() * ship->getVectorTop();
-	helperShipLightConeRadius = new Planet(helper3Pos, sphereModelData, glm::vec3(1, 1, 1), programColor, 0, 0);
-	helperShipLightConeRadius->rotate(ship->getRotationQuat());
-	*/
-	
-}
-
-void renderDebugHelpers(glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix)
-{
-	/*helperShipDirectionLine->setPosition(ship->getPosition());
-	helperShipDirectionLine->rotate(ship->getRotationQuat());
-	helperShipDirectionLine->update();
-	//drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipDirectionLine->getModelMatrix(), glm::vec3(0, 1, 0));
-
-	helperShipLightConeEndPoint->setPosition(ship->getPosition() + ship->getVectorForward() * helperShipDirectionLineLength);
-	helperShipLightConeEndPoint->rotate(ship->getRotationQuat());
-	helperShipLightConeEndPoint->update();
-	//drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeEndPoint->getModelMatrix(), glm::vec3(0, 1, 0));
-
-	helperShipLightConeRadius->setPosition(helperShipLightConeEndPoint->getPosition()
-		+ ship->getShipLight().getLightConeBaseRadius() * ship->getVectorTop());
-	helperShipLightConeRadius->update();
-	//drawObjectColor(programColor, &model, perspectiveMatrix, cameraMatrix, helperShipLightConeRadius->getModelMatrix(), glm::vec3(1, 1, 0));
-	*/
-	
-}
 
 void drawObjectColor(GLuint program, obj::Model* model, glm::mat4 perspectiveMatrix, glm::mat4 cameraMatrix, glm::mat4 modelMatrix, glm::vec3 color)
 {

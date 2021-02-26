@@ -26,8 +26,6 @@ public:
 
 	float minParticleSpeed = 1.0f;
 	float maxParticleSpeed = 1.0f;
-
-	glm::vec3 posInParent;//FOOR DEBUGGING ONLY
 private:
 	const int maxParticles;
 	/// <summary>
@@ -39,6 +37,8 @@ private:
 	
 	glm::vec3 generationDir;
 	glm::vec3 worldPosition;
+
+	glm::vec3 posInParent;
 
 	glm::vec3 particleRight;
 	glm::vec3 particleTop;
