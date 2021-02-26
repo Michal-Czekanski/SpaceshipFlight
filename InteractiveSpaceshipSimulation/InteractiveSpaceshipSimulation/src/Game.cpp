@@ -1,7 +1,11 @@
 #include "Game.h"
 
-int Game::windowWidth = 1000;
+int Game::windowWidth = 1600;
 int Game::windowHeight = 1000;
+
+unsigned int Game::programBlur = 0;
+unsigned int Game::programBloomFinalBlend = 0;
+
 
 void Game::updateNormalScene()
 {

@@ -17,5 +17,8 @@ public:
 	static int windowWidth;
 
 	static int windowHeight;
+
+	static unsigned int programBlur;
+	static unsigned int programBloomFinalBlend;
 };
 

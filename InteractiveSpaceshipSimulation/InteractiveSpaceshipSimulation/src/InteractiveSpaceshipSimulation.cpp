@@ -5,6 +5,7 @@
 
 #include <cmath>
 
+float frustumScale = 1.1f;
 
 using namespace std;
 
@@ -200,7 +201,7 @@ void renderScene()
 	Physics::getInstance()->update(Time::getDeltaTimeSec());
 	Game::updateNormalScene();
 	glm::mat4 cameraMatrix = camera->updateCameraMatrix();
-	glm::mat4 perspectiveMatrix = Core::createPerspectiveMatrix(0.1, 7000.0f);
+	glm::mat4 perspectiveMatrix = Core::createPerspectiveMatrix(0.1, 7000.0f, frustumScale);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -277,8 +278,10 @@ void init()
 	
 	GLuint programBlur = shaderLoader.CreateProgram(
 		(char*)"shaders/bloom/shader_gaussian_blur.vert", (char*)"shaders/bloom/shader_gaussian_blur.frag");
+	Game::programBlur = programBlur;
 	GLuint programBloomFinalBlend = shaderLoader.CreateProgram(
 		(char*)"shaders/bloom/shader_bloom_final_blend.vert", (char*)"shaders/bloom/shader_bloom_final_blend.frag");
+	Game::programBloomFinalBlend = programBloomFinalBlend;
 
 	obj::Model shipModel = obj::loadModelFromFile("models/spaceship_model.obj");
 	ModelData shipModelData = ModelData(shipModel, glm::vec3(0, 0, -1), glm::vec3(0, 1, 0));
@@ -338,6 +341,22 @@ void windowResizeHandler(int ww, int wh)
 {
 	Game::windowWidth = ww;
 	Game::windowHeight = wh;
+	const float aspectRatio = ((float)ww) / wh;
+	frustumScale = aspectRatio;
+	float xSpan = 1; // Feel free to change this to any xSpan you need.
+	float ySpan = 1; // Feel free to change this to any ySpan you need.
+
+	if (aspectRatio > 1) {
+		// Width > Height, so scale xSpan accordinly.
+		xSpan *= aspectRatio;
+	}
+	else {
+		// Height >= Width, so scale ySpan accordingly.
+		ySpan = xSpan / aspectRatio;
+	}
+	// Use the entire window for rendering.
+	glViewport(0, 0, ww, wh);
+	bloom = new Bloom(Game::windowWidth, Game::windowHeight, Game::programBlur, Game::programBloomFinalBlend);
 }
 
 int main(int argc, char** argv)

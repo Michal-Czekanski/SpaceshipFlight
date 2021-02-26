@@ -14,6 +14,19 @@ glm::mat4 Core::createPerspectiveMatrix(float zNear, float zFar)
 	return perspective;
 }
 
+glm::mat4 Core::createPerspectiveMatrix(float zNear, float zFar, float frustumScale)
+{
+	glm::mat4 perspective;
+	perspective[0][0] = frustumScale;
+	perspective[1][1] = frustumScale;
+	perspective[2][2] = (zFar + zNear) / (zNear - zFar);
+	perspective[3][2] = (2 * zFar * zNear) / (zNear - zFar);
+	perspective[2][3] = -1;
+	perspective[3][3] = 0;
+
+	return perspective;
+}
+
 glm::mat4 Core::createViewMatrix( glm::vec3 position, glm::vec3 forward, glm::vec3 up )
 {
 	glm::vec3 side = glm::cross(forward, up);
