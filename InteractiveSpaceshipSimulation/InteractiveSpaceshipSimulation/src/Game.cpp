@@ -1,6 +1,6 @@
 #include "Game.h"
 
-int Game::windowWidth = 1600;
+int Game::windowWidth = 1400;
 int Game::windowHeight = 1000;
 
 unsigned int Game::programBlur = 0;
