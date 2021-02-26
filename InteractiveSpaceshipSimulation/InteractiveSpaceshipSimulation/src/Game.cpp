@@ -1,5 +1,8 @@
 #include "Game.h"
 
+int Game::windowWidth = 1000;
+int Game::windowHeight = 1000;
+
 void Game::updateNormalScene()
 {
 	Physics* p = Physics::getInstance();

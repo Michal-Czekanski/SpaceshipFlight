@@ -317,7 +317,7 @@ void init()
 	initDebugHelpers(sphereModelData);
 
 
-	bloom = new Bloom(WINDOW_WIDTH, WINDOW_HEIGHT, programBlur, programBloomFinalBlend);
+	bloom = new Bloom(Game::windowWidth, Game::windowHeight, programBlur, programBloomFinalBlend);
 
 
 	GLuint programSmoke = shaderLoader.CreateProgram(
@@ -334,12 +334,18 @@ void init()
 	PerformanceMeasure::addMeasuresTakenListener(printPerformanceMeasures);
 }
 
+void windowResizeHandler(int ww, int wh) 
+{
+	Game::windowWidth = ww;
+	Game::windowHeight = wh;
+}
+
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(0, 0);
-	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	glutInitWindowSize(Game::windowWidth, Game::windowHeight);
 	glutCreateWindow("Spaceship Simulation");
 	glewInit();
 
@@ -357,6 +363,7 @@ int main(int argc, char** argv)
 	glBindVertexArray(0);
 
 	glutDisplayFunc(renderScene);
+	glutReshapeFunc(windowResizeHandler);
 	glutIdleFunc(idle);
 
 	glutMainLoop();

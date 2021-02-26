@@ -13,5 +13,9 @@ public:
 	static void updateNormalScene();
 
 	static void gameover();
+
+	static int windowWidth;
+
+	static int windowHeight;
 };
 

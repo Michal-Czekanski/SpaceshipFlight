@@ -14,11 +14,6 @@
 #include "graphics_techniques/bloom/Bloom.h"
 #include "Game.h"
 
-
-#define WINDOW_WIDTH 1000
-#define WINDOW_HEIGHT 1000
-
-
 GLuint programColor;
 /// <summary>
 /// Used to draw planets, asteroids, moons.
