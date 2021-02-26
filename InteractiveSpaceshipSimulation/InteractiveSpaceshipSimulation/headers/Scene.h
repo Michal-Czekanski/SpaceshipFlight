@@ -20,7 +20,7 @@
 
 const glm::vec3 testLightDir = glm::vec3(0, 1, 1);
 
-const glm::vec3 initShipPos = glm::vec3(0, 0, 0);
+const glm::vec3 initShipPos = glm::vec3(0, 0, -40);
 
 const glm::quat initialShipRotation = 
 	calculateRotationQuatWorldAxises(glm::quat(), 0, glm::radians(180.0f), 0);
