@@ -10,16 +10,6 @@
 class AttachableCamera: public ICamera
 {
 private:
-	/// <summary>
-	/// Specifies how far behind object camera should be placed.
-	/// </summary>
-	float camOffsetMultiplier;
-
-	/// <summary>
-	/// Specifies if camera should be above, below or at the object level.
-	/// </summary>
-	float upOffsetMultiplier;
-
 	glm::vec3 calculateCamOffset();
 
 	glm::mat4 cameraMatrix;
@@ -35,6 +25,17 @@ public:
 	AttachableCamera(float camOffsetMultiplier, float upOffsetMultiplier);
 	AttachableCamera(float camOffsetMultiplier, float upOffsetMultiplier, ObjectInSpace* attachedObject);
 	
+	/// <summary>
+	/// Specifies how far behind object camera should be placed.
+	/// </summary>
+	float camOffsetMultiplier;
+
+	/// <summary>
+	/// Specifies if camera should be above, below or at the object level.
+	/// </summary>
+	float upOffsetMultiplier;
+
+
 	/// <summary>
 	/// Updates camera matrix based on attached object's position and rotation.
 	/// </summary>

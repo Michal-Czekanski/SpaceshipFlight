@@ -70,6 +70,21 @@ void keyboard(unsigned char key, int x, int y)
 			break;
 
 
+		case 'u':
+			camera->camOffsetMultiplier += 0.1f;
+			break;
+		case 'j':
+			camera->camOffsetMultiplier -= 0.1f;
+			break;
+
+		case 'i':
+			camera->upOffsetMultiplier += 0.1f;
+			break;
+		case 'k':
+			camera->upOffsetMultiplier -= 0.1f;
+			break;
+
+
 		case 'e':
 			bloom->setExposure(bloom->getExposure() + 0.01f);
 			std::cout << "Exposure: " << bloom->getExposure() << std::endl;
