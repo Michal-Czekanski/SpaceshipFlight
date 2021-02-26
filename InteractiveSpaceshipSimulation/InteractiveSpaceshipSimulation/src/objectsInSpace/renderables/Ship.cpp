@@ -97,6 +97,13 @@ void Ship::hit()
 			std::cout << "-------------------------------------------------" << std::endl;
 			std::cout << "Ship hit, HP = " << hp << std::endl;
 			std::cout << "-------------------------------------------------" << std::endl;
+			if (engineSmokeParticleGenerator)
+			{
+				if (!engineSmokeParticleGenerator->generating())
+					engineSmokeParticleGenerator->startGeneration();
+				engineSmokeParticleGenerator->minParticleSize *= 1.6f;
+				engineSmokeParticleGenerator->maxParticleSize *= 1.6f;
+			}
 		}
 	}
 }

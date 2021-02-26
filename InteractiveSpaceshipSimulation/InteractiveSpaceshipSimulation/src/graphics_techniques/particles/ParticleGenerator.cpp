@@ -1,6 +1,6 @@
 #include "graphics_techniques/particles/ParticleGenerator.h"
 
-ParticleGenerator::ParticleGenerator(glm::vec3 posInParent, glm::vec3 generationDir,
+ParticleGenerator::ParticleGenerator(glm::vec3 posInParent, glm::quat parentRotation, glm::vec3 generationDir,
 	const int maxParticles, float generationAngle,
 	unsigned int programId, unsigned int textureId,
 	float particlesPerMs) :
@@ -32,7 +32,7 @@ void ParticleGenerator::update(glm::vec3 parentPos, glm::quat parentRotation, IC
 {
 	particlesCount = 0;
 
-	worldPosition = parentPos + posInParent;
+	worldPosition = parentPos + (parentRotation * posInParent);
 	particleRotation = camera.getRotation();
 	updateGenerationDir(parentRotation);
 
@@ -54,6 +54,13 @@ void ParticleGenerator::update(glm::vec3 parentPos, glm::quat parentRotation, IC
 void ParticleGenerator::draw(glm::vec3 parentPos, glm::quat parentRotation, ICamera& camera, glm::mat4 perspectiveMatrix)
 {
 	update(parentPos, parentRotation, camera);
+	if (!isGenerating)
+	{
+		checkIfAnyParticleAlive();
+	}
+
+	if (!isGenerating && !someParticleAlive)
+		return;
 	sortParticles();
 	glDepthMask(GL_FALSE);
 	glUseProgram(programId);
@@ -71,6 +78,11 @@ void ParticleGenerator::draw(glm::vec3 parentPos, glm::quat parentRotation, ICam
 	glBindVertexArray(0);
 	glUseProgram(0);
 	glDepthMask(GL_TRUE);
+}
+
+bool ParticleGenerator::generating()
+{
+	return isGenerating;
 }
 
 
@@ -181,6 +193,17 @@ void ParticleGenerator::loadInstanceDataToBuffers()
 		
 		glBindVertexArray(0);
 	}	
+}
+
+void ParticleGenerator::checkIfAnyParticleAlive()
+{
+	for(Particle& p : particles)
+	{
+		if (p.isAlive())
+			someParticleAlive = true;
+		return;
+	}
+	someParticleAlive = false;
 }
 
 void ParticleGenerator::initVAO()

@@ -11,7 +11,7 @@
 class ParticleGenerator
 {
 public:
-	ParticleGenerator(glm::vec3 posInParent, glm::vec3 generationDir,
+	ParticleGenerator(glm::vec3 posInParent, glm::quat parentRotation, glm::vec3 generationDir,
 		const int maxParticles,	float generationAngle, unsigned int programId, unsigned int textureId,
 		float particlesPerMs=0.5f);
 	void startGeneration();
@@ -19,12 +19,15 @@ public:
 	void update(glm::vec3 parentPos, glm::quat parentRotation, ICamera& camera);
 	void draw(glm::vec3 parentPos, glm::quat parentRotation, ICamera& camera, glm::mat4 perspectiveMatrix);
 
+	bool generating();
 
 	float minParticleSize;
 	float maxParticleSize;
 
 	float minParticleSpeed = 1.0f;
 	float maxParticleSpeed = 1.0f;
+
+	glm::vec3 posInParent;//FOOR DEBUGGING ONLY
 private:
 	const int maxParticles;
 	/// <summary>
@@ -33,7 +36,7 @@ private:
 	float particlesPerMs;
 	float timeSinceLastSpawn;
 	std::vector<Particle> particles;
-	glm::vec3 posInParent;
+	
 	glm::vec3 generationDir;
 	glm::vec3 worldPosition;
 
@@ -52,7 +55,9 @@ private:
 
 	void loadInstanceDataToBuffers();
 	bool isGenerating;
+	bool someParticleAlive = false;
 
+	void checkIfAnyParticleAlive();
 	GLuint vao;
 	GLuint instanceParticleModelMatrixVBO;
 	GLuint instanceColorsVBO;

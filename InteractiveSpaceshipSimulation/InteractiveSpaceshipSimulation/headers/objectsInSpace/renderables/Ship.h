@@ -10,6 +10,7 @@
 #include "physics/RigidbodyFactory.h"
 #include "utils/ShipPointer.h"
 #include "Game.h"
+#include "graphics_techniques/particles/ParticleGenerator.h"
 
 class Ship: public RenderableObject, public IDynamicRigidbody
 {
@@ -31,8 +32,8 @@ private:
 	void destroyed();
 
 	bool isDestroyed = false;
-
 public:
+	ParticleGenerator* engineSmokeParticleGenerator = nullptr;
 	/// <summary>
 	/// Creates ship.
 	/// </summary>

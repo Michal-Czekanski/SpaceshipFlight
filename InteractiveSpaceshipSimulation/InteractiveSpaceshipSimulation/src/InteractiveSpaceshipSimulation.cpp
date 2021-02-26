@@ -1,6 +1,7 @@
 // InteractiveSpaceshipSimulation.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 #include "../headers/InteractiveSpaceshipSimulation.h"
+#include "graphics_techniques/particles/ParticleGenerator.h"
 
 #include <cmath>
 
@@ -19,6 +20,8 @@ Planet* helperShipDirectionLine = NULL;
 float helperShipDirectionLineLength;
 Planet* helperShipLightConeEndPoint = NULL;
 Planet* helperShipLightConeRadius = NULL;
+
+ParticleGenerator* smoke;
 
 void printPerformanceMeasures()
 {
@@ -82,9 +85,6 @@ void keyboard(unsigned char key, int x, int y)
 			DiscreteLOD::enabled = !DiscreteLOD::enabled;
 			std::cout << "Discrete Level Of Detail: " << DiscreteLOD::enabled << std::endl;
 			break;
-
-
-
 	}
 }
 
@@ -203,7 +203,8 @@ void renderScene()
 	glm::mat4 perspectiveMatrix = Core::createPerspectiveMatrix(0.1, 7000.0f);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	//glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	bloom->beforeRendering();
 
@@ -227,7 +228,12 @@ void renderScene()
 			starsLights);
 	}
 
+
+
 	skybox(cameraMatrix, perspectiveMatrix, cubemapTexture);
+
+	smoke->draw(ship->getPosition() + ship->getVectorForward(), ship->getRotationQuat(), *camera, perspectiveMatrix);
+
 
 	if (debugHelpersOn)
 	{
@@ -252,6 +258,12 @@ void init()
 {
 	srand(time(0));
 	glEnable(GL_DEPTH_TEST);
+	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
 	programSkybox = shaderLoader.CreateProgram((char*)"shaders/skybox.vert", (char*)"shaders/skybox.frag");
 	programColor = shaderLoader.CreateProgram((char*)"shaders/shader_color.vert", (char*)"shaders/shader_color.frag");
 	programTexture = shaderLoader.CreateProgram((char*)"shaders/shader_texture.vert", (char*)"shaders/shader_texture.frag");
@@ -306,6 +318,17 @@ void init()
 
 
 	bloom = new Bloom(WINDOW_WIDTH, WINDOW_HEIGHT, programBlur, programBloomFinalBlend);
+
+
+	GLuint programSmoke = shaderLoader.CreateProgram(
+		(char*)"shaders/particles/shader_particles.vert", (char*)"shaders/particles/shader_particles.frag");
+	smoke = new ParticleGenerator(glm::vec3(-0.05f, 0, 1.0f), ship->getRotationQuat(), glm::vec3(0), 2000, 0.5, programSmoke,
+		textures.getSmokeTextureData().getTexture(), 0.1);
+	smoke->minParticleSize = 0.03f;
+	smoke->maxParticleSize = 0.1f;
+	smoke->minParticleSpeed = 0.01f;
+	smoke->maxParticleSpeed = 1.0f;
+	ship->engineSmokeParticleGenerator = smoke;
 
 	Time::start();
 	PerformanceMeasure::addMeasuresTakenListener(printPerformanceMeasures);
