@@ -26,6 +26,7 @@ Space exploration project.
 - `u`, `j`, `i`, `k` - changing camera view
 - `e`, `r` - changing `bloom` settings
 - `y` - enabling or disabling `Discrete LOD` (`Discrete Level Of Detail` - enabled means better performance)
+- `esc` - quit
 
 ## Features
 
@@ -35,7 +36,21 @@ Space exploration project.
 - HDR and Bloom
 - Particles - ship is covered in smoke after collisions (each collision smoke is more intensified)
 - Skybox - background
-- Procedurally generated asteroid fields
+- Randomly generated asteroid fields, planets, moons
 - Bump mapping
 - Phong lighting
 - 4 different light sources
+
+## Preview
+
+### HDR, Bloom
+![bloom](images/bloom.gif)
+
+### Steering, collisions, particles
+![steering](images/steering_collision_particles.gif)
+
+### Exploration
+
+![exploration1](images/exploration1.gif)
+![exploration2](images/exploration2.gif)
+![exploration3](images/exploration3.gif)
